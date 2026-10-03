@@ -7,6 +7,7 @@ using System.Collections.Generic;
 /// - Clic droit maintenu + glisser (bouton réglable via dragButton) : déplacement sur le plan XZ (le sol "suit" la souris)
 /// - Molette : zoom / dézoom VERS la position de la souris (le point sous le curseur reste sous le curseur)
 /// - FocusOn(point) : déplacement fluide vers un point (appelé par le GameManager au moment d'un accident)
+/// - LockInput(secondes) : ignore les inputs du joueur pendant un laps de temps (séquence d'accident)
 /// - Limites min / max sur X, Y et Z
 /// Fonctionne avec Time.timeScale = 0 (tout est en temps non mis à l'échelle).
 /// À attacher sur l'objet Camera (caméra en perspective).
@@ -55,6 +56,11 @@ public class CameraController : MonoBehaviour
     private bool focusing;
     private Vector3 focusTarget;
 
+    private float lockUntil;          // temps non mis à l'échelle jusqu'auquel les inputs sont ignorés
+
+    /// <summary>Vrai tant que les inputs du joueur sont ignorés.</summary>
+    public bool InputLocked { get; private set; }
+
     private void Awake()
     {
         Instance = this;
@@ -65,6 +71,16 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
+        if (InputLocked && Time.unscaledTime >= lockUntil) InputLocked = false;
+
+        if (InputLocked)
+        {
+            // Pendant le verrouillage : seul le focus automatique agit
+            if (focusing) UpdateFocus();
+            ClampPosition();
+            return;
+        }
+
         // Toute action du joueur interrompt un focus automatique
         if (focusing && (Input.GetMouseButtonDown(dragButton) || Mathf.Abs(Input.mouseScrollDelta.y) > 0.01f))
             focusing = false;
@@ -76,6 +92,23 @@ public class CameraController : MonoBehaviour
             HandleZoom();
         }
         ClampPosition();
+    }
+
+    // =================================================================
+    //  Verrouillage des inputs
+    // =================================================================
+    /// <summary>Ignore le glisser et la molette pendant `seconds` secondes (temps réel).</summary>
+    public void LockInput(float seconds)
+    {
+        InputLocked = seconds > 0f;
+        lockUntil = Time.unscaledTime + seconds;
+        isDragging = false;
+        pendingZoom = 0f;
+    }
+
+    public void UnlockInput()
+    {
+        InputLocked = false;
     }
 
     // =================================================================
@@ -147,8 +180,7 @@ public class CameraController : MonoBehaviour
 
     /// <summary>
     /// Vrai seulement si la souris est sur un élément d'UI interactif (bouton...).
-    /// Un panneau de fond (ex : panneau "Simulation en cours" plein écran) ne bloque pas la caméra :
-    /// c'était la cause du blocage au lancement de la simulation (IsPointerOverGameObject renvoie vrai sur tout Graphic "raycast target").
+    /// Un panneau de fond ne bloque pas la caméra.
     /// </summary>
     private static bool PointerOverInteractiveUI()
     {

@@ -138,6 +138,24 @@ public class CarAI : MonoBehaviour
         SetMaxSpeed(maxSpeed);
         personalPatience = patience * Range(0.7f, 1.5f);
         Wander();
+        SnapToLane();
+    }
+
+    /// <summary>Place la voiture sur sa voie de droite, orientée dans le sens du trajet (appelé uniquement au spawn).</summary>
+    void SnapToLane()
+    {
+        if (nodes == null || waypoints == null || waypoints.Count < 2 || nodes.Count < 2) return;
+
+        var graph = RoadGraph.Instance;
+        Vector3 pos = waypoints[0];
+        pos.y = transform.position.y;
+
+        // sens de circulation = direction du premier tronçon du trajet
+        Vector3 dir = Dir(graph.NodePos(nodes[0]), graph.NodePos(nodes[1]));
+        if (dir.sqrMagnitude < 0.0001f) return;
+
+        transform.SetPositionAndRotation(pos, Quaternion.LookRotation(dir, Vector3.up));
+        target.y = pos.y;
     }
 
     public void SetMaxSpeed(float v)

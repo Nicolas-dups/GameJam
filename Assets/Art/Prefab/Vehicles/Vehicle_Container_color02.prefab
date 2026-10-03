@@ -118,9 +118,9 @@ MonoBehaviour:
   maxBlockedTime: 5
   stopMargin: 2.5
   awareness: 10
-  patience: 2
+  patience: 5
   obeyChance: 0.85
-  recklessChance: 0.1
+  recklessChance: 0.015
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0

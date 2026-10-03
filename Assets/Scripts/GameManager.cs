@@ -21,6 +21,18 @@ public class PlacementSpot : MonoBehaviour
     public TileShape shape;      // forme de la tuile (utile pour les emplacements WholeTile)
     public Quaternion tileRotation = Quaternion.identity; // rotation de la tuile d'origine (WholeTile)
     public Transform tile;       // RoadTile d'origine à désactiver quand l'élément la remplace (WholeTile)
+
+    // Aide de debug (vue Scene) : flèche verte = sens de circulation concerné.
+    // La face du panneau doit regarder vers l'ORIGINE de la flèche (vers les voitures qui arrivent).
+    void OnDrawGizmos()
+    {
+        if (kind == PlacementKind.WholeTile) return;
+        Gizmos.color = Color.green;
+        Vector3 o = anchor + Vector3.up * 0.6f;
+        Vector3 e = o + travelDir * 1.5f;
+        Gizmos.DrawLine(o, e);
+        Gizmos.DrawSphere(e, 0.15f);
+    }
 }
 
 /// <summary>Forme d'une tuile (pour choisir le bon prefab de tuile entière). None = tuile droite.</summary>
@@ -58,6 +70,10 @@ public class GameManager : MonoBehaviour
         [Min(1), Tooltip("Nombre max d'éléments de CE type sur une même tuile.\n" +
                          "Ignoré pour les éléments de bord sur les intersections (X, T, L) : la limite y est le nombre d'angles (4, 2, 1), tous types confondus.")]
         public int maxPerTile = 1;
+        [Tooltip("Correction d'orientation propre à CE modèle (°), ajoutée à la rotation Y. " +
+                 "À utiliser si la face du modèle n'est pas sur -Z (convention : +Z = sens de circulation, face vers -Z). " +
+                 "Ne change rien à la logique des voitures. Sans effet sur les tuiles entières.")]
+        public float modelYaw = 0f;
 
         [Header("Tuile entière (PlacementKind.WholeTile) - prefabs optionnels selon la forme")]
         [Tooltip("Utilisé pour les tuiles en X (sinon 'prefab')")] public GameObject prefabX;
@@ -79,6 +95,8 @@ public class GameManager : MonoBehaviour
     public List<VehicleEntry> vehicles = new List<VehicleEntry>();
     [Tooltip("Prefab de la voiture de police (CarAI ; PoliceCar est ajouté si absent)")]
     public GameObject policePrefab;
+    [Min(0), Tooltip("Nombre de voitures de police qui apparaissent automatiquement au début de chaque simulation")]
+    public int policeCount = 1;
     public int carCount = 12;
     public int seed = 1;
 
@@ -97,16 +115,34 @@ public class GameManager : MonoBehaviour
     public List<PedestrianEntry> pedestrians = new List<PedestrianEntry>();
     public int pedestrianCount = 10;
 
+    [Header("Accident")]
+    [Tooltip("Prefab instancié sur le lieu de l'accident (animation / particules). " +
+             "Ses Animator et ParticleSystem sont automatiquement passés en temps non mis à l'échelle.")]
+    public GameObject accidentPrefab;
+    [Tooltip("Distance caméra -> accident pendant le zoom")]
+    public float accidentZoomDistance = 12f;
+    [Tooltip("Durée (s, temps réel) pendant laquelle les inputs caméra sont bloqués ; le panneau 'Accident' apparaît ensuite")]
+    public float accidentLockDuration = 3f;
+
     [Header("Outils (un prefab par élément de voirie)")]
     [Tooltip("Même ordre que le tableau 'toolButtons' de l'UI")]
     public ToolDef[] tools;
+
+    [Header("Orientation des éléments")]
+    [Tooltip("Décoché (recommandé) : un élément de bord est TOUJOURS tourné vers le trafic dont il occupe le côté droit ; " +
+             "la touche R ne concerne alors que les éléments du centre (sens unique...). " +
+             "Coché : R retourne aussi les éléments de bord (ils se retrouvent alors du côté gauche du trafic qu'ils servent).")]
+    public bool flipEdgeElements = false;
+    [Tooltip("Rotation Y (°) ajoutée à TOUS les éléments posés (hors tuiles entières), en plus de rowYaw / corner.yaw / longYaw / shortYaw / modelYaw. " +
+         "180 = retourne tous les panneaux.")]
+    public float globalYaw = 180f;
 
     [Header("Emplacements de bord de route (PlacementKind.Edge)")]
     public float spotSize = 1f;
     public float spotSpacing = 1.3f;
     [Tooltip("Distance entre l'axe de la route et les cubes de bord")]
     public float spotSideOffset = 3.5f;
-    [Tooltip("Rotation Y ajoutée aux prefabs posés sur les bords de route droits (visuel seulement)")]
+    [Tooltip("Rotation Y ajoutée aux prefabs posés sur les bords de route droits (visuel seulement). 0 si les prefabs suivent la convention +Z = sens de circulation.")]
     public float rowYaw = 0f;
     [Tooltip("Coché : un cube d'angle est aussi posé à l'intérieur des tuiles de virage")]
     public bool cornerOnTurns = true;
@@ -118,8 +154,8 @@ public class GameManager : MonoBehaviour
         public float along = 8f;
         [Tooltip("Décalage latéral vers le coin, perpendiculairement au bras d'arrivée (m)")]
         public float side = 8f;
-        [Tooltip("Rotation Y ajoutée à l'orientation du prefab (°) : visuel seulement, la logique des voitures ne change pas")]
-        public float yaw = 180f;
+        [Tooltip("Rotation Y ajoutée à l'orientation du prefab (°) : visuel seulement. 0 si les prefabs suivent la convention +Z = sens de circulation.")]
+        public float yaw = 0f;
     }
 
     [Header("Cubes d'angle (T, croisements, virages)")]
@@ -171,6 +207,7 @@ public class GameManager : MonoBehaviour
     [Tooltip("Dans le MEME ORDRE que le tableau 'tools'")]
     public Button[] toolButtons;
     public Button launchButton;
+    [Tooltip("Obsolète : les repères rouges n'existent plus, le bouton est masqué (vous pouvez le supprimer du Canvas)")]
     public Button clearMarkersButton;
     [Tooltip("Boutons x1, x2, x4 dans cet ordre")]
     public Button[] speedButtons;
@@ -191,10 +228,11 @@ public class GameManager : MonoBehaviour
     string crashReason = "";
 
     readonly List<GameObject> spawned = new List<GameObject>();
-    readonly List<GameObject> markers = new List<GameObject>();
     Transform elementsHolder, spotsHolder;
     GameObject ghost;
     GameObject ghostPrefab;
+    GameObject accidentInstance;
+    float crashPanelTime;                 // temps réel à partir duquel le panneau 'Accident' s'affiche
     readonly Dictionary<int, int> cornerCount = new Dictionary<int, int>();   // nombre d'angles par tuile (X:4, T:2, L:1, droite:0)
     PlacementSpot hovered;
     readonly List<PlacementSpot> allSpots = new List<PlacementSpot>();
@@ -238,6 +276,10 @@ public class GameManager : MonoBehaviour
 
     // =================================================================
     //  Génération des emplacements de placement
+    //
+    //  RÈGLE D'ORIENTATION (éléments de bord) : travelDir = sens de circulation des voitures
+    //  qui ARRIVENT sur la tuile et pour lesquelles le cube est du côté DROIT de la route.
+    //  Le prefab est tourné avec +Z = travelDir, donc sa face (-Z) regarde les voitures qui arrivent.
     // =================================================================
     void BuildSpots()
     {
@@ -308,7 +350,10 @@ public class GameManager : MonoBehaviour
         spot.tileRotation = spot.tile != null ? spot.tile.rotation : Quaternion.identity;
     }
 
-    /// <summary>Rangée de cubes le long d'un bras, sur les côtés donnés.</summary>
+    /// <summary>
+    /// Rangée de cubes le long d'un bras, sur les côtés donnés.
+    /// Pour un côté `side`, le sens de circulation est celui dont `side` est la DROITE : Cross(side, up).
+    /// </summary>
     void AddRow(int node, Vector3 center, Vector3 axis, float t0, float t1, params Vector3[] sides)
     {
         if (t1 <= t0) return;
@@ -329,6 +374,9 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Côtés sans coin : ceux où aucun bras perpendiculaire ne rejoint la route
     /// (extérieur de la barre d'un T, extérieur d'un virage).
+    /// Pour un bras SANS opposé (extrémité d'un virage), le trafic y est entrant (il roule vers -d) :
+    /// seul son côté droit (-right(d)) est valide. L'autre côté donnerait un panneau tourné vers un
+    /// trafic sortant (donc dos aux voitures) ; ce trafic-là est de toute façon servi par le cube d'angle.
     /// </summary>
     void AddFreeSides(int node, Vector3 center, List<Vector3> dirs, float limit)
     {
@@ -340,6 +388,8 @@ public class GameManager : MonoBehaviour
 
             for (int s = -1; s <= 1; s += 2)
             {
+                if (!hasOpposite && s > 0) continue;                // bras en bout : on ne garde que le côté droit du trafic entrant
+
                 Vector3 side = right * s;
                 if (dirs.Contains(side)) continue;                  // un bras de ce côté : c'est un coin
                 AddRow(node, center, d, hasOpposite ? -limit : 0f, limit, side);
@@ -350,8 +400,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Carrefours / virages : UN seul cube par coin formé par deux bras perpendiculaires.
     /// Il est orienté pour la voie de DROITE : celle des voitures qui arrivent par le bras
-    /// dont ce coin est sur la droite (ex. T : coin bas-gauche = voitures venant de la gauche,
-    /// coin bas-droit = voitures venant du bas).
+    /// dont ce coin est sur la droite.
     /// </summary>
     void AddCorners(int node, Vector3 center, List<Vector3> dirs, CornerSetup setup)
     {
@@ -372,7 +421,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Emplacements au centre de la route :
     ///  - un petit cube au centre de chaque tuile (agent de circulation...)
-    ///  - des rectangles en travers de la route (passage piéton, dos d'âne, route barrée...) :
+    ///  - des rectangles en travers de la route (dos d'âne, route barrée...) :
     ///    un seul au centre d'une tuile droite, un par bras sur les T / croisements / virages.
     /// </summary>
     void AddCenterSpots(int node, Vector3 center, List<Vector3> dirs, bool straight, float half)
@@ -467,7 +516,6 @@ public class GameManager : MonoBehaviour
         if (tool.element.placement == PlacementKind.Edge && cornerCount.TryGetValue(node, out int corners) && corners > 0)
         {
             // intersection (X, T, L) : au plus un élément de bord par angle (4, 2, 1), tous types confondus
-            // (le passage piéton, qui remplace la tuile, ne compte pas)
             int edges = 0;
             foreach (var e in RoadElement.At(node)) if (e != null && e.placement == PlacementKind.Edge) edges++;
             if (edges >= corners) return false;
@@ -503,6 +551,18 @@ public class GameManager : MonoBehaviour
             SpawnCar(node, rng.Next(), false);
             made++;
         }
+
+        // Police : apparition automatique (graine séparée pour ne pas modifier le scénario des voitures)
+        var policeRng = new System.Random(seed + 777);
+        int policeMade = 0;
+        for (int tries = 0; policeMade < policeCount && tries < policeCount * 50 + 50; tries++)
+        {
+            int node = policeRng.Next(graph.NodeCount);
+            if (graph.IsBlocked(node) || !used.Add(node)) continue;
+            SpawnCar(node, policeRng.Next(), true);
+            policeMade++;
+        }
+
         foreach (var e in new List<RoadElement>(RoadElement.All)) e.OnRunStart(rng.Next());
 
         // Piétons (graine séparée pour ne pas modifier le scénario des voitures)
@@ -552,7 +612,7 @@ public class GameManager : MonoBehaviour
             Color fc = police ? new Color(0.1f, 0.3f, 1f) : Color.HSVToRGB((carSeed % 1000) / 1000f, 0.6f, 0.9f);
             go.GetComponent<Renderer>().material.color = fc;
         }
-        go.name = (prefab != null ? prefab.name : "Car") + "_" + carSeed;
+        go.name = (prefab != null ? prefab.name : (police ? "Police" : "Car")) + "_" + carSeed;
 
         var car = go.GetComponent<CarAI>();
         if (car == null) car = go.AddComponent<CarAI>();
@@ -611,6 +671,7 @@ public class GameManager : MonoBehaviour
         foreach (var go in spawned) if (go != null) { go.SetActive(false); Destroy(go); }
         spawned.Clear();
         foreach (var p in new List<Pedestrian>(Pedestrian.All)) { p.gameObject.SetActive(false); Destroy(p.gameObject); }
+        ClearAccident();
     }
 
     void EnterPlanning()
@@ -619,6 +680,7 @@ public class GameManager : MonoBehaviour
         Infractions.Reset();
         CurrentPhase = Phase.Planning;
         Time.timeScale = 0f;
+        if (CameraController.Instance != null) CameraController.Instance.UnlockInput();
     }
 
     void Crash(Vector3 where, string reason)
@@ -628,15 +690,45 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
         crashReason = reason;
         bestTime = Mathf.Max(bestTime, elapsed);
-
-        // Repère rouge conservé entre les essais : indique où ça a coincé
-        var m = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        Destroy(m.GetComponent<Collider>());
-        m.transform.position = where + Vector3.up * 3f;
-        m.transform.localScale = Vector3.one * 2f;
-        m.GetComponent<Renderer>().material.color = Color.red;
-        markers.Add(m);
         attempt++;
+
+        // Prefab d'accident joué sur place
+        SpawnAccident(where);
+
+        // Zoom sur l'accident + inputs caméra bloqués pendant la séquence
+        var camCtrl = CameraController.Instance;
+        if (camCtrl != null)
+        {
+            camCtrl.FocusOn(where, accidentZoomDistance);
+            camCtrl.LockInput(accidentLockDuration);
+        }
+        crashPanelTime = Time.unscaledTime + accidentLockDuration;
+    }
+
+    void SpawnAccident(Vector3 where)
+    {
+        ClearAccident();
+        if (accidentPrefab == null) return;
+
+        where.y = 0f;
+        accidentInstance = Instantiate(accidentPrefab, where, Quaternion.identity);
+        accidentInstance.name = "Accident";
+
+        // Le jeu est en pause (timeScale = 0) : l'animation et les particules doivent suivre le temps réel
+        foreach (var a in accidentInstance.GetComponentsInChildren<Animator>(true))
+            a.updateMode = AnimatorUpdateMode.UnscaledTime;
+        foreach (var ps in accidentInstance.GetComponentsInChildren<ParticleSystem>(true))
+        {
+            var main = ps.main;
+            main.useUnscaledTime = true;
+            ps.Play();
+        }
+    }
+
+    void ClearAccident()
+    {
+        if (accidentInstance != null) Destroy(accidentInstance);
+        accidentInstance = null;
     }
 
     void Win()
@@ -818,15 +910,16 @@ public class GameManager : MonoBehaviour
 
         if (selected >= 0 && selected < tools.Length && tools[selected].element != null)
         {
+            var tool = tools[selected];
             bool whole = spot.kind == PlacementKind.WholeTile;
-            Vector3 f = (flip && !whole) ? -spot.travelDir : spot.travelDir;
+            Vector3 f = FacingOf(spot);
 
-            EnsureGhost(PrefabFor(tools[selected], spot));
+            EnsureGhost(PrefabFor(tool, spot));
             if (ghost != null)
             {
                 // petit décalage vertical pour la tuile entière : évite le scintillement avec la tuile d'origine
                 Vector3 p = spot.anchor + (whole ? Vector3.up * 0.02f : Vector3.zero);
-                ghost.transform.SetPositionAndRotation(p, SpotRotation(spot, f));
+                ghost.transform.SetPositionAndRotation(p, SpotRotation(spot, f, tool));
                 ghost.SetActive(true);
             }
             if (Input.GetMouseButtonDown(0)) TryPlace(spot);
@@ -840,10 +933,10 @@ public class GameManager : MonoBehaviour
         if (!CanPlace(tool, spot)) { Debug.Log($"Pose refusée : CanPlace = false (noeud {spot.node}, {spot.kind})"); return; }
 
         bool whole = spot.kind == PlacementKind.WholeTile;
-        Vector3 f = (flip && !whole) ? -spot.travelDir : spot.travelDir;
+        Vector3 f = FacingOf(spot);
 
         GameObject prefab = PrefabFor(tool, spot);
-        var go = Instantiate(prefab, spot.anchor, SpotRotation(spot, f), elementsHolder);
+        var go = Instantiate(prefab, spot.anchor, SpotRotation(spot, f, tool), elementsHolder);
         go.name = tool.Label;
 
         var element = go.GetComponent<RoadElement>();
@@ -856,8 +949,7 @@ public class GameManager : MonoBehaviour
             if (tool.type == null) { Destroy(go); return; }
             element = (RoadElement)go.AddComponent(tool.type);
         }
-        // une variante doit se comporter comme l'outil : même type d'emplacement (sinon elle est comptée comme "Edge",
-        // ne peut pas être retirée en cliquant, etc.)
+        // une variante doit se comporter comme l'outil : même type d'emplacement
         if (element.placement != tool.element.placement)
         {
             Debug.LogWarning($"Le prefab '{prefab.name}' avait Placement = {element.placement} : forcé à {tool.element.placement}.", prefab);
@@ -895,11 +987,25 @@ public class GameManager : MonoBehaviour
     GameObject PrefabFor(ToolDef tool, PlacementSpot spot) =>
         spot.kind == PlacementKind.WholeTile ? tool.PrefabFor(spot.shape) : tool.prefab;
 
+    /// <summary>
+    /// Sens de circulation concerné par l'élément (+Z du prefab) :
+    ///  - tuile entière : sans importance (toutes directions) ;
+    ///  - élément de bord : imposé par le cube (côté droit du trafic servi), sauf si flipEdgeElements est coché ;
+    ///  - éléments du centre : inversé par la touche R.
+    /// </summary>
+    Vector3 FacingOf(PlacementSpot spot)
+    {
+        if (spot.kind == PlacementKind.WholeTile) return spot.travelDir;
+        if (spot.kind == PlacementKind.Edge && !flipEdgeElements) return spot.travelDir;
+        return flip ? -spot.travelDir : spot.travelDir;
+    }
+
     /// <summary>Rotation du prefab : celle de la tuile remplacée pour une tuile entière, sinon orientée selon le sens de la route.</summary>
-    Quaternion SpotRotation(PlacementSpot spot, Vector3 facing)
+    Quaternion SpotRotation(PlacementSpot spot, Vector3 facing, ToolDef tool)
     {
         if (spot.kind == PlacementKind.WholeTile) return spot.tileRotation * Quaternion.Euler(0f, spot.yaw, 0f);
-        return Quaternion.LookRotation(facing, Vector3.up) * Quaternion.Euler(0f, spot.yaw, 0f);
+        float modelYaw = tool != null ? tool.modelYaw : 0f;
+        return Quaternion.LookRotation(facing, Vector3.up) * Quaternion.Euler(0f, spot.yaw + modelYaw + globalYaw, 0f);
     }
 
     /// <summary>Active / désactive la RoadTile d'origine de cet emplacement (retrouvée par sa position si besoin).</summary>
@@ -960,7 +1066,6 @@ public class GameManager : MonoBehaviour
         }
 
         Bind(launchButton, StartRun);
-        Bind(clearMarkersButton, ClearMarkers);
         Bind(stopButton, EnterPlanning);
         Bind(modifyAfterCrashButton, EnterPlanning);
         Bind(relaunchButton, StartRun);
@@ -975,10 +1080,16 @@ public class GameManager : MonoBehaviour
     /// <summary>Met à jour l'affichage : quel panneau est visible, textes, bouton sélectionné.</summary>
     void RefreshUI()
     {
+        // le panneau d'accident n'apparaît qu'à la fin de la séquence (zoom + animation)
+        bool showCrashPanel = CurrentPhase == Phase.Crashed && Time.unscaledTime >= crashPanelTime;
+
         if (panelPlanning != null) panelPlanning.SetActive(CurrentPhase == Phase.Planning);
         if (panelRunning != null) panelRunning.SetActive(CurrentPhase == Phase.Running);
-        if (panelCrashed != null) panelCrashed.SetActive(CurrentPhase == Phase.Crashed);
+        if (panelCrashed != null) panelCrashed.SetActive(showCrashPanel);
         if (panelWon != null) panelWon.SetActive(CurrentPhase == Phase.Won);
+
+        if (clearMarkersButton != null && clearMarkersButton.gameObject.activeSelf)
+            clearMarkersButton.gameObject.SetActive(false);
 
         if (headerText != null)
             headerText.text = $"Budget : {money}   |   Essai n°{attempt}   |   Record : {bestTime:0}s";
@@ -987,9 +1098,10 @@ public class GameManager : MonoBehaviour
         {
             case Phase.Planning:
                 if (planningHelpText != null)
-                    planningHelpText.text = $"R : inverser le sens ({(flip ? "inversé" : "normal")})  |  Tab : tous sens = {(allDirections ? "OUI" : "non")}\nClic gauche sur un objet : le retirer\n(passage piéton : outil sélectionné + clic sur la tuile)";
-                if (clearMarkersButton != null)
-                    clearMarkersButton.gameObject.SetActive(markers.Count > 0);
+                {
+                    string flipScope = flipEdgeElements ? "" : ", éléments du centre";
+                    planningHelpText.text = $"R : inverser le sens{flipScope} ({(flip ? "inversé" : "normal")})  |  Tab : tous sens = {(allDirections ? "OUI" : "non")}\nClic gauche sur un objet : le retirer\n(passage piéton : outil sélectionné + clic sur la tuile)";
+                }
                 Highlight(toolButtons, selected);
                 break;
 
@@ -1013,11 +1125,5 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < buttons.Length; i++)
             if (buttons[i] != null && buttons[i].image != null)
                 buttons[i].image.color = i == index ? selectedColor : normalColor;
-    }
-
-    void ClearMarkers()
-    {
-        foreach (var m in markers) if (m != null) Destroy(m);
-        markers.Clear();
     }
 }
