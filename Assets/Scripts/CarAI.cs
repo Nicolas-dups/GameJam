@@ -79,6 +79,7 @@ public class CarAI : MonoBehaviour
     float currentSpeed, personalSpeed, personalPatience;
 
     int approachNode = -1, prevNode = -1, turn, destination = -1;
+    int lastNode = -1, lastPrev = -1;   // fin du dernier trajet : où je suis, et d'où je viens
     Vector3 approachDir = Vector3.forward;
     bool committed, ignoreIntersection;
     float waitTime, blockedTime, ignoreFrontTimer, arrestTimer, idleTimer;
@@ -138,6 +139,7 @@ public class CarAI : MonoBehaviour
         begun = true;
         SetMaxSpeed(maxSpeed);
         personalPatience = patience * Range(0.7f, 1.5f);
+        lastNode = lastPrev = -1;
         Wander();
         SnapToLane();
     }
@@ -183,8 +185,14 @@ public class CarAI : MonoBehaviour
         int start = midRoute ? nodes[index] : graph.WorldToNode(transform.position);
         int keepPrev = midRoute ? prevNode : -1;
 
+        // nœud d'où je viens : un chemin qui y retourne directement serait un demi-tour
+        int cameFrom = midRoute ? prevNode : (start == lastNode ? lastPrev : -1);
+
         var path = graph.FindPath(start, destinationNode);
         if (path == null) return false;
+
+        if (cameFrom >= 0 && path.Count >= 2 && path[1] == cameFrom && !IsDeadEnd(start))
+            return false;   // demi-tour interdit (hors cul-de-sac)
 
         destination = destinationNode;
         BuildWaypoints(path);
@@ -197,6 +205,15 @@ public class CarAI : MonoBehaviour
             prevNode = keepPrev;
             approachDir = Dir(graph.NodePos(keepPrev), graph.NodePos(start));
         }
+        return true;
+    }
+
+    /// <summary>Cul-de-sac : un seul voisin, le demi-tour est alors autorisé.</summary>
+    bool IsDeadEnd(int node)
+    {
+        int n = 0;
+        foreach (int nb in RoadGraph.Instance.Neighbors(node))
+            if (++n > 1) return false;
         return true;
     }
 
@@ -282,6 +299,7 @@ public class CarAI : MonoBehaviour
     void FixedUpdate()
     {
         float dt = Time.fixedDeltaTime;
+        
 
         if (nodes == null)
         {
@@ -298,6 +316,7 @@ public class CarAI : MonoBehaviour
         desired = Mathf.Min(desired, FrontLimit(dt));
         desired = Mathf.Min(desired, IntersectionLimit(dt));
         desired = Mathf.Min(desired, ElementsLimit(dt));
+        
         if (arrestTimer > 0f) { arrestTimer -= dt; desired = 0f; }
 
         float rate = desired > currentSpeed ? acceleration : braking;
@@ -318,6 +337,9 @@ public class CarAI : MonoBehaviour
         {
             index++;
             if (index < waypoints.Count) { SetTarget(); return; }
+
+            lastNode = approachNode;
+            lastPrev = prevNode;
 
             nodes = null;
             approachNode = prevNode = -1;
