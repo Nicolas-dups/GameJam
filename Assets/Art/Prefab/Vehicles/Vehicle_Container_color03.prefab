@@ -124,8 +124,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
-  collisionRadius: 1.1
-  halfLength: 2.3
+  collisionRadius: 1.2
+  halfLength: 4
   halfWidth: 1.3
   bodyRenderers: []
   speedBoost: 1
