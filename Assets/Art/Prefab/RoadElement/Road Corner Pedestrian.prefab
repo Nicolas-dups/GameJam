@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3300000}
   - component: {fileID: 2300000}
   - component: {fileID: 7633879993583092063}
+  - component: {fileID: 4143888567056465548}
   m_Layer: 0
   m_Name: Road Corner Pedestrian
   m_TagString: Untagged
@@ -108,3 +109,20 @@ MonoBehaviour:
   lookAhead: 14
   watchWidth: 15
   releaseDelay: 0.8
+--- !u!114 &4143888567056465548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e42b4c2838d8ed24e8e2603732cb5855, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ping
+  spriteName: ping
+  offset: {x: 0, y: 10, z: 0}
+  scale: 1
+  bobAmplitude: 0.5
+  bobSpeed: 3

@@ -190,6 +190,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6576129504356711887}
   - component: {fileID: -9189855471073526456}
+  - component: {fileID: 2566240777622031329}
   m_Layer: 0
   m_Name: InterdictionSign
   m_TagString: Untagged
@@ -228,6 +229,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoadBlock
   placement: 0
+--- !u!114 &2566240777622031329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5767081827295946613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e42b4c2838d8ed24e8e2603732cb5855, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ping
+  spriteName: ping
+  offset: {x: 0, y: 10, z: 0}
+  scale: 1
+  bobAmplitude: 0.5
+  bobSpeed: 3
 --- !u!1 &7167551309828261534
 GameObject:
   m_ObjectHideFlags: 0

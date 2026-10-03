@@ -1,0 +1,64 @@
+using UnityEngine;
+
+public class Ping : MonoBehaviour
+{
+    [Header("Sprite à afficher")]
+    [SerializeField] private string spriteName = "ping";
+
+    [Header("Position")]
+    [SerializeField] private Vector3 offset = new Vector3(0f, 5f, 0f);
+
+    [Header("Taille")]
+    [SerializeField] private float scale = 1f;
+
+    [Header("Animation")]
+    [SerializeField] private float bobAmplitude = 0.5f;
+    [SerializeField] private float bobSpeed = 2f;
+
+    private GameObject spriteObject;
+
+    private void Start()
+    {
+        // Charge le sprite depuis Assets/Resources/
+        Sprite sprite = Resources.Load<Sprite>(spriteName);
+
+        if (sprite == null)
+        {
+            Debug.LogError($"Impossible de trouver le sprite '{spriteName}' dans Resources.");
+            return;
+        }
+
+        spriteObject = new GameObject("SpriteAboveHead");
+        spriteObject.transform.SetParent(transform);
+        spriteObject.transform.localPosition = offset;
+        spriteObject.transform.localScale = Vector3.one * scale;
+
+        SpriteRenderer renderer = spriteObject.AddComponent<SpriteRenderer>();
+        renderer.sprite = sprite;
+        renderer.sortingOrder = 100;
+    }
+
+
+
+    private void Update()
+    {
+        if (spriteObject != null)
+        {
+            float verticalOffset = Mathf.Sin(Time.unscaledTime * bobSpeed) * bobAmplitude;
+            spriteObject.transform.localPosition = offset + Vector3.up * verticalOffset;
+           // Debug.Log(Time.time);
+        }
+        else
+        {
+            Debug.Log("spriteObject null");
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (spriteObject != null)
+        {
+            Destroy(spriteObject);
+        }
+    }
+}

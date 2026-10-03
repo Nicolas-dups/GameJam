@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5954791712260461594}
   - component: {fileID: 6014451269606408042}
+  - component: {fileID: -3368072301317752679}
   m_Layer: 0
   m_Name: DoubleSpeedBump
   m_TagString: Untagged
@@ -48,6 +49,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SpeedBump
   placement: 1
   bumpSpeed: 1.8
+--- !u!114 &-3368072301317752679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7425396678179953324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e42b4c2838d8ed24e8e2603732cb5855, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ping
+  spriteName: ping
+  offset: {x: 0, y: 10, z: 0}
+  scale: 1
+  bobAmplitude: 0.5
+  bobSpeed: 3
 --- !u!1001 &4401917417650777835
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -56,6 +74,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5954791712260461594}
     m_Modifications:
+    - target: {fileID: -6891032718633660453, guid: d5d94a87bf91ec842aeb8faa43a7ec9a, type: 3}
+      propertyPath: bobSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -6891032718633660453, guid: d5d94a87bf91ec842aeb8faa43a7ec9a, type: 3}
+      propertyPath: offset.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8099398005186905532, guid: d5d94a87bf91ec842aeb8faa43a7ec9a, type: 3}
       propertyPath: m_Name
       value: SpeedBump (1)
@@ -135,6 +161,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5954791712260461594}
     m_Modifications:
+    - target: {fileID: -6891032718633660453, guid: d5d94a87bf91ec842aeb8faa43a7ec9a, type: 3}
+      propertyPath: bobSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -6891032718633660453, guid: d5d94a87bf91ec842aeb8faa43a7ec9a, type: 3}
+      propertyPath: offset.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8099398005186905532, guid: d5d94a87bf91ec842aeb8faa43a7ec9a, type: 3}
       propertyPath: m_Name
       value: SpeedBump
