@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3fd738b809e48ae45a577cea6555080e
+guid: dc8bc5fb65821344f912c3efa8f88ef7
 PrefabImporter:
   externalObjects: {}
   userData: 
@@ -10,5 +10,5 @@ AssetOrigin:
   productId: 293643
   packageName: Low poly Road Pack - Created with FastMesh Asset
   packageVersion: 1.0
-  assetPath: Assets/FastMesh/Prefabs/Road/RoadSigns-2.prefab
+  assetPath: Assets/FastMesh/Prefabs/Road/RoadSigns-3.prefab
   uploadId: 686182

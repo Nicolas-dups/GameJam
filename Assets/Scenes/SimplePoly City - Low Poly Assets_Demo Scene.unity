@@ -9259,6 +9259,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StopSign
   placement: 0
   waitTime: 2
+  debugLogs: 1
 --- !u!4 &307998159 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 0ee6d569ec3227e40888e8151b331e0f, type: 3}
@@ -42623,6 +42624,7 @@ MonoBehaviour:
   - prefab: {fileID: 100000, guid: 993432d7809c9bf489a5a96006618fef, type: 3}
     weight: 0.2
   policePrefab: {fileID: 100000, guid: 1af0a2c8773f85c40bdb120f32cd8a8a, type: 3}
+  policeCount: 1
   carCount: 15
   seed: 1
   pedestrians:
@@ -42647,43 +42649,54 @@ MonoBehaviour:
   - prefab: {fileID: 1332946792230564792, guid: cab265c9f8731714290ec0a1569e469d, type: 3}
     weight: 0.1
   pedestrianCount: 50
+  accidentPrefab: {fileID: 0}
+  accidentZoomDistance: 12
+  accidentLockDuration: 3
   tools:
   - prefab: {fileID: 4721099002046040616, guid: aa3aa302614b5ef43b6363676a43bee0, type: 3}
     cost: 310
     maxPerTile: 1
+    modelYaw: 0
     prefabX: {fileID: 0}
     prefabT: {fileID: 0}
     prefabL: {fileID: 0}
   - prefab: {fileID: 7425396678179953324, guid: 58eae8cee1df4bc4d9a6d995c883c259, type: 3}
     cost: 10
     maxPerTile: 1
+    modelYaw: 0
     prefabX: {fileID: 0}
     prefabT: {fileID: 0}
     prefabL: {fileID: 0}
   - prefab: {fileID: 6251666189375065463, guid: d4f40363aa44ea649ac792f348b8c36a, type: 3}
     cost: 10
     maxPerTile: 1
+    modelYaw: 0
     prefabX: {fileID: 0}
     prefabT: {fileID: 0}
     prefabL: {fileID: 0}
-  - prefab: {fileID: 5954924780699318257, guid: dc8bc5fb65821344f912c3efa8f88ef7, type: 3}
+  - prefab: {fileID: 5767081827295946613, guid: 3fd738b809e48ae45a577cea6555080e, type: 3}
     cost: 10
     maxPerTile: 1
+    modelYaw: 0
     prefabX: {fileID: 0}
     prefabT: {fileID: 0}
     prefabL: {fileID: 0}
-  - prefab: {fileID: 2118404135264616290, guid: 095d0d7cc0c77704b9c6b439d3826869, type: 3}
+  - prefab: {fileID: 100000, guid: d4cfcf659200d7548b90a5580c3ab18f, type: 3}
     cost: 10
     maxPerTile: 1
+    modelYaw: 0
     prefabX: {fileID: 0}
     prefabT: {fileID: 0}
     prefabL: {fileID: 0}
   - prefab: {fileID: 100000, guid: 7ffbf37f7d10e7746a39913c3560a423, type: 3}
     cost: 10
     maxPerTile: 1
+    modelYaw: 0
     prefabX: {fileID: 100000, guid: 47ef019eb3bddab469e56e5a31eebf68, type: 3}
     prefabT: {fileID: 100000, guid: cbc86bb57f673ba45a8426789eb0fac0, type: 3}
     prefabL: {fileID: 100000, guid: 3a7e1c0a00828fd4196c8cd24886d2ed, type: 3}
+  flipEdgeElements: 0
+  globalYaw: 180
   spotSize: 2
   spotSpacing: 4
   spotSideOffset: 8
