@@ -947,6 +947,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -995,6 +1000,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -1859,6 +1869,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -1917,6 +1932,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -2683,6 +2703,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -3074,6 +3099,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -4404,6 +4434,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -5249,6 +5284,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -5599,6 +5639,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -6352,7 +6397,7 @@ MonoBehaviour:
   build: {fileID: 8300000, guid: 3e93988840da0b34a9435c35a2bb2df5, type: 3}
   clickUI: {fileID: 8300000, guid: c5064332491a05c4e93fd9e067af86a5, type: 3}
   music: {fileID: 8300000, guid: 6fb2ac9c5bdd9174d82cfa2271afa78d, type: 3}
-  musicVolume: 0
+  musicVolume: 0.1
   sfxVolume: 1
 --- !u!4 &210354618
 Transform:
@@ -6785,6 +6830,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -7027,6 +7077,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -7233,6 +7288,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -7340,6 +7400,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -7688,6 +7753,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -8604,6 +8674,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -9249,6 +9324,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -10799,6 +10879,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -11258,6 +11343,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -11355,6 +11445,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -11873,6 +11968,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -11991,6 +12091,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -12102,6 +12207,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -12265,6 +12375,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -12469,6 +12584,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -13760,6 +13880,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -13919,6 +14044,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -14026,6 +14156,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -14663,6 +14798,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -15121,6 +15261,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -15275,6 +15420,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -15429,6 +15579,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -16228,6 +16383,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -16340,6 +16500,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -17574,6 +17739,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -18370,6 +18540,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -18864,6 +19039,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -19493,6 +19673,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -19939,6 +20124,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -20492,6 +20682,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -20847,6 +21042,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -20957,6 +21157,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -21051,6 +21256,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -22378,6 +22588,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -23074,6 +23289,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -23727,6 +23947,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -25150,6 +25375,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -25640,6 +25870,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -25808,6 +26043,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -25856,6 +26096,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -28800,6 +29045,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -28951,6 +29201,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -29969,6 +30224,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -30253,6 +30513,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -30354,6 +30619,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -30550,6 +30820,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -31485,6 +31760,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -32348,6 +32628,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -32865,6 +33150,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -32967,6 +33257,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -33206,6 +33501,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -33751,6 +34051,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -34836,6 +35141,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -34894,6 +35204,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -36120,6 +36435,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -37722,6 +38042,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -38135,6 +38460,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -38554,6 +38884,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -39119,6 +39454,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -39990,6 +40330,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -40140,6 +40485,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -40483,6 +40833,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -41999,6 +42354,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -42561,6 +42921,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -42792,6 +43157,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -45113,6 +45483,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -45641,6 +46016,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -45814,6 +46194,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -46414,6 +46799,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -46528,6 +46918,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -46630,6 +47025,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -47144,6 +47544,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -48081,6 +48486,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -49566,6 +49976,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -51955,6 +52370,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -52245,6 +52665,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -53605,6 +54030,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -53707,6 +54137,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -54275,6 +54710,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -55209,6 +55649,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -56729,6 +57174,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -57923,6 +58373,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -59069,6 +59524,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -59882,6 +60342,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -60082,6 +60547,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -61502,6 +61972,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -61754,6 +62229,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -62963,6 +63443,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -63929,6 +64414,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -64126,6 +64616,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -64278,6 +64773,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -66488,6 +66988,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -66873,6 +67378,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -67279,6 +67789,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -67657,6 +68172,11 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 0.7
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
