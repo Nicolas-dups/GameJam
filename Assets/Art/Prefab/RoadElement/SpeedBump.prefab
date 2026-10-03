@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5513211521340215459}
   - component: {fileID: 7738921263489606761}
   - component: {fileID: 3586993575718799329}
-  - component: {fileID: -6891032718633660453}
   m_Layer: 0
   m_Name: SpeedBump
   m_TagString: Untagged
@@ -106,20 +105,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SpeedBump
   placement: 1
   bumpSpeed: 1.8
---- !u!114 &-6891032718633660453
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8099398005186905532}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e42b4c2838d8ed24e8e2603732cb5855, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ping
-  spriteName: ping
-  offset: {x: 0, y: 10, z: 0}
-  scale: 1
-  bobAmplitude: 0.5
-  bobSpeed: 3

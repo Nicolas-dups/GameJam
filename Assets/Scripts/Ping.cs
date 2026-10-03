@@ -46,6 +46,18 @@ public class Ping : MonoBehaviour
         {
             float verticalOffset = Mathf.Sin(Time.unscaledTime * bobSpeed) * bobAmplitude;
             spriteObject.transform.localPosition = offset + Vector3.up * verticalOffset;
+
+            Camera mainCamera = Camera.main;
+            if (mainCamera != null)
+            {
+                Vector3 directionToCamera = mainCamera.transform.position - spriteObject.transform.position;
+                directionToCamera.y = 0f;
+
+                if (directionToCamera.sqrMagnitude > 0f)
+                {
+                    spriteObject.transform.rotation = Quaternion.LookRotation(directionToCamera, Vector3.up);
+                }
+            }
            // Debug.Log(Time.time);
         }
         else

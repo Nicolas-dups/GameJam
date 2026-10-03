@@ -105,8 +105,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrafficLight
   placement: 0
-  greenTime: 8
-  yellowTime: 1.5
+  greenTime: 4
+  yellowTime: 4
   minGreen: 4
   maxGreen: 14
   lampAxisX: {fileID: 0}
