@@ -54998,7 +54998,7 @@ MonoBehaviour:
   crashZoomDistance: 20
   focusSmoothing: 4
   minPosition: {x: -50, y: 5, z: -50}
-  maxPosition: {x: 200, y: 100, z: 200}
+  maxPosition: {x: 250, y: 100, z: 250}
 --- !u!1001 &1704196083
 PrefabInstance:
   m_ObjectHideFlags: 0

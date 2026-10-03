@@ -93,7 +93,6 @@ public class TimeRewinder
             {
                 if (a == null) continue;
                 a.updateMode = AnimatorUpdateMode.UnscaledTime;   // le jeu est en pause (timeScale = 0)
-                a.speed = animatorSpeed;                          // négatif : animation à l'envers
             }
         }
 
