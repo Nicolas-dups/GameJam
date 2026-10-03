@@ -856,7 +856,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1 &26091281 stripped
 GameObject:
@@ -898,7 +904,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &26586911 stripped
 Transform:
@@ -1765,7 +1777,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &60992485 stripped
 Transform:
@@ -1817,7 +1835,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &62855276
 PrefabInstance:
@@ -2445,7 +2469,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &81843763 stripped
 Transform:
@@ -2703,7 +2733,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &98095417
 PrefabInstance:
@@ -4019,7 +4055,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &140692387 stripped
 Transform:
@@ -4582,7 +4624,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &166189126 stripped
 Transform:
@@ -4926,7 +4974,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1 &170035831
 GameObject:
@@ -6168,7 +6222,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &220000130 stripped
 Transform:
@@ -6267,7 +6327,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &223599410
 PrefabInstance:
@@ -6467,7 +6533,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &231863677
 PrefabInstance:
@@ -6568,7 +6640,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &234155967 stripped
 Transform:
@@ -6905,7 +6983,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &252063148
 PrefabInstance:
@@ -7621,7 +7705,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &268394419
 PrefabInstance:
@@ -8203,7 +8293,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1 &290774556 stripped
 GameObject:
@@ -9718,7 +9814,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &357022411
 PrefabInstance:
@@ -10308,7 +10410,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1 &373436574
 GameObject:
@@ -10520,7 +10628,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &374595760
 PrefabInstance:
@@ -10900,7 +11014,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &386284938 stripped
 Transform:
@@ -11007,7 +11127,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &395696822 stripped
 Transform:
@@ -11112,7 +11238,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &400011731
 PrefabInstance:
@@ -11269,7 +11401,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &404767992
 PrefabInstance:
@@ -11467,7 +11605,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &408584847
 PrefabInstance:
@@ -12587,7 +12731,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &436785198
 PrefabInstance:
@@ -12861,7 +13011,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &443649795 stripped
 Transform:
@@ -13099,7 +13255,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &448807981 stripped
 Transform:
@@ -13593,7 +13755,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &462173746 stripped
 Transform:
@@ -14032,7 +14200,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &478025403
 PrefabInstance:
@@ -14180,7 +14354,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &481644822
 PrefabInstance:
@@ -14328,7 +14508,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &483106132 stripped
 Transform:
@@ -14755,7 +14941,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &498450375 stripped
 Transform:
@@ -14861,7 +15053,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &505921948 stripped
 Transform:
@@ -16046,7 +16244,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &544341953
 PrefabInstance:
@@ -16827,7 +17031,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &570600997
 PrefabInstance:
@@ -17225,7 +17435,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &587333858
 PrefabInstance:
@@ -17697,7 +17913,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &600833739
 PrefabInstance:
@@ -17999,7 +18221,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &616007475
 PrefabInstance:
@@ -18541,7 +18769,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &629261778 stripped
 Transform:
@@ -18800,7 +19034,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &638164881
 PrefabInstance:
@@ -18904,7 +19144,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1 &640614221 stripped
 GameObject:
@@ -18992,7 +19238,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &649072239 stripped
 Transform:
@@ -20499,7 +20751,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &688909786 stripped
 Transform:
@@ -21189,7 +21447,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &710086341
 PrefabInstance:
@@ -21973,7 +22237,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &732726855 stripped
 Transform:
@@ -23309,7 +23579,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &782327803
 PrefabInstance:
@@ -23839,7 +24115,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &803100712 stripped
 Transform:
@@ -24001,7 +24283,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1 &806242318 stripped
 GameObject:
@@ -24043,7 +24331,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &809335691 stripped
 Transform:
@@ -27123,7 +27417,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &909676421 stripped
 Transform:
@@ -27268,7 +27568,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &918610765 stripped
 Transform:
@@ -27902,7 +28208,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1 &955159109
 GameObject:
@@ -28108,7 +28420,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &961908949
 PrefabInstance:
@@ -28203,7 +28521,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &962593725
 PrefabInstance:
@@ -28393,7 +28717,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &964187231
 PrefabInstance:
@@ -29246,7 +29576,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1 &1001338575 stripped
 GameObject:
@@ -29881,7 +30217,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &1023811890 stripped
 Transform:
@@ -30312,7 +30654,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &1050645644 stripped
 Transform:
@@ -30408,7 +30756,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1 &1051483643 stripped
 GameObject:
@@ -30641,7 +30995,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &1059626024
 PrefabInstance:
@@ -31105,7 +31465,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &1081125528
 PrefabInstance:
@@ -32347,7 +32713,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &1120767438 stripped
 Transform:
@@ -32399,7 +32771,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &1124295437 stripped
 Transform:
@@ -33468,7 +33846,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &1147358837 stripped
 Transform:
@@ -34837,7 +35221,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &1193979727
 PrefabInstance:
@@ -35154,7 +35544,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &1202760737 stripped
 Transform:
@@ -35704,7 +36100,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &1224227557
 PrefabInstance:
@@ -36147,7 +36549,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &1240086102
 PrefabInstance:
@@ -37006,7 +37414,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &1262683682
 PrefabInstance:
@@ -37150,7 +37564,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &1264094854
 PrefabInstance:
@@ -37397,7 +37817,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &1266910252 stripped
 Transform:
@@ -38603,7 +39029,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &1313003900
 PrefabInstance:
@@ -39190,7 +39622,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1 &1328916323
 GameObject:
@@ -39552,7 +39990,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &1340158117 stripped
 Transform:
@@ -40694,13 +41138,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae4ff654d3f67c04b8627951188b529e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  carPrefab: {fileID: 100000, guid: 81835658bbd378143a0f525b8552f557, type: 3}
-  spawnHeight: 0.5
+  vehicles:
+  - prefab: {fileID: 100000, guid: 9b25e71fd5b7ac6469539d930c6dc2e6, type: 3}
+    weight: 0.2
+  - prefab: {fileID: 100000, guid: 81835658bbd378143a0f525b8552f557, type: 3}
+    weight: 0.2
+  policePrefab: {fileID: 100000, guid: 1af0a2c8773f85c40bdb120f32cd8a8a, type: 3}
   carCount: 12
   seed: 1
+  tools:
+  - prefab: {fileID: 5954924780699318257, guid: dc8bc5fb65821344f912c3efa8f88ef7, type: 3}
+    cost: 10
+  - prefab: {fileID: 6251666189375065463, guid: d4f40363aa44ea649ac792f348b8c36a, type: 3}
+    cost: 10
+  - prefab: {fileID: 8099398005186905532, guid: d5d94a87bf91ec842aeb8faa43a7ec9a, type: 3}
+    cost: 10
+  - prefab: {fileID: 4721099002046040616, guid: aa3aa302614b5ef43b6363676a43bee0, type: 3}
+    cost: 10
+  - prefab: {fileID: 2118404135264616290, guid: 095d0d7cc0c77704b9c6b439d3826869, type: 3}
+    cost: 10
+  spotSize: 2
+  spotSpacing: 2
+  spotSideOffset: 8
+  junctionClearance: 4
+  spotMaterial: {fileID: 2100000, guid: 40c5268745fbf7446920fee673417083, type: 2}
+  spotHoverMaterial: {fileID: 2100000, guid: 8f9ba12f36c5d6b45b4b70bd64ccaa3c, type: 2}
+  ghostMaterial: {fileID: 2100000, guid: 22e305bb5fcd59149a95dcbc266937e6, type: 2}
   duration: 60
   startMoney: 1000
-  accidentDistance: 2.2
   panelPlanning: {fileID: 1463986281}
   panelRunning: {fileID: 529664168}
   panelCrashed: {fileID: 343256773}
@@ -41907,7 +42372,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &1399221550 stripped
 Transform:
@@ -42494,7 +42965,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &1407733381 stripped
 Transform:
@@ -42657,7 +43134,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &1410550460
 PrefabInstance:
@@ -43251,7 +43734,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &1423886437 stripped
 Transform:
@@ -43355,7 +43844,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &1425596690 stripped
 Transform:
@@ -43451,7 +43946,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &1428125927
 PrefabInstance:
@@ -44080,7 +44581,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &1444590089
 PrefabInstance:
@@ -45084,7 +45591,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &1472262259
 PrefabInstance:
@@ -46636,7 +47149,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &1527498726
 PrefabInstance:
@@ -48649,7 +49168,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &1610975803 stripped
 Transform:
@@ -48933,7 +49458,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &1624662901
 PrefabInstance:
@@ -50420,7 +50951,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &1668161445
 PrefabInstance:
@@ -50516,7 +51053,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &1672463193 stripped
 Transform:
@@ -50900,7 +51443,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &1691231324 stripped
 Transform:
@@ -52083,7 +52632,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &1710234338 stripped
 Transform:
@@ -53268,7 +53823,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1 &1762944326
 GameObject:
@@ -54212,7 +54773,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &1796360198
 PrefabInstance:
@@ -55227,7 +55794,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &1829582232 stripped
 Transform:
@@ -56136,7 +56709,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &1871095039 stripped
 Transform:
@@ -56330,7 +56909,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &1875876427 stripped
 Transform:
@@ -57604,7 +58189,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &1919090867 stripped
 Transform:
@@ -57850,7 +58441,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &1925123194
 PrefabInstance:
@@ -59115,7 +59712,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &1967577798 stripped
 Transform:
@@ -60191,7 +60794,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &2003595123
 PrefabInstance:
@@ -60382,7 +60991,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &2011980821
 PrefabInstance:
@@ -60488,7 +61103,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &2016517429 stripped
 Transform:
@@ -62751,7 +63372,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &2075768646
 PrefabInstance:
@@ -63146,7 +63773,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!4 &2084854051 stripped
 Transform:
@@ -63546,7 +64179,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1 &2100335620
 GameObject:
@@ -63976,7 +64615,13 @@ MonoBehaviour:
   patience: 2
   obeyChance: 0.85
   recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
   isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
   speedBoost: 1
 --- !u!1001 &2112189761
 PrefabInstance:

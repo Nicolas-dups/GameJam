@@ -86,13 +86,10 @@ public class CameraController : MonoBehaviour
 
     private void HandleZoom()
     {
-        if (ignoreWhenOverUI && EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
-            return;
-
         Vector3 forward = transform.forward;
 
         float scroll = Input.mouseScrollDelta.y;
-        if (Mathf.Abs(scroll) > 0.01f)
+        if (Mathf.Abs(scroll) > 0.01f && !(ignoreWhenOverUI && PointerOverInteractiveUI()))
         {
             // Molette vers l'avant = zoom (on avance), vers l'arrière = dézoom (on recule)
             float newPending = pendingZoom + scroll * zoomSpeed;
