@@ -215,8 +215,11 @@ public class GameManager : MonoBehaviour
     public Button launchButton;
     [Tooltip("Obsolète : les repères rouges n'existent plus, le bouton est masqué (vous pouvez le supprimer du Canvas)")]
     public Button clearMarkersButton;
-    [Tooltip("Boutons x1, x2, x4 dans cet ordre")]
-    public Button[] speedButtons;
+    [Tooltip("Bouton de vitesse : clic = x2 → x4 → x1")]
+    public Button speedButton;
+    [Header("Images de vitesse")]
+    public GameObject speedImage2;
+    public GameObject speedImage4;
     public Button stopButton;
     public Button modifyAfterCrashButton;
     public Button relaunchButton;
@@ -1065,25 +1068,38 @@ public class GameManager : MonoBehaviour
             Bind(toolButtons[i], () => selected = idx);
         }
 
-        // Boutons de vitesse
-        for (int i = 0; i < speeds.Length && speedButtons != null && i < speedButtons.Length; i++)
+        // Bouton de vitesse : x1 → x2 → x4 → x1
+        Bind(speedButton, () =>
         {
-            if (speedButtons[i] == null) continue;
-            var label = speedButtons[i].GetComponentInChildren<TMP_Text>();
-            if (label != null) label.text = "x" + speeds[i];
-            int idx = i;
-            Bind(speedButtons[i], () =>
-            {
-                speedIndex = idx;
-                if (CurrentPhase == Phase.Running) Time.timeScale = speeds[idx];
-            });
-        }
+            // x1 → x2 → x4 → x1
+            speedIndex = (speedIndex + 1) % speeds.Length;
 
+            if (CurrentPhase == Phase.Running)
+                Time.timeScale = speeds[speedIndex];
+
+            if (speedButton != null)
+            {
+                var label = speedButton.GetComponentInChildren<TMP_Text>();
+                if (label != null)
+                    label.text = "x" + speeds[speedIndex];
+            }
+
+            UpdateSpeedImages();
+        });
         Bind(launchButton, StartRun);
         Bind(stopButton, EnterPlanning);
         Bind(modifyAfterCrashButton, EnterPlanning);
         Bind(relaunchButton, StartRun);
         Bind(modifyAfterWinButton, EnterPlanning);
+    }
+
+    void UpdateSpeedImages()
+    {
+        if (speedImage2 != null)
+            speedImage2.SetActive(speedIndex == 1);
+
+        if (speedImage4 != null)
+            speedImage4.SetActive(speedIndex == 2);
     }
 
     static void Bind(Button b, UnityAction action)
@@ -1122,7 +1138,12 @@ public class GameManager : MonoBehaviour
             case Phase.Running:
                 if (runningText != null)
                     runningText.text = $"Temps : {elapsed:0}/{duration:0}s\nInfractions : {Infractions.Total}   Arrêtés : {Infractions.Arrests}";
-                Highlight(speedButtons, speedIndex);
+                if (speedButton != null)
+                {
+                    var label = speedButton.GetComponentInChildren<TMP_Text>();
+                    if (label != null)
+                        label.text = "x" + speeds[speedIndex];
+                }                
                 break;
 
             case Phase.Crashed:
