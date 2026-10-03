@@ -46538,13 +46538,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1704015169}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
+  m_LocalRotation: {x: 0.35355338, y: 0.35355338, z: -0.1464466, w: 0.8535535}
   m_LocalPosition: {x: -16.42, y: 41.47, z: 2.97}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 45, z: 0}
 --- !u!114 &1704015175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46601,15 +46601,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af4c7353e8ae2d246b8924e1f315d685, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraScript
-  panSpeed: 30
-  movementSmoothing: 10
-  zoomSpeed: 200
-  minHeight: 8
-  maxHeight: 60
-  minX: -17
-  maxX: 250
-  minZ: -36
-  maxZ: 170
+  groundHeight: 0
+  ignoreWhenOverUI: 1
+  zoomSpeed: 10
+  zoomSmoothing: 10
+  minPosition: {x: -50, y: 5, z: -50}
+  maxPosition: {x: 200, y: 100, z: 200}
 --- !u!1001 &1704196083
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -46846,8 +46843,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 20, y: 0.20000085, z: 20}
-  m_Center: {x: 0, y: 0.099999994, z: 0}
+  m_Size: {x: 290, y: 0.20000085, z: 20}
+  m_Center: {x: 0, y: 5, z: 0}
 --- !u!4 &1711324805 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 3a7e1c0a00828fd4196c8cd24886d2ed, type: 3}
@@ -58436,12 +58433,12 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1704015174}
   - {fileID: 1416758924}
   - {fileID: 1361925201}
   - {fileID: 1840819856}
   - {fileID: 1999897578}
   - {fileID: 8150286086519884738}
+  - {fileID: 1704015174}
   - {fileID: 1513663033}
   - {fileID: 511572054}
   - {fileID: 2064485058}
