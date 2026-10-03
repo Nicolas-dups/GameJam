@@ -1,122 +1,134 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
-public class CameraScript : MonoBehaviour
+/// <summary>
+/// Caméra type RTS / vue du dessus :
+/// - Clic gauche maintenu + glisser : déplacement sur le plan XZ (le sol "suit" la souris)
+/// - Molette : zoom / dézoom (change la hauteur Y)
+/// - Limites min / max sur X, Y et Z
+/// À attacher sur l'objet Camera.
+/// </summary>
+[RequireComponent(typeof(Camera))]
+public class CameraController : MonoBehaviour
 {
-    [Header("Camera Movement")]
-    [SerializeField] private float panSpeed = 30f;
-    [SerializeField] private float movementSmoothing = 10f;
-    [SerializeField] private float zoomSpeed = 20f;
-    [SerializeField] private float minHeight = 8f;
-    [SerializeField] private float maxHeight = 60f;
-    [SerializeField] private float minX = -100f;
-    [SerializeField] private float maxX = 100f;
-    [SerializeField] private float minZ = -100f;
-    [SerializeField] private float maxZ = 100f;
+    [Header("Déplacement (clic gauche)")]
+    [Tooltip("Hauteur (Y) du plan de sol utilisé pour calculer le glissement")]
+    [SerializeField] private float groundHeight = 0f;
+    [SerializeField] private bool ignoreWhenOverUI = true;
 
+    [Header("Zoom (molette)")]
+    [Tooltip("Distance parcourue le long de l'axe avant par cran de molette")]
+    [SerializeField] private float zoomSpeed = 2f;
+    [Tooltip("Plus la valeur est grande, plus le zoom est réactif")]
+    [SerializeField] private float zoomSmoothing = 10f;
+
+    [Header("Limites de la caméra")]
+    [SerializeField] private Vector3 minPosition = new Vector3(-50f, 5f, -50f);
+    [SerializeField] private Vector3 maxPosition = new Vector3(50f, 40f, 50f);
+
+    private Camera cam;
+    private Plane groundPlane;
+    private Vector3 dragOrigin;
     private bool isDragging;
-    private Vector2 dragStartMousePos;
-    private Vector3 targetPosition;
+    private float pendingZoom; // distance de zoom restant à appliquer (lissage)
 
-    private void OnEnable()
+    private void Awake()
     {
-        isDragging = false;
-        targetPosition = transform.position;
+        cam = GetComponent<Camera>();
+        groundPlane = new Plane(Vector3.up, new Vector3(0f, groundHeight, 0f));
     }
 
     private void Update()
     {
-        HandleDragPan();
-        HandleKeyboardPan();
+        HandleDrag();
         HandleZoom();
-        SmoothMovement();
+        ClampPosition();
     }
 
-    private void HandleDragPan()
+    private void HandleDrag()
     {
-        Mouse mouse = Mouse.current;
-        if (mouse == null)
-            return;
-
-        if (mouse.rightButton.wasPressedThisFrame)
+        if (Input.GetMouseButtonDown(0))
         {
-            isDragging = true;
-            dragStartMousePos = mouse.position.ReadValue();
-            return;
+            if (ignoreWhenOverUI && EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+                return;
+
+            isDragging = TryGetGroundPoint(out dragOrigin);
         }
 
-        if (!mouse.rightButton.isPressed)
-        {
+        if (Input.GetMouseButtonUp(0))
             isDragging = false;
-            return;
+
+        if (isDragging && Input.GetMouseButton(0))
+        {
+            if (TryGetGroundPoint(out Vector3 current))
+            {
+                // Différence entre le point saisi au départ et le point actuellement sous la souris
+                Vector3 delta = dragOrigin - current;
+                delta.y = 0f; // on ne bouge que sur XZ
+                transform.position += delta;
+            }
         }
-
-        if (!isDragging)
-            return;
-
-        Vector2 mousePos = mouse.position.ReadValue();
-        Vector2 mouseDelta = mousePos - dragStartMousePos;
-        Vector3 move = new Vector3(-mouseDelta.x, 0f, -mouseDelta.y) * (panSpeed / 100f);
-
-        targetPosition += move;
-        ClampTargetPosition();
-
-        dragStartMousePos = mousePos;
-    }
-
-    private void HandleKeyboardPan()
-    {
-        Keyboard keyboard = Keyboard.current;
-        if (keyboard == null)
-            return;
-
-        float horizontal = 0f;
-        if (keyboard.dKey.isPressed || keyboard.rightArrowKey.isPressed)
-            horizontal += 1f;
-        if (keyboard.aKey.isPressed || keyboard.leftArrowKey.isPressed)
-            horizontal -= 1f;
-
-        float vertical = 0f;
-        if (keyboard.wKey.isPressed || keyboard.upArrowKey.isPressed)
-            vertical += 1f;
-        if (keyboard.sKey.isPressed || keyboard.downArrowKey.isPressed)
-            vertical -= 1f;
-
-        if (horizontal == 0f && vertical == 0f)
-            return;
-
-        Vector3 move = new Vector3(horizontal, 0f, vertical).normalized * panSpeed * Time.deltaTime;
-        targetPosition += move;
-        ClampTargetPosition();
     }
 
     private void HandleZoom()
     {
-        Mouse mouse = Mouse.current;
-        if (mouse == null)
+        if (ignoreWhenOverUI && EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
             return;
 
-        float scroll = mouse.scroll.ReadValue().y;
-        if (Mathf.Abs(scroll) < 0.001f)
-            return;
-
-        float zoomAmount = scroll * (zoomSpeed / 120f) * 2f;
         Vector3 forward = transform.forward;
-        Vector3 pos = targetPosition + forward * zoomAmount;
-        pos.y = Mathf.Clamp(pos.y, minHeight, maxHeight);
-        targetPosition = pos;
+
+        float scroll = Input.mouseScrollDelta.y;
+        if (Mathf.Abs(scroll) > 0.01f)
+        {
+            // Molette vers l'avant = zoom (on avance), vers l'arrière = dézoom (on recule)
+            float newPending = pendingZoom + scroll * zoomSpeed;
+
+            // On limite la distance totale pour que Y reste dans [minY, maxY]
+            if (Mathf.Abs(forward.y) > 0.0001f)
+            {
+                float yAfter = transform.position.y + forward.y * newPending;
+                float yClamped = Mathf.Clamp(yAfter, minPosition.y, maxPosition.y);
+                newPending = (yClamped - transform.position.y) / forward.y;
+            }
+
+            pendingZoom = newPending;
+        }
+
+        // Applique le zoom progressivement (lissage) le long de l'axe avant
+        float step = pendingZoom * (1f - Mathf.Exp(-zoomSmoothing * Time.deltaTime));
+        transform.position += forward * step;
+        pendingZoom -= step;
     }
 
-    private void SmoothMovement()
+    private void ClampPosition()
     {
-        transform.position = Vector3.Lerp(transform.position, targetPosition, movementSmoothing * Time.deltaTime);
+        Vector3 pos = transform.position;
+        pos.x = Mathf.Clamp(pos.x, minPosition.x, maxPosition.x);
+        pos.y = Mathf.Clamp(pos.y, minPosition.y, maxPosition.y);
+        pos.z = Mathf.Clamp(pos.z, minPosition.z, maxPosition.z);
+        transform.position = pos;
     }
 
-    private void ClampTargetPosition()
+    /// <summary>Projette la position de la souris sur le plan du sol.</summary>
+    private bool TryGetGroundPoint(out Vector3 point)
     {
-        Vector3 pos = targetPosition;
-        pos.x = Mathf.Clamp(pos.x, minX, maxX);
-        pos.z = Mathf.Clamp(pos.z, minZ, maxZ);
-        targetPosition = pos;
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        if (groundPlane.Raycast(ray, out float distance))
+        {
+            point = ray.GetPoint(distance);
+            return true;
+        }
+
+        point = Vector3.zero;
+        return false;
+    }
+
+    // Affiche la zone limite dans la Scene view
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Vector3 center = (minPosition + maxPosition) * 0.5f;
+        Vector3 size = maxPosition - minPosition;
+        Gizmos.DrawWireCube(center, size);
     }
 }
