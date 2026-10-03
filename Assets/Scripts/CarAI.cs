@@ -3,47 +3,60 @@ using UnityEngine;
 
 /// <summary>
 /// IA de voiture : plus court chemin, conduite à droite, vitesse variable,
-/// détection de la voiture devant et priorité à droite aux carrefours.
+/// détection de la voiture devant, priorité à droite aux carrefours,
+/// + éléments de voirie (RoadElement), infractions, arrestation par la police.
+/// La simulation tourne dans FixedUpdate => déterministe (même scénario à chaque essai).
 /// </summary>
 public class CarAI : MonoBehaviour
 {
     [Header("Vitesse")]
     public float maxSpeed = 6f;
-    [Range(0f, 0.5f)] public float speedVariation = 0.15f; // chaque voiture roule à ±15 % de maxSpeed
+    [Range(0f, 0.5f)] public float speedVariation = 0.15f;
     public float acceleration = 4f;
     public float braking = 8f;
-    [Range(0.1f, 1f)] public float cornerSpeedFactor = 0.4f; // vitesse dans les virages (fraction de la vitesse max)
-    public float turnSpeed = 360f;                           // degrés / seconde
+    [Range(0.1f, 1f)] public float cornerSpeedFactor = 0.4f;
+    public float turnSpeed = 360f;
 
-    /// <summary>Multiplicateur appliqué à toutes les voitures (ex : curseur de vitesse du jeu).</summary>
     public static float GlobalSpeedMultiplier = 1f;
 
     [Header("Trajet")]
     public bool wanderRandomly = true;
-    [Tooltip("Décalage latéral vers la droite (≈ 1/4 de la largeur de la route)")]
     public float laneOffset = 1.5f;
 
     [Header("Détection de la voiture devant")]
-    public float lookAhead = 12f;     // distance de détection
-    [Tooltip("Demi-largeur du couloir surveillé. Doit rester < 2 x laneOffset sinon on détecte les voitures en sens inverse")]
+    public float lookAhead = 12f;
     public float detectWidth = 1f;
     public float carLength = 4f;
-    public float safeGap = 1.5f;      // distance mini laissée entre deux voitures
-    public float maxBlockedTime = 5f; // anti-blocage face à face / croisement
+    public float safeGap = 1.5f;
+    public float maxBlockedTime = 5f;
 
     [Header("Carrefours (priorité à droite)")]
-    [Tooltip("Distance entre le bord de la tuile de carrefour et le centre de la voiture à l'arrêt")]
     public float stopMargin = 2.5f;
-    [Tooltip("Une voiture qui arrive à moins de cette distance du carrefour est prise en compte")]
     public float awareness = 10f;
-    [Tooltip("Temps d'attente avant de passer quand tout le monde se bloque (4 voitures qui se font priorité à droite)")]
     public float patience = 2f;
+
+    [Header("Comportement")]
+    [Tooltip("Probabilité de respecter chaque panneau / feu posé")]
+    [Range(0f, 1f)] public float obeyChance = 0.85f;
+    [Tooltip("Probabilité (par carrefour) d'ignorer la priorité à droite : source principale d'accidents")]
+    [Range(0f, 1f)] public float recklessChance = 0.1f;
+    public bool isPolice;
+    [HideInInspector] public float speedBoost = 1f;
 
     public float Speed => currentSpeed;
 
     // ---------- État ----------
     static readonly List<CarAI> All = new List<CarAI>();
+    public static IReadOnlyList<CarAI> Cars => All;
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    static void ResetStatics() => All.Clear();
+
     const int TurnLeft = -1, TurnStraight = 0, TurnRight = 1;
+
+    System.Random rng = new System.Random();
+    float Roll() => (float)rng.NextDouble();
+    float Range(float a, float b) => a + Roll() * (b - a);
 
     List<int> nodes;
     List<Vector3> waypoints;
@@ -51,55 +64,107 @@ public class CarAI : MonoBehaviour
     int index;
     Vector3 target;
 
-    float currentSpeed;
-    float personalSpeed;
-    float personalPatience;
+    float currentSpeed, personalSpeed, personalPatience;
 
-    // contexte du carrefour / noeud vers lequel on roule
-    int approachNode = -1, prevNode = -1, turn;
-    bool committed;      // a franchi la ligne d'arrêt, ne cède plus
-    float waitTime;
-    float blockedTime, ignoreFrontTimer;
+    int approachNode = -1, prevNode = -1, turn, destination = -1;
+    Vector3 approachDir = Vector3.forward;
+    bool committed, ignoreIntersection;
+    float waitTime, blockedTime, ignoreFrontTimer, arrestTimer, idleTimer;
+    bool begun;
 
+    // mémoire par approche de noeud (réinitialisée à chaque nouveau noeud visé)
+    readonly Dictionary<RoadElement, float> memo = new Dictionary<RoadElement, float>();
+    readonly Dictionary<RoadElement, bool> obey = new Dictionary<RoadElement, bool>();
+    readonly HashSet<string> reported = new HashSet<string>();
+
+    // ---------- API pour les éléments de voirie ----------
+    public int ApproachNode => approachNode;
+    public int PrevNode => prevNode;
+    public Vector3 ApproachDir => approachDir;
+    public int Destination => destination;
+    public bool IsArrested => arrestTimer > 0f;
+    public float DistToNode => approachNode < 0 ? float.MaxValue
+        : Dist(transform.position, RoadGraph.Instance.NodePos(approachNode));
+
+    public void Arrest(float seconds) => arrestTimer = seconds;
+    public float GetMemo(RoadElement e) => memo.TryGetValue(e, out var v) ? v : 0f;
+    public void SetMemo(RoadElement e, float v) => memo[e] = v;
+
+    public bool Obeys(RoadElement e) => Obeys(e, obeyChance);
+    public bool Obeys(RoadElement e, float chance)
+    {
+        if (isPolice) return true;
+        if (!obey.TryGetValue(e, out bool o)) { o = Roll() < chance; obey[e] = o; }
+        return o;
+    }
+
+    public void Report(string reason)
+    {
+        if (reported.Add(reason)) Infractions.Report(this, reason);
+    }
+
+    // ---------- Cycle de vie ----------
     void OnEnable() => All.Add(this);
     void OnDisable() => All.Remove(this);
 
     void Awake()
     {
         SetMaxSpeed(maxSpeed);
-        personalPatience = patience * Random.Range(0.7f, 1.5f); // évite que tout le monde parte en même temps
+        personalPatience = patience * Range(0.7f, 1.5f);
     }
 
     void Start()
     {
-        if (wanderRandomly) GoTo(RoadGraph.Instance.RandomNode());
+        if (!begun) { begun = true; if (wanderRandomly) Wander(); }
     }
 
-    /// <summary>Change la vitesse max de cette voiture (la variation aléatoire est réappliquée).</summary>
+    /// <summary>Démarrage déterministe : appelé par le GameManager avec une graine.</summary>
+    public void Begin(int seed)
+    {
+        rng = new System.Random(seed);
+        begun = true;
+        SetMaxSpeed(maxSpeed);
+        personalPatience = patience * Range(0.7f, 1.5f);
+        Wander();
+    }
+
     public void SetMaxSpeed(float v)
     {
         maxSpeed = v;
-        personalSpeed = v * (1f + Random.Range(-speedVariation, speedVariation));
+        personalSpeed = v * (1f + Range(-speedVariation, speedVariation));
     }
 
     // ---------- Navigation ----------
+    void Wander()
+    {
+        for (int i = 0; i < 10; i++)
+            if (GoTo(RoadGraph.Instance.RandomNode(rng))) return;
+        nodes = null; // aucun chemin trouvé : on réessaiera plus tard
+    }
+
     public bool GoTo(Vector3 worldPos) => GoTo(RoadGraph.Instance.WorldToNode(worldPos));
 
     public bool GoTo(int destinationNode)
     {
         var graph = RoadGraph.Instance;
-        int start = graph.WorldToNode(transform.position);
+        bool midRoute = nodes != null && index < nodes.Count;
+        int start = midRoute ? nodes[index] : graph.WorldToNode(transform.position);
+        int keepPrev = midRoute ? prevNode : -1;
 
         var path = graph.FindPath(start, destinationNode);
-        if (path == null)
-        {
-            Debug.LogWarning($"{name} : pas de chemin de {start} vers {destinationNode}");
-            return false;
-        }
+        if (path == null) return false;
 
+        destination = destinationNode;
         BuildWaypoints(path);
         index = 0;
         SetTarget();
+
+        // en cours de route : on garde le contexte (d'où l'on vient) pour respecter les règles
+        if (keepPrev >= 0 && keepPrev != start)
+        {
+            prevNode = keepPrev;
+            approachDir = Dir(graph.NodePos(keepPrev), graph.NodePos(start));
+        }
         return true;
     }
 
@@ -143,7 +208,7 @@ public class CarAI : MonoBehaviour
             else
             {
                 offset = rIn + rOut;
-                float s = Vector3.Cross(Dir(a, c), Dir(c, b)).y;   // > 0 : virage à droite
+                float s = Vector3.Cross(Dir(a, c), Dir(c, b)).y;
                 t = s > 0f ? TurnRight : TurnLeft;
             }
 
@@ -154,32 +219,46 @@ public class CarAI : MonoBehaviour
 
     void SetTarget()
     {
+        var graph = RoadGraph.Instance;
         target = waypoints[index];
         target.y = transform.position.y;
 
         approachNode = nodes[index];
         prevNode = index > 0 ? nodes[index - 1] : -1;
+        approachDir = prevNode >= 0 ? Dir(graph.NodePos(prevNode), graph.NodePos(approachNode)) : transform.forward;
         turn = turns[index];
         committed = false;
         waitTime = 0f;
+
+        memo.Clear(); obey.Clear(); reported.Clear();
+        ignoreIntersection = !isPolice && Roll() < recklessChance;
     }
 
     // ---------- Boucle principale ----------
-    void Update()
+    void FixedUpdate()
     {
-        if (nodes == null) return;
-        float dt = Time.deltaTime;
+        float dt = Time.fixedDeltaTime;
 
-        // La vitesse voulue est le minimum de toutes les contraintes
-        float desired = personalSpeed * GlobalSpeedMultiplier;
+        if (nodes == null)
+        {
+            if (wanderRandomly && begun)
+            {
+                idleTimer += dt;
+                if (idleTimer > 1f) { idleTimer = 0f; Wander(); }
+            }
+            return;
+        }
+
+        float desired = personalSpeed * GlobalSpeedMultiplier * speedBoost;
         desired = Mathf.Min(desired, CornerLimit());
         desired = Mathf.Min(desired, FrontLimit(dt));
         desired = Mathf.Min(desired, IntersectionLimit(dt));
+        desired = Mathf.Min(desired, ElementsLimit(dt));
+        if (arrestTimer > 0f) { arrestTimer -= dt; desired = 0f; }
 
         float rate = desired > currentSpeed ? acceleration : braking;
         currentSpeed = Mathf.MoveTowards(currentSpeed, desired, rate * dt);
 
-        // Déplacement
         Vector3 dir = target - transform.position;
         dir.y = 0f;
         if (dir.sqrMagnitude > 0.0001f)
@@ -191,7 +270,6 @@ public class CarAI : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, target, currentSpeed * align * dt);
         }
 
-        // Waypoint atteint
         if ((transform.position - target).sqrMagnitude < 0.0025f)
         {
             index++;
@@ -200,16 +278,15 @@ public class CarAI : MonoBehaviour
             nodes = null;
             approachNode = prevNode = -1;
             committed = false;
-            if (wanderRandomly) GoTo(RoadGraph.Instance.RandomNode());
+            if (wanderRandomly) Wander();
         }
     }
 
-    // ---------- 1. Ralentir dans les virages ----------
+    // ---------- 1. Virages ----------
     float CornerLimit()
     {
         if (turn == TurnStraight) return float.MaxValue;
         float vc = personalSpeed * GlobalSpeedMultiplier * cornerSpeedFactor;
-        // v² = vc² + 2·a·d : on arrive au virage exactement à la vitesse vc
         return Mathf.Sqrt(vc * vc + 2f * braking * Dist(transform.position, target));
     }
 
@@ -231,15 +308,14 @@ public class CarAI : MonoBehaviour
             if (fwd <= 0f || fwd > lookAhead) continue;
             if (Mathf.Abs(Vector3.Dot(d, transform.right)) > detectWidth) continue;
 
-            float free = fwd - carLength - safeGap;                       // place restante avant la collision
+            float free = fwd - carLength - safeGap;
             float allowed = free <= 0f
                 ? 0f
-                : o.currentSpeed * 0.8f + Mathf.Sqrt(2f * braking * free); // peut suivre l'autre + freiner à temps
+                : o.currentSpeed * 0.8f + Mathf.Sqrt(2f * braking * free);
 
             if (allowed < limit) { limit = allowed; blocker = o; }
         }
 
-        // Anti-blocage : face à face / croisement bloqué trop longtemps (jamais pour une file d'attente)
         bool stuck = limit < 0.1f && currentSpeed < 0.1f && blocker != null
                      && Vector3.Dot(transform.forward, blocker.transform.forward) < 0.5f;
         if (stuck)
@@ -263,14 +339,20 @@ public class CarAI : MonoBehaviour
         float dist = Dist(transform.position, nPos);
         float stopDist = graph.NodeHalfSize(approachNode) + stopMargin;
 
-        if (dist <= stopDist) { committed = true; return float.MaxValue; }   // ligne franchie
-        if (dist > stopDist + awareness) return float.MaxValue;               // encore loin
+        if (dist <= stopDist) { committed = true; return float.MaxValue; }
+        if (dist > stopDist + awareness) return float.MaxValue;
 
         if (!MustYield(nPos, stopDist)) return float.MaxValue;
 
+        // Conducteur imprudent : il fonce malgré la priorité => infraction + risque d'accident
+        if (ignoreIntersection)
+        {
+            if (dist < stopDist + 3f) Report("Priorité refusée");
+            return float.MaxValue;
+        }
+
         if (currentSpeed < 0.2f) waitTime += dt;
 
-        // S'arrêter juste avant la ligne (0,3 de marge pour ne pas la franchir en glissant)
         float free = Mathf.Max(0f, dist - (stopDist + 0.3f));
         return Mathf.Sqrt(2f * braking * free) * 0.9f;
     }
@@ -284,17 +366,16 @@ public class CarAI : MonoBehaviour
         foreach (var b in All)
         {
             if (b == this || b.approachNode != approachNode) continue;
-            if (b.prevNode < 0 || b.prevNode == prevNode) continue;   // même file : géré par la détection devant
+            if (b.prevNode < 0 || b.prevNode == prevNode) continue;
 
             if (!b.committed && Dist(b.transform.position, nPos) > stopDist + awareness) continue;
 
-            Vector3 side = Dir(nPos, graph.NodePos(b.prevNode));      // d'où vient b
+            Vector3 side = Dir(nPos, graph.NodePos(b.prevNode));
             bool bRight = Vector3.Dot(side, right) > 0.7f;
             bool bOncoming = Vector3.Dot(side, head) > 0.7f;
 
             if (b.committed)
             {
-                // Déjà engagée dans le carrefour : on attend si les trajectoires se croisent
                 if (turn == TurnRight)
                 {
                     if (bOncoming && b.turn == TurnLeft) return true;
@@ -307,19 +388,32 @@ public class CarAI : MonoBehaviour
             }
             else if (bRight)
             {
-                // Priorité à droite, sauf si on est bloqués en cercle (la voiture de droite attend aussi)
                 bool deadlock = waitTime > personalPatience && b.currentSpeed < 0.2f;
                 if (!deadlock) return true;
             }
             else if (bOncoming && turn == TurnLeft && b.turn != TurnLeft)
             {
-                return true;   // tourne à gauche : cède à la voiture en face
+                return true;
             }
         }
         return false;
     }
 
-    // ---------- Debug : trajet de la voiture sélectionnée ----------
+    // ---------- 4. Éléments de voirie posés par le joueur ----------
+    float ElementsLimit(float dt)
+    {
+        if (approachNode < 0 || prevNode < 0) return float.MaxValue;
+        var list = RoadElement.At(approachNode);
+        float limit = float.MaxValue;
+        for (int i = 0; i < list.Count; i++)
+        {
+            var e = list[i];
+            if (!e.Applies(this)) continue;
+            limit = Mathf.Min(limit, e.Limit(this, dt));
+        }
+        return limit;
+    }
+
     void OnDrawGizmosSelected()
     {
         if (waypoints == null) return;

@@ -733,6 +733,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1 &26091281 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 05aec82adc02f16409639716322b1673, type: 3}
@@ -771,6 +775,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &26586911 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 800befcc62026a34693972077c91698d, type: 3}
@@ -1513,6 +1521,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &60992485 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 2d5fb229ae2945742b900a405a5e7a0b, type: 3}
@@ -1561,6 +1573,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &62855276
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2185,6 +2201,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &81843763 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 62125825e49febf4a89f76daf85d9ca7, type: 3}
@@ -2439,6 +2459,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &98095417
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3508,6 +3532,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &140692387 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: d59a4f6080634af41a616bc51af1d2d9, type: 3}
@@ -4067,6 +4095,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &166189126 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: b82e76f4092b7d24aaeecddf36fe8d3b, type: 3}
@@ -4407,6 +4439,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1 &170035831
 GameObject:
   m_ObjectHideFlags: 0
@@ -5524,6 +5560,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &220000130 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: d4cfcf659200d7548b90a5580c3ab18f, type: 3}
@@ -5619,6 +5659,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &223599410
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5815,6 +5859,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &231863677
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5912,6 +5960,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &234155967 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 35807f23e7899e541b60b2fb2bbb51ef, type: 3}
@@ -6245,6 +6297,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &252063148
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6957,6 +7013,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &268394419
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7535,6 +7595,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1 &290774556 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 0ee37198b24b2164fbbccfbe92fe5d35, type: 3}
@@ -8804,6 +8868,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &357022411
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9253,6 +9321,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &374450186
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9340,6 +9412,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &374595760
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9716,6 +9792,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &386284938 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: acf38ccf2258add4ba3aa2d89b708d2a, type: 3}
@@ -9819,6 +9899,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &395696822 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 800befcc62026a34693972077c91698d, type: 3}
@@ -9920,6 +10004,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &400011731
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10073,6 +10161,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &404767992
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10267,6 +10359,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &408584847
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11246,6 +11342,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &436785198
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11395,6 +11495,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &443649795 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 5dd9f8de2583df543859013bcdc56639, type: 3}
@@ -11492,6 +11596,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &448807981 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: bc532b78ce09f234ea01da2deecfe035, type: 3}
@@ -11982,6 +12090,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &462173746 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 2509cc5763ca17f4598bf61fd585a93e, type: 3}
@@ -12280,6 +12392,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &478025403
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12424,6 +12540,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &481644822
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12568,6 +12688,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &483106132 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: b8ee657c6800ab849bb30b4375d02323, type: 3}
@@ -12887,6 +13011,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &498450375 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: b8ee657c6800ab849bb30b4375d02323, type: 3}
@@ -12989,6 +13117,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &505921948 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 2509cc5763ca17f4598bf61fd585a93e, type: 3}
@@ -14093,6 +14225,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &544341953
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14870,6 +15006,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &570600997
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15127,6 +15267,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &587333858
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15595,6 +15739,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &600833739
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15893,6 +16041,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &616007475
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16431,6 +16583,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &629261778 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 0ee6d569ec3227e40888e8151b331e0f, type: 3}
@@ -16686,6 +16842,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &638164881
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16786,6 +16946,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1 &640614221 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 4f32dfddb033d3e40b5841bc53cc1689, type: 3}
@@ -16870,6 +17034,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &649072239 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: d4cfcf659200d7548b90a5580c3ab18f, type: 3}
@@ -18115,6 +18283,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &688909786 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 2509cc5763ca17f4598bf61fd585a93e, type: 3}
@@ -18801,6 +18973,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &710086341
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19444,6 +19620,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &732726855 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 62125825e49febf4a89f76daf85d9ca7, type: 3}
@@ -20372,9 +20552,9 @@ RectTransform:
   - {fileID: 1343063386}
   m_Father: {fileID: 170035832}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 91, y: -51}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &772448054
@@ -20655,6 +20835,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &782327803
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21060,6 +21244,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &803100712 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: b82e76f4092b7d24aaeecddf36fe8d3b, type: 3}
@@ -21218,6 +21406,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1 &806242318 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 81c050d9e127fdd45af1f6b8da476b2b, type: 3}
@@ -21256,6 +21448,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &809335691 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: e1d9101af5d96d94ca99efe2de0bac21, type: 3}
@@ -23816,6 +24012,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &909676421 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: e0e851c58997b9c438fae494e3412749, type: 3}
@@ -23957,6 +24157,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &918610765 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: b8ee657c6800ab849bb30b4375d02323, type: 3}
@@ -24587,6 +24791,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1 &955159109
 GameObject:
   m_ObjectHideFlags: 0
@@ -24789,6 +24997,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &961908949
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24880,6 +25092,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &962593725
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25066,6 +25282,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &964187231
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25915,6 +26135,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1 &1001338575 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 0ee37198b24b2164fbbccfbe92fe5d35, type: 3}
@@ -26546,6 +26770,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &1023811890 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 31bbda51eeab02f44a8e92a7da2f5ff8, type: 3}
@@ -26973,6 +27201,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &1050645644 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: dac1a631b172e66469fb09e9987bcf57, type: 3}
@@ -27065,6 +27297,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1 &1051483643 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 4f32dfddb033d3e40b5841bc53cc1689, type: 3}
@@ -27294,6 +27530,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &1059626024
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27754,6 +27994,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &1081125528
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28750,6 +28994,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &1120767438 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 2509cc5763ca17f4598bf61fd585a93e, type: 3}
@@ -28798,6 +29046,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &1124295437 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 2509cc5763ca17f4598bf61fd585a93e, type: 3}
@@ -29726,6 +29978,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &1147358837 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: b82e76f4092b7d24aaeecddf36fe8d3b, type: 3}
@@ -31091,6 +31347,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &1193979727
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31404,6 +31664,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &1202760737 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400002, guid: 0b6fafa63b69b174584365f2641586a4, type: 3}
@@ -31813,6 +32077,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &1224227557
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32252,6 +32520,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &1240086102
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32986,6 +33258,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &1262683682
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33126,6 +33402,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &1264094854
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33369,6 +33649,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &1266910252 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 8b3eca4c34b9e1148a3c4d42a48dd5b8, type: 3}
@@ -34571,6 +34855,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &1313003900
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35017,6 +35305,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &1330165835
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35238,6 +35530,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &1340158117 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: d4cfcf659200d7548b90a5580c3ab18f, type: 3}
@@ -35914,7 +36210,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1361925198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36103,6 +36399,57 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 800befcc62026a34693972077c91698d, type: 3}
+--- !u!1 &1366864991
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1366864993}
+  - component: {fileID: 1366864992}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1366864992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1366864991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae4ff654d3f67c04b8627951188b529e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  carPrefab: {fileID: 100000, guid: 81835658bbd378143a0f525b8552f557, type: 3}
+  spawnHeight: 0.5
+  carCount: 12
+  seed: 1
+  duration: 60
+  startMoney: 1000
+  accidentDistance: 2.2
+--- !u!4 &1366864993
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1366864991}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 91.66664, y: -0, z: 104.10497}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1367837304
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37140,6 +37487,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &1399221550 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 2d5fb229ae2945742b900a405a5e7a0b, type: 3}
@@ -37586,6 +37937,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &1407733381 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: b8ee657c6800ab849bb30b4375d02323, type: 3}
@@ -37745,6 +38100,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &1410550460
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38335,6 +38694,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &1423886437 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 31bbda51eeab02f44a8e92a7da2f5ff8, type: 3}
@@ -38435,6 +38798,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &1425596690 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: dac1a631b172e66469fb09e9987bcf57, type: 3}
@@ -38527,6 +38894,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &1428125927
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39031,6 +39402,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &1444590089
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39953,6 +40328,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &1472262259
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41501,6 +41880,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &1527498726
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -43389,6 +43772,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &1610975803 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 31bbda51eeab02f44a8e92a7da2f5ff8, type: 3}
@@ -43669,6 +44056,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &1624662901
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45015,6 +45406,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &1668161445
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45107,6 +45502,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &1672463193 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 22106dc63dce41746ad234a91af2d657, type: 3}
@@ -45487,6 +45886,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &1691231324 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: c07ada992c3586e4dbf557bc4b8718cf, type: 3}
@@ -46410,6 +46813,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &1710234338 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: e0e851c58997b9c438fae494e3412749, type: 3}
@@ -47470,6 +47877,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &1764255333 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 62125825e49febf4a89f76daf85d9ca7, type: 3}
@@ -48273,6 +48684,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &1796360198
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -49284,6 +49699,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &1829582232 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
@@ -50077,6 +50496,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &1871095039 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 66131d8838f42f545a30ce8606ce5365, type: 3}
@@ -50267,6 +50690,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &1875876427 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 8b680e0f7699a254c84ed6737b7eb53d, type: 3}
@@ -51537,6 +51964,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &1919090867 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: e0e851c58997b9c438fae494e3412749, type: 3}
@@ -51779,6 +52210,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &1925123194
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -52903,6 +53338,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &1967577798 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 35807f23e7899e541b60b2fb2bbb51ef, type: 3}
@@ -53854,6 +54293,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &2003595123
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -54041,6 +54484,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &2011980821
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -54143,6 +54590,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &2016517429 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: b8ee657c6800ab849bb30b4375d02323, type: 3}
@@ -55966,7 +56417,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2064485058
 Transform:
   m_ObjectHideFlags: 0
@@ -56265,6 +56716,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &2075768646
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -56519,6 +56974,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!4 &2084854051 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: b8ee657c6800ab849bb30b4375d02323, type: 3}
@@ -56915,6 +57374,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &2100492090
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -57204,6 +57667,10 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  isPolice: 0
+  speedBoost: 1
 --- !u!1001 &2112189761
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -57978,3 +58445,4 @@ SceneRoots:
   - {fileID: 1513663033}
   - {fileID: 511572054}
   - {fileID: 2064485058}
+  - {fileID: 1366864993}

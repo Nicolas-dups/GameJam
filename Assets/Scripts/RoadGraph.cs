@@ -2,11 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Construit le graphe routier à partir des enfants d'un objet parent.
-///  - noeud = une tuile de route
-///  - arête = deux tuiles dont les bords se touchent (et qui se font face, pas en diagonale)
-/// La détection se fait avec les dimensions réelles (bounds) des tuiles :
-/// plus de grille théorique, donc tailles différentes et petits décalages supportés.
+/// Graphe routier construit à partir des tuiles enfants d'un objet parent.
+/// Gère aussi les tuiles barrées et les sens uniques (posés par le joueur).
 /// </summary>
 public class RoadGraph : MonoBehaviour
 {
@@ -14,16 +11,18 @@ public class RoadGraph : MonoBehaviour
 
     [Tooltip("Objet parent qui contient toutes les tuiles de route en enfants directs")]
     public Transform roadsParent;
-
-    [Tooltip("Écart max (en unités) entre les bords de deux tuiles pour qu'elles soient considérées voisines")]
+    [Tooltip("Écart max entre les bords de deux tuiles pour qu'elles soient voisines")]
     public float edgeTolerance = 0.5f;
-
     [Tooltip("Taille utilisée si une tuile n'a ni Renderer ni Collider")]
     public float fallbackTileSize = 10f;
 
-    Vector3[] pos;        // centre de chaque tuile (= noeud)
-    List<int>[] adj;      // voisins de chaque noeud
-    float[] half;         // demi-taille de chaque tuile (pour placer les lignes d'arrêt)
+    Vector3[] pos;
+    List<int>[] adj;
+    float[] half;
+
+    // Règles dynamiques
+    readonly HashSet<int> blocked = new HashSet<int>();
+    readonly Dictionary<int, Vector3> oneWays = new Dictionary<int, Vector3>();
 
     public int NodeCount => pos == null ? 0 : pos.Length;
 
@@ -35,6 +34,9 @@ public class RoadGraph : MonoBehaviour
 
     void Build()
     {
+        blocked.Clear();
+        oneWays.Clear();
+
         int n = roadsParent.childCount;
         if (n == 0)
         {
@@ -45,7 +47,7 @@ public class RoadGraph : MonoBehaviour
         pos = new Vector3[n];
         adj = new List<int>[n];
         half = new float[n];
-        var rects = new Rect[n];   // emprise de chaque tuile sur le plan XZ (x = X, y = Z)
+        var rects = new Rect[n];
 
         for (int i = 0; i < n; i++)
         {
@@ -58,7 +60,6 @@ public class RoadGraph : MonoBehaviour
 
         int edges = 0;
         for (int i = 0; i < n; i++)
-        {
             for (int j = i + 1; j < n; j++)
             {
                 if (!AreNeighbors(rects[i], rects[j])) continue;
@@ -66,7 +67,6 @@ public class RoadGraph : MonoBehaviour
                 adj[j].Add(i);
                 edges++;
             }
-        }
 
         Debug.Log($"RoadGraph : {n} tuiles, {edges} liaisons");
     }
@@ -88,25 +88,19 @@ public class RoadGraph : MonoBehaviour
                 b = colliders[0].bounds;
                 for (int k = 1; k < colliders.Length; k++) b.Encapsulate(colliders[k].bounds);
             }
-            else
-            {
-                b = new Bounds(t.position, new Vector3(fallbackTileSize, 0f, fallbackTileSize));
-            }
+            else b = new Bounds(t.position, new Vector3(fallbackTileSize, 0f, fallbackTileSize));
         }
         return Rect.MinMaxRect(b.min.x, b.min.z, b.max.x, b.max.z);
     }
 
     bool AreNeighbors(Rect a, Rect b)
     {
-        // Recouvrement sur chaque axe : > 0 = ils se chevauchent, ~0 = les bords se touchent, < 0 = écart
         float ox = Mathf.Min(a.xMax, b.xMax) - Mathf.Max(a.xMin, b.xMin);
         float oz = Mathf.Min(a.yMax, b.yMax) - Mathf.Max(a.yMin, b.yMin);
         float minW = Mathf.Min(a.width, b.width);
         float minH = Mathf.Min(a.height, b.height);
 
-        // Voisins en Z : bords en Z qui se touchent + bonne partie du côté en commun en X
         bool alongZ = Mathf.Abs(oz) <= edgeTolerance && ox > 0.5f * minW;
-        // Voisins en X : bords en X qui se touchent + bonne partie du côté en commun en Z
         bool alongX = Mathf.Abs(ox) <= edgeTolerance && oz > 0.5f * minH;
         return alongZ || alongX;
     }
@@ -114,13 +108,11 @@ public class RoadGraph : MonoBehaviour
     // ---------- Accès aux noeuds ----------
     public Vector3 NodePos(int node) => pos[node];
     public int RandomNode() => Random.Range(0, pos.Length);
+    public int RandomNode(System.Random r) => r.Next(pos.Length);
     public IReadOnlyList<int> Neighbors(int node) => adj[node];
     public float NodeHalfSize(int node) => half[node];
-
-    /// <summary>Carrefour = tuile avec au moins 3 voisins.</summary>
     public bool IsIntersection(int node) => adj[node].Count >= 3;
 
-    /// <summary>Tuile la plus proche d'une position monde (plan XZ).</summary>
     public int WorldToNode(Vector3 p)
     {
         int best = 0;
@@ -134,7 +126,28 @@ public class RoadGraph : MonoBehaviour
         return best;
     }
 
-    /// <summary>Plus court chemin (BFS). Liste de noeuds start→goal incluses, ou null.</summary>
+    // ---------- Règles dynamiques ----------
+    public void SetBlocked(int node, bool on) { if (on) blocked.Add(node); else blocked.Remove(node); }
+    public bool IsBlocked(int node) => blocked.Contains(node);
+
+    public void SetOneWay(int node, Vector3 dir, bool on)
+    {
+        if (on) oneWays[node] = dir.normalized; else oneWays.Remove(node);
+    }
+
+    /// <summary>Peut-on aller de a vers b (voisins) ? Tient compte des barrages et sens uniques.</summary>
+    public bool CanTravel(int a, int b)
+    {
+        if (blocked.Contains(b)) return false;
+        Vector3 d = pos[b] - pos[a];
+        d.y = 0f;
+        d.Normalize();
+        if (oneWays.TryGetValue(a, out var fa) && Vector3.Dot(d, fa) < -0.5f) return false;
+        if (oneWays.TryGetValue(b, out var fb) && Vector3.Dot(d, fb) < -0.5f) return false;
+        return true;
+    }
+
+    /// <summary>Plus court chemin (BFS) en respectant les règles. Null si impossible.</summary>
     public List<int> FindPath(int start, int goal)
     {
         var cameFrom = new int[pos.Length];
@@ -150,7 +163,7 @@ public class RoadGraph : MonoBehaviour
             if (cur == goal) break;
             foreach (int nb in adj[cur])
             {
-                if (cameFrom[nb] != -1) continue;
+                if (cameFrom[nb] != -1 || !CanTravel(cur, nb)) continue;
                 cameFrom[nb] = cur;
                 queue.Enqueue(nb);
             }
@@ -165,15 +178,14 @@ public class RoadGraph : MonoBehaviour
         return path;
     }
 
-    // ---------- Debug : graphe visible dans la vue Scene en mode Play ----------
     void OnDrawGizmos()
     {
         if (!Application.isPlaying || pos == null) return;
         Vector3 up = Vector3.up * 0.5f;
         for (int i = 0; i < pos.Length; i++)
         {
-            // rouge = tuile isolée (aucun voisin) → probablement un problème
             Gizmos.color = adj[i].Count == 0 ? Color.red : Color.cyan;
+            if (blocked.Contains(i)) Gizmos.color = Color.magenta;
             Gizmos.DrawSphere(pos[i] + up, 0.4f);
             Gizmos.color = Color.cyan;
             foreach (int nb in adj[i])
