@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4262906046735069069}
   - component: {fileID: -5795856146913684455}
+  - component: {fileID: -382911615144823588}
   m_Layer: 0
-  m_Name: RoadSigns-2 (1)
+  m_Name: SpeedLimitSign
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,6 +53,20 @@ MonoBehaviour:
   scale: 1
   bobAmplitude: 0.5
   bobSpeed: 3
+--- !u!114 &-382911615144823588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 591289231335070861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 506d3ae4aa173694b91c1df198cde0a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpeedLimitSign
+  placement: 0
+  limit: 3.5
 --- !u!1 &2299281669859610363
 GameObject:
   m_ObjectHideFlags: 0
