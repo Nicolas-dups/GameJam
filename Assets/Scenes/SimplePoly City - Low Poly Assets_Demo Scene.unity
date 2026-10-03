@@ -6393,10 +6393,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4754fd9ca17f8d469a8225960277b3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sounds
-  crash: {fileID: 8300000, guid: 75ecaa380aebb33419f7f6fbdfa03f24, type: 3}
+  crash: {fileID: 8300000, guid: fb4d630a488786a4b9a94003cdca2ac4, type: 3}
   build: {fileID: 8300000, guid: 3e93988840da0b34a9435c35a2bb2df5, type: 3}
   clickUI: {fileID: 8300000, guid: c5064332491a05c4e93fd9e067af86a5, type: 3}
-  music: {fileID: 0}
+  music: {fileID: 8300000, guid: 6fb2ac9c5bdd9174d82cfa2271afa78d, type: 3}
+  musicVolume: 0.1
+  sfxVolume: 1
 --- !u!4 &210354618
 Transform:
   m_ObjectHideFlags: 0
