@@ -137,8 +137,8 @@ MonoBehaviour:
   maxReverseDistance: 4
   reverseTriggerGap: 1.5
   crosswalkSpeed: 3
-  collisionRadius: 1.1
-  halfLength: 3
+  collisionRadius: 1.3
+  halfLength: 4
   halfWidth: 1.3
   bodyRenderers: []
   speedBoost: 1

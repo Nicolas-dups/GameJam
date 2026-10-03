@@ -124,7 +124,7 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
-  pedestrianYieldChance: 0.02
+  pedestrianYieldChance: 0.506
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
   markedLookAheadFactor: 1.4

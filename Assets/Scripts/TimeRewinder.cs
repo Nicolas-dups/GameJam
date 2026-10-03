@@ -102,18 +102,19 @@ public class TimeRewinder
             t += Time.unscaledDeltaTime;
             float u = Mathf.Clamp01(t / duration);                // progression linéaire (caméra)
             float eased = u * u * (3f - 2f * u);                  // démarre / finit en douceur (voitures, piétons)
-            Apply((1f - eased) * (count - 1), u, startPos, startRot);
+            float blend = Mathf.SmoothStep(0f, 1f, t / 0.4f);
+            Apply((1f - eased) * (count - 1), u, blend, startPos, startRot);
             yield return null;
         }
 
-        Apply(0f, 1f, startPos, startRot);                        // état exact du départ
+        Apply(0f, 1f, 1f, startPos, startRot);                      // état exact du départ
 
         foreach (var track in tracks)
             foreach (var a in track.animators)
                 if (a != null) a.speed = 0f;                      // fige les animations
     }
 
-    void Apply(float f, float u, Vector3[] startPos, Quaternion[] startRot)
+    void Apply(float f, float u, float blend, Vector3[] startPos, Quaternion[] startRot)
     {
         int i0 = Mathf.Clamp(Mathf.FloorToInt(f), 0, count - 1);
         int i1 = Mathf.Min(i0 + 1, count - 1);
@@ -133,9 +134,14 @@ public class TimeRewinder
                 continue;
             }
 
-            track.tr.SetPositionAndRotation(
-                Vector3.Lerp(track.samples[i0].pos, track.samples[i1].pos, a),
-                Quaternion.Slerp(track.samples[i0].rot, track.samples[i1].rot, a));
+            Vector3 p = Vector3.Lerp(track.samples[i0].pos, track.samples[i1].pos, a);
+            Quaternion r = Quaternion.Slerp(track.samples[i0].rot, track.samples[i1].rot, a);
+            if (blend < 1f)
+            {
+                p = Vector3.Lerp(startPos[k], p, blend);
+                r = Quaternion.Slerp(startRot[k], r, blend);
+            }
+            track.tr.SetPositionAndRotation(p, r);
         }
     }
 }

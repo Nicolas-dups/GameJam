@@ -122,7 +122,7 @@ MonoBehaviour:
   obeyChance: 0.85
   recklessChance: 0.015
   speedingChance: 0
-  speedingMultiplier: 1.5
+  speedingMultiplier: 1.2
   isPolice: 0
   pedestrianYieldChance: 0.02
   markedCrossingYieldChance: 0.95

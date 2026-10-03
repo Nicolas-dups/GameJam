@@ -127,6 +127,16 @@ public class GameManager : MonoBehaviour
     public float accidentZoomDistance = 12f;
     [Tooltip("Durée (s, temps réel) pendant laquelle les inputs caméra sont bloqués ; le panneau 'Accident' apparaît ensuite")]
     public float accidentLockDuration = 3f;
+    [Header("Piéton renversé")]
+    public bool launchPedestrian = true;
+    [Tooltip("Vitesse horizontale de base de la projection (m/s)")]
+    public float launchHorizontalSpeed = 3f;
+    [Tooltip("Vitesse horizontale ajoutée par m/s de vitesse de la voiture")]
+    public float launchSpeedFactor = 0.8f;
+    [Tooltip("Vitesse verticale initiale (m/s) : 7 donne environ 1,4 s de vol")]
+    public float launchUpSpeed = 7f;
+    [Tooltip("Vitesse de la culbute (°/s)")]
+    public float launchSpin = 540f;
 
 
     [Header("Rembobinage après accident")]
@@ -270,6 +280,7 @@ public class GameManager : MonoBehaviour
     readonly Dictionary<RoadElement, PlacementSpot> placedSpot = new Dictionary<RoadElement, PlacementSpot>();
     float lastPlaceTime = -10f;
     static readonly float[] speeds = { 1f, 2f, 4f };
+    PedestrianLaunch launched;
 
     void Awake()
     {
@@ -717,6 +728,7 @@ public class GameManager : MonoBehaviour
         if (crashRoutine != null) { StopCoroutine(crashRoutine); crashRoutine = null; }
         if (rewindIndicator != null) rewindIndicator.SetActive(false);
         crashSequenceDone = false;
+        launched = null;
 
         foreach (var go in spawned) if (go != null) { go.SetActive(false); Destroy(go); }
         spawned.Clear();
@@ -735,7 +747,7 @@ public class GameManager : MonoBehaviour
         if (CameraController.Instance != null) CameraController.Instance.UnlockInput();
     }
 
-    void Crash(Vector3 where, string reason)
+    void Crash(Vector3 where, string reason, Pedestrian victim = null, CarAI culprit = null)
     {
         if (CurrentPhase != Phase.Running) return;
         CurrentPhase = Phase.Crashed;
@@ -748,6 +760,7 @@ public class GameManager : MonoBehaviour
         if (rewindAfterCrash) rewinder.Record();
         if (Sounds.Instance != null) Sounds.Instance.play_sound("crash");
         SpawnAccident(where);
+        if (victim != null && launchPedestrian) LaunchVictim(victim, culprit);
 
         var camCtrl = CameraController.Instance;
         if (camCtrl != null)
@@ -774,6 +787,8 @@ public class GameManager : MonoBehaviour
             float dur = Mathf.Clamp(rewinder.RecordedSeconds / rewindSpeed, rewindMinDuration, rewindMaxDuration);
             var cam = CameraController.Instance;
             if (cam != null) { cam.CancelFocus(); cam.LockInput(dur + 1f); }
+
+            if (launched != null) { Destroy(launched); launched = null; }
 
             yield return rewinder.Play(dur, rewindAnimatorSpeed);
 
@@ -854,10 +869,29 @@ public class GameManager : MonoBehaviour
                 Vector3 l = car.transform.InverseTransformPoint(ped.transform.position);
                 if (Mathf.Abs(l.z) < car.halfLength && Mathf.Abs(l.x) < car.halfWidth)
                 {
-                    Crash(ped.transform.position, "Piéton renversé");
+                    Crash(ped.transform.position, "Piéton renversé", ped, car);
                     return;
                 }
             }
+    }
+
+    void LaunchVictim(Pedestrian victim, CarAI car)
+    {
+        Vector3 dir = car != null ? car.transform.forward : victim.transform.forward;
+        float carSpeed = car != null ? car.Speed : 0f;
+
+        // voiture quasi arrêtée : le piéton est écarté du véhicule plutôt que poussé dans son axe
+        if (car != null && carSpeed < 0.5f)
+        {
+            Vector3 away = victim.transform.position - car.transform.position;
+            away.y = 0f;
+            if (away.sqrMagnitude > 0.01f) dir = away;
+        }
+        dir.y = 0f;
+        dir.Normalize();
+
+        launched = victim.gameObject.AddComponent<PedestrianLaunch>();
+        launched.Begin(dir, launchHorizontalSpeed + carSpeed * launchSpeedFactor, launchUpSpeed, launchSpin);
     }
 
     // =================================================================

@@ -948,10 +948,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -1001,10 +1009,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -1870,10 +1886,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -1933,10 +1957,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -2704,10 +2736,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -3100,10 +3140,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -4435,10 +4483,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -5285,10 +5341,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -5640,10 +5704,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -6831,10 +6903,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -7078,10 +7158,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -7289,10 +7377,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -7401,10 +7497,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -7754,10 +7858,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -8675,10 +8787,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -9325,10 +9445,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -10880,10 +11008,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -11344,10 +11480,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -11446,10 +11590,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -11969,10 +12121,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -12092,10 +12252,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -12208,10 +12376,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -12376,10 +12552,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -12585,10 +12769,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -13881,10 +14073,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -14045,10 +14245,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -14157,10 +14365,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -14799,10 +15015,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -15262,10 +15486,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -15421,10 +15653,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -15580,10 +15820,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -16384,10 +16632,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -16501,10 +16757,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -17740,10 +18004,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -18541,10 +18813,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -19040,10 +19320,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -19674,10 +19962,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -20125,10 +20421,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -20683,10 +20987,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -21043,10 +21355,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -21158,10 +21478,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -21257,10 +21585,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -22589,10 +22925,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -23290,10 +23634,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -23948,10 +24300,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -25376,10 +25736,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -25871,10 +26239,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -26044,10 +26420,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -26097,10 +26481,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -29046,10 +29438,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -29202,10 +29602,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -30225,10 +30633,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -30514,10 +30930,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -30620,10 +31044,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -30821,10 +31253,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -31761,10 +32201,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -32629,10 +33077,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -33151,10 +33607,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -33258,10 +33722,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -33502,10 +33974,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -34052,10 +34532,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -35142,10 +35630,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -35205,10 +35701,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -36436,10 +36940,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -38043,10 +38555,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -38461,10 +38981,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -38885,10 +39413,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -39455,10 +39991,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -40331,10 +40875,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -40486,10 +41038,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -40834,10 +41394,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -42355,10 +42923,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -42922,10 +43498,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -43158,10 +43742,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -44195,6 +44787,11 @@ MonoBehaviour:
   accidentPrefab: {fileID: 0}
   accidentZoomDistance: 12
   accidentLockDuration: 3
+  launchPedestrian: 1
+  launchHorizontalSpeed: 4
+  launchSpeedFactor: 0.8
+  launchUpSpeed: 7
+  launchSpin: 540
   rewindAfterCrash: 1
   rewindSpeed: 5
   rewindMinDuration: 1.5
@@ -45484,10 +46081,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -46017,10 +46622,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -46195,10 +46808,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -46800,10 +47421,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -46919,10 +47548,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -47026,10 +47663,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -47545,10 +48190,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -48487,10 +49140,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -49977,10 +50638,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -52371,10 +53040,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -52666,10 +53343,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -54031,10 +54716,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -54138,10 +54831,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -54711,10 +55412,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -55650,10 +56359,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -57175,10 +57892,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -58374,10 +59099,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -59525,10 +60258,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -60343,10 +61084,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -60548,10 +61297,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -61973,10 +62730,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -62230,10 +62995,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -63444,10 +64217,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -64415,10 +65196,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -64617,10 +65406,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -64774,10 +65571,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -66989,10 +67794,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -67379,10 +68192,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -67790,10 +68611,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
@@ -68173,10 +69002,18 @@ MonoBehaviour:
   speedingMultiplier: 1.5
   isPolice: 0
   pedestrianYieldChance: 0.7
+  markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2
-  pedestrianRoadHalfWidth: 7
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
   pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
