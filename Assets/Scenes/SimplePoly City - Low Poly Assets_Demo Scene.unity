@@ -42045,18 +42045,39 @@ MonoBehaviour:
   - prefab: {fileID: 2118404135264616290, guid: 095d0d7cc0c77704b9c6b439d3826869, type: 3}
     cost: 10
     maxPerTile: 1
+    prefabX: {fileID: 0}
+    prefabT: {fileID: 0}
+    prefabL: {fileID: 0}
   - prefab: {fileID: 5954924780699318257, guid: dc8bc5fb65821344f912c3efa8f88ef7, type: 3}
     cost: 10
     maxPerTile: 1
+    prefabX: {fileID: 0}
+    prefabT: {fileID: 0}
+    prefabL: {fileID: 0}
   - prefab: {fileID: 6251666189375065463, guid: d4f40363aa44ea649ac792f348b8c36a, type: 3}
     cost: 10
     maxPerTile: 1
+    prefabX: {fileID: 0}
+    prefabT: {fileID: 0}
+    prefabL: {fileID: 0}
   - prefab: {fileID: 7425396678179953324, guid: 58eae8cee1df4bc4d9a6d995c883c259, type: 3}
     cost: 10
     maxPerTile: 1
+    prefabX: {fileID: 0}
+    prefabT: {fileID: 0}
+    prefabL: {fileID: 0}
   - prefab: {fileID: 4721099002046040616, guid: aa3aa302614b5ef43b6363676a43bee0, type: 3}
     cost: 10
     maxPerTile: 1
+    prefabX: {fileID: 0}
+    prefabT: {fileID: 0}
+    prefabL: {fileID: 0}
+  - prefab: {fileID: 100000, guid: 7ffbf37f7d10e7746a39913c3560a423, type: 3}
+    cost: 10
+    maxPerTile: 1
+    prefabX: {fileID: 100000, guid: 47ef019eb3bddab469e56e5a31eebf68, type: 3}
+    prefabT: {fileID: 100000, guid: cbc86bb57f673ba45a8426789eb0fac0, type: 3}
+    prefabL: {fileID: 100000, guid: 3a7e1c0a00828fd4196c8cd24886d2ed, type: 3}
   spotSize: 2
   spotSpacing: 4
   spotSideOffset: 8
@@ -42071,6 +42092,7 @@ MonoBehaviour:
   longArmFactor: 0.6
   shortSize: 2
   shortYaw: 0
+  wholeTileYaw: 0
   spotMaterial: {fileID: 2100000, guid: 40c5268745fbf7446920fee673417083, type: 2}
   spotHoverMaterial: {fileID: 2100000, guid: 8f9ba12f36c5d6b45b4b70bd64ccaa3c, type: 2}
   ghostMaterial: {fileID: 2100000, guid: 22e305bb5fcd59149a95dcbc266937e6, type: 2}
@@ -49532,7 +49554,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1590276866}
   m_Layer: 0
-  m_Name: TrafficLight
+  m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
