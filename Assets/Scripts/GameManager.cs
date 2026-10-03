@@ -12,7 +12,7 @@ using UnityEngine.UI;
 public class PlacementSpot : MonoBehaviour
 {
     public int node;
-    public PlacementKind kind;  // Edge / CenterLong / CenterShort
+    public PlacementKind kind;  // Edge / CenterLong / CenterShort / WholeTile
     public Vector3 anchor;      // point au sol où sera posé le prefab
     public float yaw;           // rotation Y ajoutée à l'orientation du prefab (visuel seulement)
     public Vector3 travelDir;   // sens de circulation de référence pour l'orientation du prefab
@@ -20,9 +20,10 @@ public class PlacementSpot : MonoBehaviour
     public RoadElement occupant; // élément actuellement posé ici (null = libre)
     public TileShape shape;      // forme de la tuile (utile pour les emplacements WholeTile)
     public Quaternion tileRotation = Quaternion.identity; // rotation de la tuile d'origine (WholeTile)
+    public Transform tile;       // RoadTile d'origine à désactiver quand l'élément la remplace (WholeTile)
 }
 
-/// <summary>Forme d'une tuile non droite (pour choisir le bon prefab de tuile entière).</summary>
+/// <summary>Forme d'une tuile (pour choisir le bon prefab de tuile entière). None = tuile droite.</summary>
 public enum TileShape { None, L, T, X }
 
 /// <summary>
@@ -81,6 +82,11 @@ public class GameManager : MonoBehaviour
     public int carCount = 12;
     public int seed = 1;
 
+    [Header("Piétons")]
+    [Tooltip("Optionnel : prefab de piéton (sinon une capsule est générée). Le script Pedestrian est ajouté si absent.")]
+    public GameObject pedestrianPrefab;
+    public int pedestrianCount = 10;
+
     [Header("Outils (un prefab par élément de voirie)")]
     [Tooltip("Même ordre que le tableau 'toolButtons' de l'UI")]
     public ToolDef[] tools;
@@ -124,6 +130,8 @@ public class GameManager : MonoBehaviour
     [Header("Tuile entière (PlacementKind.WholeTile : passage piéton)")]
     [Tooltip("Rotation Y ajoutée à la rotation de la tuile remplacée (°), si le prefab de remplacement n'a pas la même orientation de base que vos tuiles")]
     public float wholeTileYaw = 0f;
+    [Tooltip("Coché : l'emplacement 'tuile entière' existe aussi sur les tuiles droites (passage piéton classique)")]
+    public bool wholeTileOnStraight = true;
 
     [Header("Matériaux des emplacements")]
     [Tooltip("Optionnel (sinon un matériau transparent est généré)")]
@@ -270,20 +278,24 @@ public class GameManager : MonoBehaviour
             // ---- Emplacements au centre (rectangles longs + petit cube) ----
             AddCenterSpots(node, c, dirs, straight, half);
 
-            // ---- Tuile entière (passage piéton) : seulement X, T et angles L ----
-            if (!straight) AddWholeTileSpot(node, dirs, half);
+            // ---- Tuile entière (passage piéton) : X, T, angles L, et tuiles droites si activé ----
+            if (!straight || wholeTileOnStraight) AddWholeTileSpot(node, dirs, half, straight);
         }
     }
 
-    /// <summary>Un emplacement recouvrant toute la tuile (X, T ou L). Il sert à REMPLACER la tuile par un prefab de tuile.</summary>
-    void AddWholeTileSpot(int node, List<Vector3> dirs, float half)
+    /// <summary>Un emplacement recouvrant toute la tuile. Il sert à REMPLACER la tuile par un prefab de tuile.</summary>
+    void AddWholeTileSpot(int node, List<Vector3> dirs, float half, bool straight)
     {
-        var tile = RoadGraph.Instance.NodeTile(node);
-        Vector3 center = tile != null ? tile.position : RoadGraph.Instance.NodePos(node);
+        var graph = RoadGraph.Instance;
+        Transform tile = graph.NodeTile(node);
+        Vector3 center = tile != null ? tile.position : graph.NodePos(node);
 
         var spot = CreateSpot(node, PlacementKind.WholeTile, center, dirs[0], wholeTileYaw, half * 2f);
-        spot.shape = dirs.Count >= 4 ? TileShape.X : dirs.Count == 3 ? TileShape.T : TileShape.L;
-        spot.tileRotation = tile != null ? tile.rotation : Quaternion.identity;
+        spot.shape = straight ? TileShape.None
+                   : dirs.Count >= 4 ? TileShape.X
+                   : dirs.Count == 3 ? TileShape.T : TileShape.L;
+        spot.tile = tile != null ? tile : graph.FindTileAt(center);   // la RoadTile de CE noeud (pas de recherche géométrique)
+        spot.tileRotation = spot.tile != null ? spot.tile.rotation : Quaternion.identity;
     }
 
     /// <summary>Rangée de cubes le long d'un bras, sur les côtés donnés.</summary>
@@ -438,6 +450,9 @@ public class GameManager : MonoBehaviour
         if (spot.occupant != null) return false;                                // emplacement déjà pris
         if (spot.kind != tool.element.placement) return false;                  // mauvais type d'emplacement
 
+        // tuile entière : si la RoadTile d'origine est déjà masquée, un élément la remplace
+        if (spot.kind == PlacementKind.WholeTile && spot.tile != null && !spot.tile.gameObject.activeSelf) return false;
+
         int node = spot.node;
         if (tool.element.placement == PlacementKind.Edge && cornerCount.TryGetValue(node, out int corners) && corners > 0)
         {
@@ -479,6 +494,11 @@ public class GameManager : MonoBehaviour
             made++;
         }
         foreach (var e in new List<RoadElement>(RoadElement.All)) e.OnRunStart(rng.Next());
+
+        // Piétons (graine séparée pour ne pas modifier le scénario des voitures)
+        var pedRng = new System.Random(seed + 12345);
+        for (int i = 0; i < pedestrianCount; i++)
+            SpawnPedestrian(pedRng.Next(graph.NodeCount), pedRng.Next());
 
         elapsed = 0f;
         CurrentPhase = Phase.Running;
@@ -533,6 +553,29 @@ public class GameManager : MonoBehaviour
         car.Begin(carSeed);
         spawned.Add(go);
         return car;
+    }
+
+    /// <summary>Fait apparaître un piéton concret qui se déplace dans le graphe routier.</summary>
+    public Pedestrian SpawnPedestrian(int node, int pedSeed)
+    {
+        GameObject go;
+        float heightOffset = 0f;
+        if (pedestrianPrefab != null) go = Instantiate(pedestrianPrefab);
+        else
+        {
+            go = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+            Destroy(go.GetComponent<Collider>());
+            go.transform.localScale = Vector3.one * 0.5f;
+            go.GetComponent<Renderer>().material.color = new Color(0.9f, 0.5f, 0.2f);
+            heightOffset = 0.5f;
+        }
+        go.name = "Pedestrian_" + pedSeed;
+
+        var ped = go.GetComponent<Pedestrian>();
+        if (ped == null) ped = go.AddComponent<Pedestrian>();
+        if (pedestrianPrefab == null) ped.heightOffset = heightOffset;
+        ped.Begin(node, pedSeed);
+        return ped;
     }
 
     void Cleanup()
@@ -690,6 +733,7 @@ public class GameManager : MonoBehaviour
             var e = h.collider.GetComponentInParent<RoadElement>();
             if (e == null || !e.IsPlaced) continue;
             if (e.placement == PlacementKind.WholeTile && !wholeOk) continue;
+            if (wholeOk && e.placement != PlacementKind.WholeTile) continue;   // un panneau/feu ne doit pas "manger" le clic
             if (h.distance < dist) { dist = h.distance; best = e; }
         }
 
@@ -697,6 +741,7 @@ public class GameManager : MonoBehaviour
         {
             if (e == null || e.GetComponentInChildren<Collider>() != null) continue;   // déjà géré par les colliders
             if (e.placement == PlacementKind.WholeTile && !wholeOk) continue;
+            if (wholeOk && e.placement != PlacementKind.WholeTile) continue;
             var rends = e.GetComponentsInChildren<Renderer>();
             if (rends.Length == 0) continue;
 
@@ -763,30 +808,58 @@ public class GameManager : MonoBehaviour
     void TryPlace(PlacementSpot spot)
     {
         var tool = tools[selected];
-        if (money < tool.cost || !CanPlace(tool, spot)) return;
+        if (money < tool.cost) { Debug.Log($"Pose refusée : budget insuffisant ({money} < {tool.cost})"); return; }
+        if (!CanPlace(tool, spot)) { Debug.Log($"Pose refusée : CanPlace = false (noeud {spot.node}, {spot.kind})"); return; }
 
         bool whole = spot.kind == PlacementKind.WholeTile;
         Vector3 f = (flip && !whole) ? -spot.travelDir : spot.travelDir;
 
-        var go = Instantiate(PrefabFor(tool, spot), spot.anchor, SpotRotation(spot, f), elementsHolder);
+        GameObject prefab = PrefabFor(tool, spot);
+        var go = Instantiate(prefab, spot.anchor, SpotRotation(spot, f), elementsHolder);
         go.name = tool.Label;
+
         var element = go.GetComponent<RoadElement>();
+        if (element == null) element = go.GetComponentInChildren<RoadElement>();
         if (element == null)
         {
-            Debug.LogError($"Outil '{tool.Label}' : le prefab utilisé n'a pas de RoadElement à la racine");
+            // Variante de tuile (prefabX / prefabT / prefabL) sans script : on lui donne celui de l'outil
+            Debug.LogWarning($"Le prefab '{prefab.name}' (tuile {spot.shape}) n'a pas de RoadElement : " +
+                             $"ajout automatique de {tool.type?.Name}. Ajoutez-le sur le prefab pour régler ses paramètres.", prefab);
+            if (tool.type == null) { Destroy(go); return; }
+            element = (RoadElement)go.AddComponent(tool.type);
+        }
+        // une variante doit se comporter comme l'outil : même type d'emplacement (sinon elle est comptée comme "Edge",
+        // ne peut pas être retirée en cliquant, etc.)
+        if (element.placement != tool.element.placement)
+        {
+            Debug.LogWarning($"Le prefab '{prefab.name}' avait Placement = {element.placement} : forcé à {tool.element.placement}.", prefab);
+            element.placement = tool.element.placement;
+        }
+
+        try
+        {
+            // une tuile entière agit toujours dans toutes les directions
+            element.Place(spot.node, f, allDirections || whole);
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"Exception dans RoadElement.Place du prefab '{prefab.name}' (noeud {spot.node}) :", prefab);
+            Debug.LogException(ex, go);
             Destroy(go);
             return;
         }
 
-        // une tuile entière agit toujours dans toutes les directions
-        element.Place(spot.node, f, allDirections || whole);
         money -= tool.cost;
 
-        // la tuile d'origine est seulement masquée : le graphe routier n'est pas modifié
-        if (whole) SetTileVisible(spot.node, false);
-
-        spot.occupant = element;                // cet emplacement est pris (les autres de la tuile restent libres)
+        // l'emplacement est pris : on le masque tout de suite
+        spot.occupant = element;
         placedSpot[element] = spot;
+        spot.gameObject.SetActive(false);
+        ClearHover();
+
+        // la RoadTile d'origine est désactivée (le graphe routier, lui, n'est pas modifié)
+        if (whole) SetTileVisible(spot, false);
+
         lastPlaceTime = Time.unscaledTime;
     }
 
@@ -801,10 +874,14 @@ public class GameManager : MonoBehaviour
         return Quaternion.LookRotation(facing, Vector3.up) * Quaternion.Euler(0f, spot.yaw, 0f);
     }
 
-    void SetTileVisible(int node, bool visible)
+    /// <summary>Active / désactive la RoadTile d'origine de cet emplacement (retrouvée par sa position si besoin).</summary>
+    void SetTileVisible(PlacementSpot spot, bool visible)
     {
-        var tile = RoadGraph.Instance.NodeTile(node);
-        if (tile != null) tile.gameObject.SetActive(visible);
+        Transform tile = spot.tile;
+        if (tile == null) tile = RoadGraph.Instance.FindTileAt(spot.anchor);
+        if (tile == null) { Debug.LogWarning($"Aucune RoadTile trouvée à {spot.anchor}"); return; }
+        spot.tile = tile;
+        tile.gameObject.SetActive(visible);
     }
 
     void RemoveElement(RoadElement e)
@@ -816,7 +893,7 @@ public class GameManager : MonoBehaviour
             if (spot != null)
             {
                 spot.occupant = null;                   // l'emplacement est de nouveau libre
-                if (spot.kind == PlacementKind.WholeTile) SetTileVisible(spot.node, true);   // la tuile d'origine revient
+                if (spot.kind == PlacementKind.WholeTile) SetTileVisible(spot, true);   // la tuile d'origine revient
             }
             placedSpot.Remove(e);
         }

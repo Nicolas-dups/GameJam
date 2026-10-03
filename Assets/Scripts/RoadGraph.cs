@@ -132,6 +132,41 @@ public class RoadGraph : MonoBehaviour
         return best;
     }
 
+    /// <summary>Direction alignée sur un axe (±X ou ±Z), normalisée.</summary>
+    public static Vector3 SnapAxis(Vector3 d)
+    {
+        return Mathf.Abs(d.x) > Mathf.Abs(d.z)
+            ? new Vector3(Mathf.Sign(d.x), 0f, 0f)
+            : new Vector3(0f, 0f, Mathf.Sign(d.z));
+    }
+
+    /// <summary>Y a-t-il un bras (voisin) de ce noeud dans cette direction d'axe ?</summary>
+    public bool HasArm(int node, Vector3 dir)
+    {
+        foreach (int nb in adj[node])
+            if (Vector3.Dot(SnapAxis(pos[nb] - pos[node]), dir) > 0.9f) return true;
+        return false;
+    }
+
+    /// <summary>
+    /// Retrouve la tuile (enfant de roadsParent) qui contient ce point.
+    /// On essaie d'abord la tuile du noeud le plus proche, puis on parcourt toutes les tuiles.
+    /// </summary>
+    public Transform FindTileAt(Vector3 p)
+    {
+        Vector2 p2 = new Vector2(p.x, p.z);
+        Transform first = NodeTile(WorldToNode(p));
+        if (first != null && first.gameObject.activeInHierarchy && GetRect(first).Contains(p2)) return first;
+
+        if (roadsParent != null)
+            for (int i = 0; i < roadsParent.childCount; i++)
+            {
+                Transform t = roadsParent.GetChild(i);
+                if (t.gameObject.activeInHierarchy && GetRect(t).Contains(p2)) return t;
+            }
+        return first;
+    }
+
     // ---------- Règles dynamiques ----------
     public void SetBlocked(int node, bool on) { if (on) blocked.Add(node); else blocked.Remove(node); }
     public bool IsBlocked(int node) => blocked.Contains(node);
@@ -154,7 +189,10 @@ public class RoadGraph : MonoBehaviour
     }
 
     /// <summary>Plus court chemin (BFS) en respectant les règles. Null si impossible.</summary>
-    public List<int> FindPath(int start, int goal)
+    public List<int> FindPath(int start, int goal) => FindPath(start, goal, false);
+
+    /// <summary>Plus court chemin (BFS). ignoreRules = true : ignore barrages et sens uniques (piétons).</summary>
+    public List<int> FindPath(int start, int goal, bool ignoreRules)
     {
         var cameFrom = new int[pos.Length];
         for (int i = 0; i < cameFrom.Length; i++) cameFrom[i] = -1;
@@ -169,7 +207,8 @@ public class RoadGraph : MonoBehaviour
             if (cur == goal) break;
             foreach (int nb in adj[cur])
             {
-                if (cameFrom[nb] != -1 || !CanTravel(cur, nb)) continue;
+                if (cameFrom[nb] != -1) continue;
+                if (!ignoreRules && !CanTravel(cur, nb)) continue;
                 cameFrom[nb] = cur;
                 queue.Enqueue(nb);
             }

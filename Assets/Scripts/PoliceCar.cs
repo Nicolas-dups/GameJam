@@ -29,31 +29,8 @@ public static class Infractions
     }
 }
 
-/// <summary>Piéton : traverse en ligne droite puis disparaît.</summary>
-public class Pedestrian : MonoBehaviour
-{
-    public static readonly List<Pedestrian> All = new List<Pedestrian>();
-    public float speed = 1.4f;
-    Vector3 to;
-
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-    static void ResetStatics() => All.Clear();
-
-    void OnEnable() => All.Add(this);
-    void OnDisable() => All.Remove(this);
-
-    public void Init(Vector3 from, Vector3 destination)
-    {
-        transform.position = from;
-        to = destination;
-    }
-
-    void FixedUpdate()
-    {
-        transform.position = Vector3.MoveTowards(transform.position, to, speed * Time.fixedDeltaTime);
-        if ((transform.position - to).sqrMagnitude < 0.01f) Destroy(gameObject);
-    }
-}
+// NB : l'ancienne classe Pedestrian (traversée en ligne droite) a été supprimée de ce fichier.
+// Elle est remplacée par Pedestrian.cs (piéton qui se déplace dans le graphe routier).
 
 /// <summary>
 /// Comportement de police (à ajouter à un objet qui a déjà CarAI) :

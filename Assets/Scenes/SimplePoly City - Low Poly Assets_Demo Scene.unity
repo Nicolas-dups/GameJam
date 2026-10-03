@@ -42041,6 +42041,8 @@ MonoBehaviour:
   policePrefab: {fileID: 100000, guid: 1af0a2c8773f85c40bdb120f32cd8a8a, type: 3}
   carCount: 12
   seed: 1
+  pedestrianPrefab: {fileID: 0}
+  pedestrianCount: 10
   tools:
   - prefab: {fileID: 2118404135264616290, guid: 095d0d7cc0c77704b9c6b439d3826869, type: 3}
     cost: 10
@@ -42093,6 +42095,7 @@ MonoBehaviour:
   shortSize: 2
   shortYaw: 0
   wholeTileYaw: 0
+  wholeTileOnStraight: 0
   spotMaterial: {fileID: 2100000, guid: 40c5268745fbf7446920fee673417083, type: 2}
   spotHoverMaterial: {fileID: 2100000, guid: 8f9ba12f36c5d6b45b4b70bd64ccaa3c, type: 2}
   ghostMaterial: {fileID: 2100000, guid: 22e305bb5fcd59149a95dcbc266937e6, type: 2}

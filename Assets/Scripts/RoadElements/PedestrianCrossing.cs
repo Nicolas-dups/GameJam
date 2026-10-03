@@ -1,85 +1,70 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 // =====================================================================
-//  PASSAGE PIÉTON : fait traverser des piétons, les voitures ralentissent
-//  et s'arrêtent si un piéton est sur/près du passage.
-//  (prefab conseillé avec centerOnRoad = true, sur une tuile droite)
+//  PASSAGE PIÉTON (élément posé par le joueur)
+//  Les piétons existent maintenant indépendamment (script Pedestrian) et traversent déjà
+//  à toutes les intersections. Cet élément :
+//   - fait s'arrêter les voitures (qui obéissent) devant un piéton en train de traverser sur la tuile ;
+//   - sur une tuile droite, sert de point de traversée aux piétons (ils l'utilisent plutôt que de traverser n'importe où).
 // =====================================================================
 public class PedestrianCrossing : RoadElement
 {
-    public float crossSpeed = 3.5f;
-    [Tooltip("Optionnel : prefab de piéton (sinon une capsule est générée)")]
-    public GameObject pedestrianPrefab;
-
-    System.Random rng;
-    float spawnTimer;
+    [Tooltip("Distance d'arrêt (m) entre l'avant de la voiture et le piéton")]
+    public float stopDistance = 3f;
+    [Tooltip("Distance (m) à partir de laquelle la voiture surveille les piétons")]
+    public float lookAhead = 14f;
+    [Tooltip("Largeur (m) surveillée de part et d'autre de l'axe de la voiture")]
+    public float watchWidth = 6f;
 
     protected override bool Symmetric => true;
     public override bool LocalEffect => true;
-    float Width => Half * 2f * 0.8f;
-    Vector3 Right => Vector3.Cross(Vector3.up, Facing);
 
-    protected override void OnPlaced() => ResetState();
+    protected override void OnPlaced() { }
+    public override void ResetState() { }
 
-    public override void ResetState()
+    /// <summary>Y a-t-il un passage piéton posé par le joueur sur cette tuile ?</summary>
+    public static bool IsAt(int node)
     {
-        rng = new System.Random(Node * 7919 + 17);
-        spawnTimer = (float)rng.NextDouble() * 4f;
-    }
-
-    void FixedUpdate()
-    {
-        if (rng == null) return;
-        spawnTimer -= Time.fixedDeltaTime;
-        if (spawnTimer > 0f) return;
-        spawnTimer = 3f + (float)rng.NextDouble() * 5f;
-
-        Vector3 a = Anchor - Right * (Width * 0.5f + 1f);
-        Vector3 b = Anchor + Right * (Width * 0.5f + 1f);
-        if (rng.Next(2) == 0) { var t = a; a = b; b = t; }
-        a.y += 0.5f; b.y += 0.5f;
-
-        GameObject go;
-        if (pedestrianPrefab != null) go = Instantiate(pedestrianPrefab);
-        else
-        {
-            go = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-            Destroy(go.GetComponent<Collider>());
-            go.transform.localScale = Vector3.one * 0.5f;
-            go.GetComponent<Renderer>().material.color = new Color(0.9f, 0.5f, 0.2f);
-        }
-        var ped = go.GetComponent<Pedestrian>();
-        if (ped == null) ped = go.AddComponent<Pedestrian>();
-        ped.Init(a, b);
-    }
-
-    bool PedestrianNear()
-    {
-        Vector3 c = Anchor, r = Right;
-        foreach (var p in Pedestrian.All)
-        {
-            Vector3 d = p.transform.position - c;
-            if (Mathf.Abs(Vector3.Dot(d, Facing)) < 2.5f && Mathf.Abs(Vector3.Dot(d, r)) < Width * 0.5f + 1f)
-                return true;
-        }
+        var list = RoadElement.At(node);
+        for (int i = 0; i < list.Count; i++)
+            if (list[i] is PedestrianCrossing) return true;
         return false;
     }
 
     public override float Limit(CarAI car, float dt)
     {
-        float ahead = Ahead(car);
-        if (ahead > 16f || ahead < -2.5f) return float.MaxValue;
+        Vector3 pos = car.transform.position;
+        Vector3 fwd = car.transform.forward;
+        fwd.y = 0f;
+        fwd.Normalize();
+        Vector3 right = Vector3.Cross(Vector3.up, fwd);
 
-        float slow = SlowTo(car, crossSpeed, ahead - 4f);
-        if (!PedestrianNear()) return slow;
+        float limit = float.MaxValue;
 
-        if (!car.Obeys(this))
+        foreach (var ped in Pedestrian.All)
         {
-            if (ahead < 5f) car.Report("Piéton non respecté");
-            return float.MaxValue;
+            if (ped == null || !ped.IsCrossing || ped.CrossNode != Node) continue;
+
+            // il ne gêne que s'il traverse la route de la voiture (pas s'il longe la même route)
+            if (Mathf.Abs(Vector3.Dot(ped.MoveDirection, fwd)) > 0.6f) continue;
+
+            Vector3 d = ped.transform.position - pos;
+            d.y = 0f;
+            float ahead = Vector3.Dot(d, fwd);
+            if (ahead < -1f || ahead > lookAhead) continue;
+            if (Mathf.Abs(Vector3.Dot(d, right)) > watchWidth) continue;
+
+            if (!car.Obeys(this))
+            {
+                if (ahead < 5f) car.Report("Piéton non respecté");
+                continue;
+            }
+
+            if (ahead < car.halfLength + 1f) continue;               // trop tard pour s'arrêter
+
+            float free = ahead - car.halfLength - stopDistance;
+            limit = Mathf.Min(limit, Mathf.Sqrt(2f * car.braking * Mathf.Max(0f, free)));
         }
-        if (ahead < 3.5f) return float.MaxValue;               // trop tard pour s'arrêter
-        return Mathf.Min(slow, BrakeSpeed(car, ahead - 4f));
+        return limit;
     }
 }
