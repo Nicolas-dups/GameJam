@@ -116,7 +116,7 @@ MonoBehaviour:
   carLength: 4
   safeGap: 1.5
   maxBlockedTime: 5
-  stopMargin: 2.5
+  stopMargin: 6.5
   awareness: 10
   patience: 5
   obeyChance: 0.85
@@ -124,6 +124,10 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  crosswalkObeyChance: 1
+  crosswalkLookAhead: 14
+  crosswalkStopMargin: 2
+  crosswalkRoadHalfWidth: 6
   collisionRadius: 1.2
   halfLength: 4
   halfWidth: 1.3

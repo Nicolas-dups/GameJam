@@ -116,14 +116,19 @@ MonoBehaviour:
   carLength: 4
   safeGap: 1.5
   maxBlockedTime: 5
-  stopMargin: 2.5
+  stopMargin: 4.5
   awareness: 10
   patience: 5
-  obeyChance: 0.85
-  recklessChance: 0.015
+  obeyChance: 0.938
+  recklessChance: 0
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  pedestrianYieldChance: 1
+  pedestrianLookAhead: 14
+  pedestrianStopMargin: 2
+  pedestrianRoadHalfWidth: 7
+  pedestrianHoldTime: 0.4
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
