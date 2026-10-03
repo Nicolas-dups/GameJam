@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34e52c966c72b04488c8830771da6e37, type: 3}
+  m_Name: StopSign
+  m_EditorClassIdentifier: Assembly-CSharp::StopSign
+  itemName: pano stop
+  prefab: {fileID: 4256266425690334930, guid: 31b9d79e471d01346bd36d62f9d7b192, type: 3}
+  itemPreviewPrefab: {fileID: 3654852597457473480, guid: 6548a11bea02ab543b5d195647b5d730, type: 3}

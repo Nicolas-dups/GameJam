@@ -26,7 +26,7 @@ public class Shop : MonoBehaviour
         }
 
         PrefabControl();
-        Debug.Log(current_item);
+        //Debug.Log(current_item);
         
     }
 
