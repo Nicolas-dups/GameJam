@@ -119,11 +119,15 @@ MonoBehaviour:
   stopMargin: 2.5
   awareness: 10
   patience: 5
-  obeyChance: 0.85
-  recklessChance: 0.015
+  obeyChance: 0.949
+  recklessChance: 0
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  crosswalkObeyChance: 1
+  crosswalkLookAhead: 14
+  crosswalkStopMargin: 2
+  crosswalkRoadHalfWidth: 6
   collisionRadius: 1.1
   halfLength: 2.3
   halfWidth: 1.3
