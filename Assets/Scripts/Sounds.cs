@@ -16,7 +16,7 @@ public class Sounds : MonoBehaviour
         Instance = this;
     }
    public void play_sound(string s)
-{
+    {
     AudioClip clip = null;
     switch (s)
     {
@@ -25,6 +25,6 @@ public class Sounds : MonoBehaviour
         case "clickUI": clip = clickUI; break;
     }
     if (clip != null)
-        AudioSource.PlayClipAtPoint(clip, transform.position);
+        AudioSource.PlayClipAtPoint(clip, Camera.main.transform.position);
 }
 }
