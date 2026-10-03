@@ -746,7 +746,7 @@ public class GameManager : MonoBehaviour
 
                 // Dernier état avant le zoom caméra (sinon la caméra enregistrée serait déjà sur l'accident)
         if (rewindAfterCrash) rewinder.Record();
-
+        if (Sounds.Instance != null) Sounds.Instance.play_sound("crash");
         SpawnAccident(where);
 
         var camCtrl = CameraController.Instance;
@@ -1055,6 +1055,7 @@ public class GameManager : MonoBehaviour
         }
 
         money -= tool.cost;
+        Sounds.Instance.play_sound("build");
 
         // l'emplacement est pris : on le masque tout de suite
         spot.occupant = element;
@@ -1172,7 +1173,12 @@ public class GameManager : MonoBehaviour
 
     static void Bind(Button b, UnityAction action)
     {
-        if (b != null) b.onClick.AddListener(action);
+        if (b == null) return;
+        b.onClick.AddListener(() =>
+        {
+            if (Sounds.Instance != null) Sounds.Instance.play_sound("clickUI");
+            action();
+        });
     }
 
     /// <summary>Met à jour l'affichage : quel panneau est visible, textes, bouton sélectionné.</summary>

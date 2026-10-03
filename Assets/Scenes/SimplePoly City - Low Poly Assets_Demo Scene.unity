@@ -6349,8 +6349,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sounds
   crash: {fileID: 8300000, guid: 75ecaa380aebb33419f7f6fbdfa03f24, type: 3}
-  build: {fileID: 0}
-  clickUI: {fileID: 0}
+  build: {fileID: 8300000, guid: 3e93988840da0b34a9435c35a2bb2df5, type: 3}
+  clickUI: {fileID: 8300000, guid: c5064332491a05c4e93fd9e067af86a5, type: 3}
   music: {fileID: 0}
 --- !u!4 &210354618
 Transform:
