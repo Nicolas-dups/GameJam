@@ -25,3 +25,7 @@ La décision de faire un accident dépend des paramètres de vitesse, de la posi
 Le comportement de la voiture est influencé par les panneaux qu'elle croise. Par exemple une limitation de vitesse ou un dos d'ane peux limiter la vitesse (sauf quelque excès pseudo-aléatoire), un policier peux arrêter une voiture en excès de vitesse, un stop ou un feu arrête la voiture un certain temps (exceptée des rares fautes qui peuvent être pénalisée par un élément policier), un céder le passage arrête la voiture si une autre viens de droite, les sens interdit empèche de prendre cette direction à une itersection...
 Les panneaux sont des collider et dès que la voiture rentre dans un de ces collider elle récupère l'information du panneau et recalcule ses paramètres en fonction.
 Le sintersections sont des collider avec l'information sur chacun d'eux si une route continue au nord, sud, est ou ouest.
+
+TODO list :
+intégrer le taff de kev
+résoudre les demi tour voitur
