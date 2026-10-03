@@ -21,6 +21,8 @@ public class CameraController : MonoBehaviour
     [SerializeField] private int dragButton = 1;
     [Tooltip("Hauteur (Y) du plan de sol utilisé pour calculer le glissement")]
     [SerializeField] private float groundHeight = 0f;
+    [Tooltip("Vitesse de lissage du déplacement à la souris")]
+    [SerializeField] private float movementSmoothing = 12f;
     [Tooltip("Ne pas interagir quand la souris est sur un élément d'interface INTERACTIF (bouton, slider...). " +
              "Un panneau de fond ne bloque plus la caméra.")]
     [SerializeField] private bool ignoreWhenOverUI = true;
@@ -44,6 +46,7 @@ public class CameraController : MonoBehaviour
     private Camera cam;
     private Plane groundPlane;
     private Vector3 dragOrigin;
+    private Vector3 dragStartPosition;
     private bool isDragging;
 
     private float pendingZoom;        // distance de zoom restant à appliquer (lissage)
@@ -121,6 +124,8 @@ public class CameraController : MonoBehaviour
                 return;
 
             isDragging = TryGetGroundPoint(out dragOrigin);
+            if (isDragging)
+                dragStartPosition = transform.position;
         }
 
         if (Input.GetMouseButtonUp(dragButton))
@@ -133,7 +138,9 @@ public class CameraController : MonoBehaviour
                 // Différence entre le point saisi au départ et le point actuellement sous la souris
                 Vector3 delta = dragOrigin - current;
                 delta.y = 0f; // on ne bouge que sur XZ
-                transform.position += delta;
+                Vector3 targetPosition = ClampToBounds(dragStartPosition + delta);
+                float t = 1f - Mathf.Exp(-movementSmoothing * Time.unscaledDeltaTime);
+                transform.position = Vector3.Lerp(transform.position, targetPosition, t);
             }
         }
     }
