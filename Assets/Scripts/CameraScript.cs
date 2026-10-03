@@ -44,6 +44,8 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Vector3 minPosition = new Vector3(-50f, 5f, -50f);
     [SerializeField] private Vector3 maxPosition = new Vector3(50f, 40f, 50f);
 
+    public void CancelFocus() => focusing = false;
+
     private Camera cam;
     private Plane groundPlane;
     private Vector3 dragOrigin;

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System.Collections;
 
 /// <summary>
 /// Un emplacement de pose (cube / rectangle semi-transparent) sur une tuile.
@@ -127,6 +128,23 @@ public class GameManager : MonoBehaviour
     [Tooltip("Durée (s, temps réel) pendant laquelle les inputs caméra sont bloqués ; le panneau 'Accident' apparaît ensuite")]
     public float accidentLockDuration = 3f;
 
+
+    [Header("Rembobinage après accident")]
+    public bool rewindAfterCrash = true;
+    [Tooltip("Vitesse du rembobinage par rapport au temps réel")]
+    public float rewindSpeed = 12f;
+    public float rewindMinDuration = 1.5f;
+    public float rewindMaxDuration = 4f;
+    [Min(1), Tooltip("Un échantillon tous les N ticks physiques (2 = 60 échantillons/s)")]
+    public int recordEveryTicks = 2;
+    [Tooltip("Vitesse des Animator pendant le rembobinage (négatif = animation à l'envers)")]
+    public float rewindAnimatorSpeed = -2f;
+    [Tooltip("Optionnel : objet UI (icône « << », filtre...) affiché pendant le rembobinage")]
+    public GameObject rewindIndicator;
+
+
+
+
     [Header("Outils (un prefab par élément de voirie)")]
     [Tooltip("Même ordre que le tableau 'toolButtons' de l'UI")]
     public ToolDef[] tools;
@@ -241,7 +259,10 @@ public class GameManager : MonoBehaviour
     GameObject ghost;
     GameObject ghostPrefab;
     GameObject accidentInstance;
-    float crashPanelTime;                 // temps réel à partir duquel le panneau 'Accident' s'affiche
+    readonly TimeRewinder rewinder = new TimeRewinder();
+    Coroutine crashRoutine;
+    bool crashSequenceDone;
+    int fixedTick;
     readonly Dictionary<int, int> cornerCount = new Dictionary<int, int>();   // nombre d'angles par tuile (X:4, T:2, L:1, droite:0)
     readonly Dictionary<int, int> armCount = new Dictionary<int, int>();   // nombre de bras par tuile
     PlacementSpot hovered;
@@ -587,6 +608,14 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < pedestrianCount; i++)
             SpawnPedestrian(pedRng.Next(graph.NodeCount), pedRng.Next());
 
+        
+        // Enregistrement pour le rembobinage
+        fixedTick = 0;
+        foreach (var go in spawned) if (go != null) rewinder.Add(go.transform);          // voitures + police
+        foreach (var p in Pedestrian.All) rewinder.Add(p.transform);                      // piétons
+        if (Camera.main != null) rewinder.Add(Camera.main.transform, true);               // caméra
+        rewinder.Record();                                                                // échantillon 0 = état de départ
+
         elapsed = 0f;
         CurrentPhase = Phase.Running;
         Time.timeScale = speeds[speedIndex];
@@ -685,10 +714,16 @@ public class GameManager : MonoBehaviour
 
     void Cleanup()
     {
+        if (crashRoutine != null) { StopCoroutine(crashRoutine); crashRoutine = null; }
+        if (rewindIndicator != null) rewindIndicator.SetActive(false);
+        crashSequenceDone = false;
+
         foreach (var go in spawned) if (go != null) { go.SetActive(false); Destroy(go); }
         spawned.Clear();
         foreach (var p in new List<Pedestrian>(Pedestrian.All)) { p.gameObject.SetActive(false); Destroy(p.gameObject); }
         ClearAccident();
+
+        rewinder.Clear(recordEveryTicks * Time.fixedDeltaTime);
     }
 
     void EnterPlanning()
@@ -709,18 +744,47 @@ public class GameManager : MonoBehaviour
         bestTime = Mathf.Max(bestTime, elapsed);
         attempt++;
 
-        // Prefab d'accident joué sur place
-        if (Sounds.Instance != null) Sounds.Instance.play_sound("crash");
+                // Dernier état avant le zoom caméra (sinon la caméra enregistrée serait déjà sur l'accident)
+        if (rewindAfterCrash) rewinder.Record();
+
         SpawnAccident(where);
 
-        // Zoom sur l'accident + inputs caméra bloqués pendant la séquence
         var camCtrl = CameraController.Instance;
         if (camCtrl != null)
         {
             camCtrl.FocusOn(where, accidentZoomDistance);
             camCtrl.LockInput(accidentLockDuration);
         }
-        crashPanelTime = Time.unscaledTime + accidentLockDuration;
+
+        crashSequenceDone = false;
+        crashRoutine = StartCoroutine(CrashSequence());
+    }
+
+    IEnumerator CrashSequence()
+    {
+        // 1) L'accident se joue sur place pendant le zoom
+        yield return new WaitForSecondsRealtime(accidentLockDuration);
+
+        // 2) Rembobinage
+        if (rewindAfterCrash && rewinder.CanPlay)
+        {
+            ClearAccident();
+            if (rewindIndicator != null) rewindIndicator.SetActive(true);
+
+            float dur = Mathf.Clamp(rewinder.RecordedSeconds / rewindSpeed, rewindMinDuration, rewindMaxDuration);
+            var cam = CameraController.Instance;
+            if (cam != null) { cam.CancelFocus(); cam.LockInput(dur + 1f); }
+
+            yield return rewinder.Play(dur, rewindAnimatorSpeed);
+
+            foreach (var e in RoadElement.All) if (e != null) e.ResetState();   // feux etc. retrouvent leur état initial
+            if (rewindIndicator != null) rewindIndicator.SetActive(false);
+            if (cam != null) cam.UnlockInput();
+        }
+
+        // 3) Le panneau « Accident » peut s'afficher
+        crashSequenceDone = true;
+        crashRoutine = null;
     }
 
     void SpawnAccident(Vector3 where)
@@ -761,7 +825,10 @@ public class GameManager : MonoBehaviour
         if (CurrentPhase != Phase.Running) return;
         elapsed += Time.fixedDeltaTime;
         CheckAccidents();
-        if (CurrentPhase == Phase.Running && elapsed >= duration) Win();
+        if (CurrentPhase != Phase.Running) return;           // un accident vient d'avoir lieu
+
+        if (++fixedTick % recordEveryTicks == 0) rewinder.Record();
+        if (elapsed >= duration) Win();
     }
 
     void CheckAccidents()
@@ -1112,7 +1179,7 @@ public class GameManager : MonoBehaviour
     void RefreshUI()
     {
         // le panneau d'accident n'apparaît qu'à la fin de la séquence (zoom + animation)
-        bool showCrashPanel = CurrentPhase == Phase.Crashed && Time.unscaledTime >= crashPanelTime;
+        bool showCrashPanel = CurrentPhase == Phase.Crashed && crashSequenceDone;
 
         if (panelPlanning != null) panelPlanning.SetActive(CurrentPhase == Phase.Planning);
         if (panelRunning != null) panelRunning.SetActive(CurrentPhase == Phase.Running);
