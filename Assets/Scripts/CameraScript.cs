@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 /// <summary>
 /// Caméra type RTS / vue du dessus :
-/// - Clic gauche maintenu + glisser : déplacement sur le plan XZ (le sol "suit" la souris)
+/// - Clic droit maintenu + glisser (bouton réglable via dragButton) : déplacement sur le plan XZ (le sol "suit" la souris)
 /// - Molette : zoom / dézoom (change la hauteur Y)
 /// - Limites min / max sur X, Y et Z
 /// À attacher sur l'objet Camera.
@@ -11,7 +11,9 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(Camera))]
 public class CameraController : MonoBehaviour
 {
-    [Header("Déplacement (clic gauche)")]
+    [Header("Déplacement (glisser)")]
+    [Tooltip("0 = clic gauche, 1 = clic droit, 2 = clic molette")]
+    [SerializeField] private int dragButton = 1;
     [Tooltip("Hauteur (Y) du plan de sol utilisé pour calculer le glissement")]
     [SerializeField] private float groundHeight = 0f;
     [SerializeField] private bool ignoreWhenOverUI = true;
@@ -47,7 +49,7 @@ public class CameraController : MonoBehaviour
 
     private void HandleDrag()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(dragButton))
         {
             if (ignoreWhenOverUI && EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
                 return;
@@ -55,10 +57,10 @@ public class CameraController : MonoBehaviour
             isDragging = TryGetGroundPoint(out dragOrigin);
         }
 
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(dragButton))
             isDragging = false;
 
-        if (isDragging && Input.GetMouseButton(0))
+        if (isDragging && Input.GetMouseButton(dragButton))
         {
             if (TryGetGroundPoint(out Vector3 current))
             {
@@ -95,7 +97,7 @@ public class CameraController : MonoBehaviour
         }
 
         // Applique le zoom progressivement (lissage) le long de l'axe avant
-        float step = pendingZoom * (1f - Mathf.Exp(-zoomSmoothing * Time.deltaTime));
+        float step = pendingZoom * (1f - Mathf.Exp(-zoomSmoothing * Time.unscaledDeltaTime));
         transform.position += forward * step;
         pendingZoom -= step;
     }

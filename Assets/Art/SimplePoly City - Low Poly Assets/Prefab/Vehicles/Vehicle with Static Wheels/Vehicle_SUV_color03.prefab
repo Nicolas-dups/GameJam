@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 400000}
   - component: {fileID: 3300000}
   - component: {fileID: 2300000}
+  - component: {fileID: -1699848692133756554}
   m_Layer: 0
   m_Name: Vehicle_SUV_color03
   m_TagString: Untagged
@@ -90,3 +91,41 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-1699848692133756554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46ac20d27ef65ba4db87231663fe6227, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarAI
+  maxSpeed: 6
+  speedVariation: 0.15
+  acceleration: 4
+  braking: 8
+  cornerSpeedFactor: 0.4
+  turnSpeed: 360
+  wanderRandomly: 1
+  laneOffset: 1.5
+  lookAhead: 12
+  detectWidth: 1
+  carLength: 4
+  safeGap: 1.5
+  maxBlockedTime: 5
+  stopMargin: 2.5
+  awareness: 10
+  patience: 2
+  obeyChance: 0.85
+  recklessChance: 0.1
+  speedingChance: 0
+  speedingMultiplier: 1.5
+  isPolice: 0
+  collisionRadius: 1.1
+  halfLength: 2.3
+  halfWidth: 1.3
+  bodyRenderers: []
+  speedBoost: 1

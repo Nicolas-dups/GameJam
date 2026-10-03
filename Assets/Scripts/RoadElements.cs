@@ -2,10 +2,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // =====================================================================
-//  Base : un élément de voirie est posé sur une tuile (noeud) et agit sur
-//  les voitures qui APPROCHENT de cette tuile. Il renvoie une vitesse max.
-//  (Les classes sont créées par code via AddComponent : pas besoin de les
-//   mettre sur des prefabs.)
+//  Base : un élément de voirie est un PREFAB posé sur un emplacement
+//  (PlacementSpot) d'une tuile. Il agit sur les voitures qui APPROCHENT
+//  de cette tuile et renvoie une vitesse max.
+//
+//  Convention prefab : le +Z local du prefab = sens de circulation concerné
+//  (la face du panneau regarde donc vers -Z, vers les voitures qui arrivent).
+//  L'origine du prefab = le pied du panneau.
 // =====================================================================
 public abstract class RoadElement : MonoBehaviour
 {
@@ -19,6 +22,11 @@ public abstract class RoadElement : MonoBehaviour
     public static IReadOnlyList<RoadElement> All => all;
     public static IReadOnlyList<RoadElement> At(int node) => byNode.TryGetValue(node, out var l) ? l : none;
 
+    [Header("Placement")]
+    [Tooltip("Coché : l'élément se pose au centre de la tuile (dos d'âne, passage piéton, route barrée, agent...) " +
+             "au lieu du bord de route choisi.")]
+    public bool centerOnRoad;
+
     public int Node { get; private set; }
     public Vector3 Facing { get; private set; }
     public bool AllDirections { get; private set; }
@@ -31,7 +39,6 @@ public abstract class RoadElement : MonoBehaviour
 
     protected float Half => RoadGraph.Instance.NodeHalfSize(Node);
     protected Vector3 Center => RoadGraph.Instance.NodePos(Node);
-    protected Vector3 SideOffset => new Vector3(Half * 0.85f, 0f, -Half * 0.6f); // local : droite de la route
 
     public void Place(int node, Vector3 facing, bool allDirections)
     {
@@ -88,26 +95,6 @@ public abstract class RoadElement : MonoBehaviour
     /// <summary>Vitesse permettant d'arriver à `target` après `dist` mètres en freinant normalement.</summary>
     protected static float SlowTo(CarAI car, float target, float dist) =>
         Mathf.Sqrt(target * target + 2f * car.braking * Mathf.Max(0f, dist));
-
-    protected GameObject Prim(PrimitiveType type, Vector3 localPos, Vector3 localScale, Color color)
-    {
-        var go = GameObject.CreatePrimitive(type);
-        Destroy(go.GetComponent<Collider>());
-        go.transform.SetParent(transform, false);
-        go.transform.localPosition = localPos;
-        go.transform.localScale = localScale;
-        go.GetComponent<Renderer>().material.color = color;
-        return go;
-    }
-
-    protected GameObject SignPost(Color color, PrimitiveType shape, Vector3 headScale, Vector3 headEuler)
-    {
-        Vector3 s = SideOffset;
-        Prim(PrimitiveType.Cylinder, s + Vector3.up * 1.25f, new Vector3(0.1f, 1.25f, 0.1f), Color.gray);
-        var head = Prim(shape, s + Vector3.up * 2.7f, headScale, color);
-        head.transform.localEulerAngles = headEuler;
-        return head;
-    }
 }
 
 // =====================================================================
@@ -116,9 +103,6 @@ public abstract class RoadElement : MonoBehaviour
 public class StopSign : RoadElement
 {
     public float waitTime = 2f;
-
-    protected override void OnPlaced() =>
-        SignPost(Color.red, PrimitiveType.Cylinder, new Vector3(1.1f, 0.05f, 1.1f), new Vector3(90, 0, 0));
 
     public override float Limit(CarAI car, float dt)
     {
@@ -141,9 +125,6 @@ public class YieldSign : RoadElement
 {
     public float approachSpeed = 3f;
     public float maxWait = 6f;
-
-    protected override void OnPlaced() =>
-        SignPost(Color.yellow, PrimitiveType.Cube, new Vector3(1.1f, 1.1f, 0.05f), new Vector3(0, 0, 45));
 
     bool CrossTraffic(CarAI car)
     {
@@ -183,13 +164,6 @@ public class SpeedLimitSign : RoadElement
 {
     public float limit = 3.5f;
 
-    protected override void OnPlaced()
-    {
-        var red = SignPost(Color.red, PrimitiveType.Cylinder, new Vector3(1.2f, 0.05f, 1.2f), new Vector3(90, 0, 0));
-        var white = Prim(PrimitiveType.Cylinder, SideOffset + new Vector3(0, 2.7f, -0.04f), new Vector3(0.85f, 0.05f, 0.85f), Color.white);
-        white.transform.localEulerAngles = new Vector3(90, 0, 0);
-    }
-
     public override float Limit(CarAI car, float dt)
     {
         float d = car.DistToNode, half = Half;
@@ -204,14 +178,12 @@ public class SpeedLimitSign : RoadElement
 
 // =====================================================================
 //  DOS D'ÂNE : tout le monde ralentit (pas d'infraction possible)
+//  (prefab conseillé avec centerOnRoad = true)
 // =====================================================================
 public class SpeedBump : RoadElement
 {
     public float bumpSpeed = 1.8f;
     protected override bool Symmetric => true;
-
-    protected override void OnPlaced() =>
-        Prim(PrimitiveType.Cube, new Vector3(0, 0.08f, 0), new Vector3(Half * 1.6f, 0.16f, 0.8f), new Color(1f, 0.8f, 0f));
 
     public override float Limit(CarAI car, float dt)
     {
@@ -223,48 +195,35 @@ public class SpeedBump : RoadElement
 
 // =====================================================================
 //  ROUTE BARRÉE : la tuile est retirée du graphe, les voitures contournent
+//  (prefab conseillé avec centerOnRoad = true)
 // =====================================================================
 public class RoadBlock : RoadElement
 {
-    protected override void OnPlaced()
-    {
-        RoadGraph.Instance.SetBlocked(Node, true);
-        Prim(PrimitiveType.Cube, new Vector3(0, 0.7f, 0), new Vector3(Half * 1.7f, 0.5f, 0.3f), Color.red);
-        for (int i = -2; i <= 2; i += 2)
-            Prim(PrimitiveType.Cube, new Vector3(i * Half * 0.3f, 0.7f, -0.02f), new Vector3(Half * 0.25f, 0.52f, 0.32f), Color.white);
-        Prim(PrimitiveType.Cube, new Vector3(Half * 0.7f, 0.3f, 0), new Vector3(0.15f, 0.6f, 0.15f), Color.gray);
-        Prim(PrimitiveType.Cube, new Vector3(-Half * 0.7f, 0.3f, 0), new Vector3(0.15f, 0.6f, 0.15f), Color.gray);
-    }
-
+    protected override void OnPlaced() => RoadGraph.Instance.SetBlocked(Node, true);
     protected override void OnRemoved() => RoadGraph.Instance.SetBlocked(Node, false);
 }
 
 // =====================================================================
 //  SENS UNIQUE : interdit de rouler contre `Facing` sur cette tuile
+//  (R en phase de placement inverse le sens)
 // =====================================================================
 public class OneWaySign : RoadElement
 {
-    protected override void OnPlaced()
-    {
-        RoadGraph.Instance.SetOneWay(Node, Facing, true);
-        SignPost(new Color(0.1f, 0.3f, 0.9f), PrimitiveType.Cube, new Vector3(1.2f, 0.7f, 0.05f), Vector3.zero);
-        // flèche au sol
-        Prim(PrimitiveType.Cube, new Vector3(0, 0.07f, -0.5f), new Vector3(0.6f, 0.04f, 3f), Color.white);
-        var tip = Prim(PrimitiveType.Cube, new Vector3(0, 0.07f, 1.4f), new Vector3(1.4f, 0.04f, 1.4f), Color.white);
-        tip.transform.localEulerAngles = new Vector3(0, 45, 0);
-    }
-
+    protected override void OnPlaced() => RoadGraph.Instance.SetOneWay(Node, Facing, true);
     protected override void OnRemoved() => RoadGraph.Instance.SetOneWay(Node, Facing, false);
 }
 
 // =====================================================================
 //  PASSAGE PIÉTON : fait traverser des piétons, les voitures ralentissent
 //  et s'arrêtent si un piéton est sur/près du passage.
-//  Conseil : à poser sur une tuile droite (pas un carrefour).
+//  (prefab conseillé avec centerOnRoad = true, sur une tuile droite)
 // =====================================================================
 public class PedestrianCrossing : RoadElement
 {
     public float crossSpeed = 3.5f;
+    [Tooltip("Optionnel : prefab de piéton (sinon une capsule est générée)")]
+    public GameObject pedestrianPrefab;
+
     System.Random rng;
     float spawnTimer;
 
@@ -272,16 +231,7 @@ public class PedestrianCrossing : RoadElement
     float Width => Half * 2f * 0.8f;
     Vector3 Right => Vector3.Cross(Vector3.up, Facing);
 
-    protected override void OnPlaced()
-    {
-        int count = Mathf.Max(3, Mathf.FloorToInt(Width / 0.9f));
-        for (int i = 0; i < count; i++)
-        {
-            float x = (i - (count - 1) * 0.5f) * 0.9f;
-            Prim(PrimitiveType.Cube, new Vector3(x, 0.05f, 0), new Vector3(0.5f, 0.02f, 2f), Color.white);
-        }
-        ResetState();
-    }
+    protected override void OnPlaced() => ResetState();
 
     public override void ResetState()
     {
@@ -291,6 +241,7 @@ public class PedestrianCrossing : RoadElement
 
     void FixedUpdate()
     {
+        if (rng == null) return;
         spawnTimer -= Time.fixedDeltaTime;
         if (spawnTimer > 0f) return;
         spawnTimer = 3f + (float)rng.NextDouble() * 5f;
@@ -300,11 +251,18 @@ public class PedestrianCrossing : RoadElement
         if (rng.Next(2) == 0) { var t = a; a = b; b = t; }
         a.y += 0.5f; b.y += 0.5f;
 
-        var go = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-        Destroy(go.GetComponent<Collider>());
-        go.transform.localScale = Vector3.one * 0.5f;
-        go.GetComponent<Renderer>().material.color = new Color(0.9f, 0.5f, 0.2f);
-        go.AddComponent<Pedestrian>().Init(a, b);
+        GameObject go;
+        if (pedestrianPrefab != null) go = Instantiate(pedestrianPrefab);
+        else
+        {
+            go = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+            Destroy(go.GetComponent<Collider>());
+            go.transform.localScale = Vector3.one * 0.5f;
+            go.GetComponent<Renderer>().material.color = new Color(0.9f, 0.5f, 0.2f);
+        }
+        var ped = go.GetComponent<Pedestrian>();
+        if (ped == null) ped = go.AddComponent<Pedestrian>();
+        ped.Init(a, b);
     }
 
     bool PedestrianNear()
@@ -340,11 +298,17 @@ public class PedestrianCrossing : RoadElement
 // =====================================================================
 //  FEUX / AGENT ROUTIER : régulent les deux axes (X et Z) de la tuile.
 //  Le feu est à durée fixe ; l'agent donne la main à l'axe le plus chargé.
+//  Les lampes sont à assigner dans le prefab (lampAxisX = feu pour les
+//  voitures roulant selon X, lampAxisZ = selon Z). Optionnelles.
 // =====================================================================
 public abstract class SignalController : RoadElement
 {
     public float greenTime = 8f, yellowTime = 1.5f;
     public float minGreen = 4f, maxGreen = 14f;
+
+    [Header("Lampes (optionnel)")]
+    public Renderer lampAxisX;
+    public Renderer lampAxisZ;
 
     protected abstract bool Smart { get; }
     protected override bool ForceAllDirections => true;
@@ -352,34 +316,10 @@ public abstract class SignalController : RoadElement
     int axisGreen;
     float timer;
     bool yellow;
-    Renderer lampX, lampZ;
 
     static int Axis(Vector3 h) => Mathf.Abs(h.x) >= Mathf.Abs(h.z) ? 0 : 1;
 
-    protected override void OnPlaced()
-    {
-        // La tuile peut être tournée : on place les éléments visuels en coordonnées monde
-        Vector3 corner = Center + new Vector3(Half * 0.8f, 0, Half * 0.8f);
-        var pole = Prim(PrimitiveType.Cylinder, Vector3.zero, new Vector3(0.15f, 1.7f, 0.15f), Color.gray);
-        pole.transform.position = corner + Vector3.up * 1.7f;
-        lampX = Lamp(corner + Vector3.up * 3.8f);
-        lampZ = Lamp(corner + Vector3.up * 3.0f);
-        if (Smart)
-        {
-            var cop = Prim(PrimitiveType.Capsule, Vector3.zero, new Vector3(0.7f, 0.9f, 0.7f), Color.white);
-            cop.transform.position = Center + Vector3.up * 0.9f;
-            var vest = Prim(PrimitiveType.Cube, Vector3.zero, new Vector3(0.75f, 0.4f, 0.75f), new Color(1f, 0.5f, 0f));
-            vest.transform.position = Center + Vector3.up * 1.0f;
-        }
-        ResetState();
-    }
-
-    Renderer Lamp(Vector3 worldPos)
-    {
-        var s = Prim(PrimitiveType.Sphere, Vector3.zero, Vector3.one * 0.6f, Color.red);
-        s.transform.position = worldPos;
-        return s.GetComponent<Renderer>();
-    }
+    protected override void OnPlaced() => ResetState();
 
     public override void ResetState()
     {
@@ -419,9 +359,8 @@ public abstract class SignalController : RoadElement
 
     void Paint()
     {
-        if (lampX == null) return;
-        lampX.material.color = LampColor(0);
-        lampZ.material.color = LampColor(1);
+        if (lampAxisX != null) lampAxisX.material.color = LampColor(0);
+        if (lampAxisZ != null) lampAxisZ.material.color = LampColor(1);
     }
 
     Color LampColor(int axis) =>
@@ -463,14 +402,9 @@ public class TrafficCop : SignalController { protected override bool Smart => tr
 // =====================================================================
 //  POSTE DE POLICE : fait apparaître une voiture de police qui patrouille
 //  et poursuit les infractionnistes (voir PoliceCar).
+//  Le prefab de la voiture est `policePrefab` du GameManager.
 // =====================================================================
 public class PoliceStation : RoadElement
 {
-    protected override void OnPlaced()
-    {
-        Prim(PrimitiveType.Cube, SideOffset + new Vector3(0, 1.2f, 0), new Vector3(2.2f, 2.4f, 2.2f), new Color(0.1f, 0.25f, 0.8f));
-        Prim(PrimitiveType.Cube, SideOffset + new Vector3(0, 2.6f, 0), new Vector3(2.4f, 0.2f, 2.4f), Color.white);
-    }
-
     public override void OnRunStart(int seed) => GameManager.Instance.SpawnCar(Node, seed, true);
 }

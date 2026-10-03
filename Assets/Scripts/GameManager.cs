@@ -2,6 +2,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
+/// Un emplacement de pose (cube semi-transparent) sur le bord d'une route.
+/// </summary>
+public class PlacementSpot : MonoBehaviour
+{
+    public int node;
+    public Vector3 anchor;      // point au sol où sera posé le prefab
+    public Vector3 travelDir;   // sens de circulation dont ce bord est le côté DROIT
+    public Renderer rend;
+}
+
+/// <summary>
 /// Boucle de jeu :  PLANIFICATION (poser des éléments) -> SIMULATION -> ACCIDENT -> retour à la planification
 /// (les voitures repartent exactement du même point de départ, les éléments posés restent).
 /// Si la ville tient `duration` secondes sans accident : victoire.
@@ -13,51 +24,68 @@ public class GameManager : MonoBehaviour
 
     public enum Phase { Planning, Running, Crashed, Won }
 
-    class Tool
+    [System.Serializable]
+    public class VehicleEntry
     {
-        public string label; public System.Type type; public int cost;
-        public Tool(string l, System.Type t, int c) { label = l; type = t; cost = c; }
+        [Tooltip("Prefab avec CarAI (ses paramètres de comportement sont réglés sur le prefab)")]
+        public GameObject prefab;
+        [Min(0f), Tooltip("Probabilité relative d'apparition")]
+        public float weight = 1f;
+        public string Name => prefab != null ? prefab.name : "(prefab manquant)";
     }
 
-    [Header("Scène")]
-    [Tooltip("Prefab de voiture avec CarAI (sinon un cube est généré)")]
-    public GameObject carPrefab;
-    public float spawnHeight = 0.5f;
+    [System.Serializable]
+    public class ToolDef
+    {
+        [Tooltip("Prefab dont la RACINE porte un script RoadElement (StopSign, TrafficLight...)")]
+        public GameObject prefab;
+        public int cost = 50;
+        public string Label => prefab != null ? prefab.name : "(prefab manquant)";
+        [System.NonSerialized] public RoadElement element;
+        [System.NonSerialized] public System.Type type;
+    }
+
+    [Header("Véhicules")]
+    public List<VehicleEntry> vehicles = new List<VehicleEntry>();
+    [Tooltip("Prefab de la voiture de police (CarAI ; PoliceCar est ajouté si absent)")]
+    public GameObject policePrefab;
     public int carCount = 12;
     public int seed = 1;
+
+    [Header("Outils (un prefab par élément de voirie)")]
+    public ToolDef[] tools;
+
+    [Header("Emplacements de pose")]
+    public float spotSize = 1f;
+    public float spotSpacing = 1.3f;
+    [Tooltip("Distance entre l'axe de la route et les cubes de bord")]
+    public float spotSideOffset = 3.5f;
+    [Tooltip("Aux carrefours/virages : zone centrale sans emplacement")]
+    public float junctionClearance = 4f;
+    [Tooltip("Optionnel (sinon un matériau transparent est généré)")]
+    public Material spotMaterial;
+    public Material spotHoverMaterial;
+    [Tooltip("Optionnel : remplace les matériaux de l'aperçu (ex : matériau fantôme transparent)")]
+    public Material ghostMaterial;
 
     [Header("Règles")]
     public float duration = 60f;          // secondes à tenir sans accident
     public int startMoney = 1000;
-    [Tooltip("Distance entre deux centres de voitures pour compter un accident")]
-    public float accidentDistance = 2.2f;
-
-    readonly Tool[] tools =
-    {
-        new Tool("Stop",            typeof(StopSign),           50),
-        new Tool("Feu",             typeof(TrafficLight),      150),
-        new Tool("Passage piéton",  typeof(PedestrianCrossing), 60),
-        new Tool("Route barrée",    typeof(RoadBlock),          40),
-        new Tool("Sens unique",     typeof(OneWaySign),         40),
-        new Tool("Limitation",      typeof(SpeedLimitSign),     40),
-        new Tool("Céder le passage",typeof(YieldSign),          40),
-        new Tool("Dos d'âne",       typeof(SpeedBump),          30),
-        new Tool("Agent routier",   typeof(TrafficCop),        200),
-        new Tool("Police",          typeof(PoliceStation),     250),
-    };
 
     public Phase CurrentPhase { get; private set; } = Phase.Planning;
 
-    int selected, rotation, money, attempt = 1, speedIndex;
-    bool allDirections;
+    int selected, money, attempt = 1, speedIndex;
+    bool flip, allDirections;
     float elapsed, bestTime;
     string crashReason = "";
     Rect uiRect = new Rect(5, 5, 240, 400);
 
     readonly List<GameObject> spawned = new List<GameObject>();
     readonly List<GameObject> markers = new List<GameObject>();
-    Transform elementsHolder;
-    GameObject hover, hoverArrow;
+    Transform elementsHolder, spotsHolder;
+    GameObject ghost;
+    int ghostTool = -1;
+    PlacementSpot hovered;
     static readonly float[] speeds = { 1f, 2f, 4f };
 
     void Awake()
@@ -67,18 +95,97 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
         money = startMoney;
         elementsHolder = new GameObject("RoadElements").transform;
+
+        if (tools == null) tools = new ToolDef[0];
+        foreach (var t in tools)
+        {
+            if (t.prefab == null) { Debug.LogWarning("Outil sans prefab"); continue; }
+            t.element = t.prefab.GetComponent<RoadElement>();
+            if (t.element == null) Debug.LogWarning($"Outil '{t.Label}' : la racine du prefab n'a pas de script RoadElement");
+            else t.type = t.element.GetType();
+        }
     }
 
     void Start()
     {
-        hover = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        Destroy(hover.GetComponent<Collider>());
-        hover.GetComponent<Renderer>().material.color = new Color(1f, 0.9f, 0.2f, 1f);
-        hoverArrow = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        Destroy(hoverArrow.GetComponent<Collider>());
-        hoverArrow.GetComponent<Renderer>().material.color = Color.red;
-        hover.SetActive(false);
-        hoverArrow.SetActive(false);
+        if (spotMaterial == null) spotMaterial = MakeMat(new Color(0.2f, 0.8f, 1f, 0.25f));
+        if (spotHoverMaterial == null) spotHoverMaterial = MakeMat(new Color(1f, 0.9f, 0.1f, 0.7f));
+        BuildSpots();
+    }
+
+    static Material MakeMat(Color c)
+    {
+        // Sprites/Default gère la transparence dans tous les pipelines (Built-in, URP...)
+        var m = new Material(Shader.Find("Sprites/Default"));
+        m.color = c;
+        return m;
+    }
+
+    // =================================================================
+    //  Génération des cubes de placement le long des routes
+    // =================================================================
+    void BuildSpots()
+    {
+        var graph = RoadGraph.Instance;
+        spotsHolder = new GameObject("PlacementSpots").transform;
+
+        for (int node = 0; node < graph.NodeCount; node++)
+        {
+            // directions (alignées sur les axes) des liaisons de la tuile
+            var dirs = new List<Vector3>();
+            foreach (int nb in graph.Neighbors(node))
+            {
+                Vector3 d = graph.NodePos(nb) - graph.NodePos(node);
+                d = Mathf.Abs(d.x) > Mathf.Abs(d.z)
+                    ? new Vector3(Mathf.Sign(d.x), 0f, 0f)
+                    : new Vector3(0f, 0f, Mathf.Sign(d.z));
+                if (!dirs.Contains(d)) dirs.Add(d);
+            }
+            if (dirs.Count == 0) continue;
+
+            Vector3 c = graph.NodePos(node);
+            float limit = graph.NodeHalfSize(node) * 0.85f;
+            bool straight = dirs.Count == 1 || (dirs.Count == 2 && Vector3.Dot(dirs[0], dirs[1]) < -0.9f);
+
+            if (straight) AddRow(node, c, dirs[0], -limit, limit);
+            else foreach (var d in dirs) AddRow(node, c, d, junctionClearance, limit);
+        }
+    }
+
+    void AddRow(int node, Vector3 center, Vector3 axis, float t0, float t1)
+    {
+        if (t1 <= t0) return;
+        int count = Mathf.Max(1, Mathf.RoundToInt((t1 - t0) / spotSpacing));
+        Vector3 rightOfAxis = Vector3.Cross(Vector3.up, axis);
+
+        for (int i = 0; i < count; i++)
+        {
+            float t = Mathf.Lerp(t0, t1, (i + 0.5f) / count);
+            for (int s = -1; s <= 1; s += 2)
+            {
+                Vector3 side = rightOfAxis * s;                       // bord de route
+                Vector3 anchor = center + axis * t + side * spotSideOffset;
+                Vector3 travel = Vector3.Cross(side, Vector3.up);     // sens dont ce bord est à droite
+
+                var go = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                go.name = "Spot";
+                go.transform.SetParent(spotsHolder, false);
+                go.transform.position = anchor + Vector3.up * 0.15f;
+                go.transform.localScale = new Vector3(spotSize, 0.3f, spotSize);
+
+                var spot = go.AddComponent<PlacementSpot>();
+                spot.node = node;
+                spot.anchor = anchor;
+                spot.travelDir = travel;
+                spot.rend = go.GetComponent<Renderer>();
+                spot.rend.sharedMaterial = spotMaterial;
+            }
+        }
+    }
+
+    void SetSpotsVisible(bool v)
+    {
+        if (spotsHolder != null && spotsHolder.gameObject.activeSelf != v) spotsHolder.gameObject.SetActive(v);
     }
 
     // =================================================================
@@ -108,32 +215,51 @@ public class GameManager : MonoBehaviour
         Time.timeScale = speeds[speedIndex];
     }
 
+    VehicleEntry PickVehicle(int carSeed)
+    {
+        float total = 0f;
+        foreach (var v in vehicles) if (v.prefab != null) total += v.weight;
+        if (total <= 0f) return null;
+
+        float r = (float)(new System.Random(carSeed ^ 0x5bd1e995).NextDouble() * total);
+        foreach (var v in vehicles)
+        {
+            if (v.prefab == null) continue;
+            r -= v.weight;
+            if (r <= 0f) return v;
+        }
+        return vehicles[vehicles.Count - 1];
+    }
+
     public CarAI SpawnCar(int node, int carSeed, bool police)
     {
         var graph = RoadGraph.Instance;
-        Vector3 p = graph.NodePos(node) + Vector3.up * spawnHeight;
+        Vector3 p = graph.NodePos(node);
+        p.y = 0f;
+
+        VehicleEntry entry = police ? null : PickVehicle(carSeed);
+        GameObject prefab = police ? policePrefab : (entry != null ? entry.prefab : null);
 
         GameObject go;
-        if (carPrefab != null) go = Instantiate(carPrefab, p, Quaternion.identity);
+        if (prefab != null) go = Instantiate(prefab, p, Quaternion.identity);
         else
         {
+            // secours si aucun prefab n'est assigné
             go = GameObject.CreatePrimitive(PrimitiveType.Cube);
             Destroy(go.GetComponent<Collider>());
             go.transform.position = p;
             go.transform.localScale = new Vector3(1.8f, 1.1f, 4f);
+            Color fc = police ? new Color(0.1f, 0.3f, 1f) : Color.HSVToRGB((carSeed % 1000) / 1000f, 0.6f, 0.9f);
+            go.GetComponent<Renderer>().material.color = fc;
         }
-        go.name = police ? "PoliceCar" : "Car" + carSeed;
+        go.name = (prefab != null ? prefab.name : "Car") + "_" + carSeed;
 
         var car = go.GetComponent<CarAI>();
         if (car == null) car = go.AddComponent<CarAI>();
         car.wanderRandomly = true;
         car.isPolice = police;
 
-        var rend = go.GetComponentsInChildren<Renderer>();
-        Color c = police ? new Color(0.1f, 0.3f, 1f) : Color.HSVToRGB((carSeed % 1000) / 1000f, 0.6f, 0.9f);
-        if (carPrefab == null || police) foreach (var r in rend) r.material.color = c;
-
-        if (police) go.AddComponent<PoliceCar>();
+        if (police && go.GetComponent<PoliceCar>() == null) go.AddComponent<PoliceCar>();
         car.Begin(carSeed);
         spawned.Add(go);
         return car;
@@ -190,14 +316,14 @@ public class GameManager : MonoBehaviour
     void CheckAccidents()
     {
         var cars = CarAI.Cars;
-        float sq = accidentDistance * accidentDistance;
 
         for (int i = 0; i < cars.Count; i++)
             for (int j = i + 1; j < cars.Count; j++)
             {
                 Vector3 d = cars[i].transform.position - cars[j].transform.position;
                 d.y = 0f;
-                if (d.sqrMagnitude < sq)
+                float r = cars[i].collisionRadius + cars[j].collisionRadius;
+                if (d.sqrMagnitude < r * r)
                 {
                     Crash((cars[i].transform.position + cars[j].transform.position) * 0.5f, "Collision entre deux voitures");
                     return;
@@ -208,7 +334,7 @@ public class GameManager : MonoBehaviour
             foreach (var car in cars)
             {
                 Vector3 l = car.transform.InverseTransformPoint(ped.transform.position);
-                if (Mathf.Abs(l.z) < 2.3f && Mathf.Abs(l.x) < 1.3f)
+                if (Mathf.Abs(l.z) < car.halfLength && Mathf.Abs(l.x) < car.halfWidth)
                 {
                     Crash(ped.transform.position, "Piéton renversé");
                     return;
@@ -222,7 +348,55 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         if (CurrentPhase == Phase.Planning) HandlePlacement();
-        else if (hover != null) { hover.SetActive(false); hoverArrow.SetActive(false); }
+        else
+        {
+            SetSpotsVisible(false);
+            ClearHover();
+            if (ghost != null) ghost.SetActive(false);
+        }
+    }
+
+    void ClearHover()
+    {
+        if (hovered != null && hovered.rend != null) hovered.rend.sharedMaterial = spotMaterial;
+        hovered = null;
+    }
+
+    PlacementSpot FindSpot(Ray ray)
+    {
+        PlacementSpot best = null;
+        float bestD = float.MaxValue;
+        foreach (var h in Physics.RaycastAll(ray, 1000f))
+        {
+            var s = h.collider.GetComponent<PlacementSpot>();
+            if (s != null && h.distance < bestD) { bestD = h.distance; best = s; }
+        }
+        return best;
+    }
+
+    void RefreshGhost()
+    {
+        if (ghost != null && ghostTool == selected) return;
+        if (ghost != null) Destroy(ghost);
+        ghost = null;
+        ghostTool = selected;
+
+        if (selected < 0 || selected >= tools.Length || tools[selected].prefab == null) return;
+
+        ghost = Instantiate(tools[selected].prefab);
+        ghost.name = "Ghost";
+        var el = ghost.GetComponent<RoadElement>();
+        if (el != null) el.enabled = false;                       // ne s'enregistre pas, ne simule rien
+        foreach (var c in ghost.GetComponentsInChildren<Collider>()) Destroy(c);
+
+        if (ghostMaterial != null)
+            foreach (var r in ghost.GetComponentsInChildren<Renderer>())
+            {
+                var mats = r.sharedMaterials;
+                for (int i = 0; i < mats.Length; i++) mats[i] = ghostMaterial;
+                r.sharedMaterials = mats;
+            }
+        ghost.SetActive(false);
     }
 
     void HandlePlacement()
@@ -230,66 +404,75 @@ public class GameManager : MonoBehaviour
         var cam = Camera.main;
         if (cam == null) return;
 
-        if (Input.GetKeyDown(KeyCode.R)) rotation = (rotation + 1) % 4;
+        SetSpotsVisible(true);
+        RefreshGhost();
+        ClearHover();
+        if (ghost != null) ghost.SetActive(false);
+
+        if (Input.GetKeyDown(KeyCode.R)) flip = !flip;
         if (Input.GetKeyDown(KeyCode.Tab)) allDirections = !allDirections;
 
         Vector2 mp = Input.mousePosition;
-        hover.SetActive(false);
-        hoverArrow.SetActive(false);
         if (uiRect.Contains(new Vector2(mp.x, Screen.height - mp.y))) return;
 
-        var graph = RoadGraph.Instance;
-        var plane = new Plane(Vector3.up, new Vector3(0f, graph.NodePos(0).y, 0f));
-        Ray ray = cam.ScreenPointToRay(mp);
-        if (!plane.Raycast(ray, out float t)) return;
+        var spot = FindSpot(cam.ScreenPointToRay(mp));
+        if (spot == null) return;
 
-        Vector3 hit = ray.GetPoint(t);
-        int node = graph.WorldToNode(hit);
-        Vector3 c = graph.NodePos(node);
-        float half = graph.NodeHalfSize(node);
-        if (Mathf.Abs(hit.x - c.x) > half || Mathf.Abs(hit.z - c.z) > half) return;   // pas sur une tuile
+        hovered = spot;
+        spot.rend.sharedMaterial = spotHoverMaterial;
 
-        // aperçu
-        hover.SetActive(true);
-        hover.transform.position = c + Vector3.up * 0.1f;
-        hover.transform.rotation = Quaternion.identity;
-        hover.transform.localScale = new Vector3(half * 2f, 0.05f, half * 2f);
-        Vector3 f = Facing();
-        hoverArrow.transform.position = c + f * half * 0.6f + Vector3.up * 0.2f;
-        hoverArrow.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
-        hoverArrow.SetActive(!allDirections);
+        if (selected >= 0 && selected < tools.Length && tools[selected].element != null)
+        {
+            Vector3 f = flip ? -spot.travelDir : spot.travelDir;
+            Vector3 pos = tools[selected].element.centerOnRoad
+                ? RoadGraph.Instance.NodePos(spot.node)
+                : spot.anchor;
 
-        if (Input.GetMouseButtonDown(0)) TryPlace(node);
-        if (Input.GetMouseButtonDown(1)) RemoveTop(node);
+            if (ghost != null)
+            {
+                ghost.transform.SetPositionAndRotation(pos, Quaternion.LookRotation(f, Vector3.up));
+                ghost.SetActive(true);
+            }
+            if (Input.GetMouseButtonDown(0)) TryPlace(spot);
+        }
+
+        if (Input.GetMouseButtonDown(1)) RemoveNearest(spot);
     }
 
-    Vector3 Facing() => Quaternion.Euler(0f, rotation * 90f, 0f) * Vector3.forward;
-
-    void TryPlace(int node)
+    void TryPlace(PlacementSpot spot)
     {
         var tool = tools[selected];
-        if (money < tool.cost) return;
+        if (tool.element == null || money < tool.cost) return;
+
+        int node = spot.node;
         if (tool.type == typeof(RoadBlock) && RoadGraph.Instance.IsBlocked(node)) return;
 
-        Vector3 f = Facing();
+        Vector3 f = flip ? -spot.travelDir : spot.travelDir;
+        Vector3 pos = tool.element.centerOnRoad ? RoadGraph.Instance.NodePos(node) : spot.anchor;
+
         // remplace un élément du même type déjà présent sur ce côté
         foreach (var e in new List<RoadElement>(RoadElement.At(node)))
             if (e.GetType() == tool.type && (e.AllDirections || allDirections || Vector3.Dot(e.Facing, f) > 0.99f))
                 RemoveElement(e);
 
-        var go = new GameObject(tool.label);
-        go.transform.SetParent(elementsHolder);
-        go.transform.position = RoadGraph.Instance.NodePos(node);
-        go.transform.rotation = Quaternion.LookRotation(f, Vector3.up);
-        var element = (RoadElement)go.AddComponent(tool.type);
+        var go = Instantiate(tool.prefab, pos, Quaternion.LookRotation(f, Vector3.up), elementsHolder);
+        go.name = tool.Label;
+        var element = go.GetComponent<RoadElement>();
         element.Place(node, f, allDirections);
         money -= tool.cost;
     }
 
-    void RemoveTop(int node)
+    /// <summary>Clic droit : retire l'élément de la tuile le plus proche de l'emplacement visé.</summary>
+    void RemoveNearest(PlacementSpot spot)
     {
-        var list = RoadElement.At(node);
-        if (list.Count > 0) RemoveElement(list[list.Count - 1]);
+        RoadElement best = null;
+        float bestD = float.MaxValue;
+        foreach (var e in RoadElement.At(spot.node))
+        {
+            float d = (e.transform.position - spot.anchor).sqrMagnitude;
+            if (d < bestD) { bestD = d; best = e; }
+        }
+        if (best != null) RemoveElement(best);
     }
 
     void RemoveElement(RoadElement e)
@@ -312,8 +495,8 @@ public class GameManager : MonoBehaviour
         {
             case Phase.Planning:
                 for (int i = 0; i < tools.Length; i++)
-                    if (GUILayout.Toggle(selected == i, $"{tools[i].label} ({tools[i].cost})", GUI.skin.button)) selected = i;
-                GUILayout.Label($"R : tourner  |  Tab : tous sens = {(allDirections ? "OUI" : "non")}\nClic droit : retirer");
+                    if (GUILayout.Toggle(selected == i, $"{tools[i].Label} ({tools[i].cost})", GUI.skin.button)) selected = i;
+                GUILayout.Label($"R : inverser le sens ({(flip ? "inversé" : "normal")})  |  Tab : tous sens = {(allDirections ? "OUI" : "non")}\nClic droit : retirer");
                 if (GUILayout.Button("LANCER")) StartRun();
                 if (markers.Count > 0 && GUILayout.Button("Effacer les repères")) ClearMarkers();
                 break;

@@ -40,7 +40,19 @@ public class CarAI : MonoBehaviour
     [Range(0f, 1f)] public float obeyChance = 0.85f;
     [Tooltip("Probabilité (par carrefour) d'ignorer la priorité à droite : source principale d'accidents")]
     [Range(0f, 1f)] public float recklessChance = 0.1f;
+    [Range(0f, 1f), Tooltip("Probabilité que ce conducteur roule bien au-dessus de sa vitesse normale")]
+    public float speedingChance = 0f;
+    [Tooltip("Multiplicateur de vitesse quand il est en excès de vitesse")]
+    public float speedingMultiplier = 1.5f;
     public bool isPolice;
+
+
+    [Header("Collision / visuel")]
+    public float collisionRadius = 1.1f;   // accident si distance < somme des rayons des deux voitures
+    public float halfLength = 2.3f;        // zone de renversement des piétons
+    public float halfWidth = 1.3f;
+    [Tooltip("Renderers colorés au hasard (carrosserie uniquement)")]
+    public Renderer[] bodyRenderers;
     [HideInInspector] public float speedBoost = 1f;
 
     public float Speed => currentSpeed;
@@ -132,6 +144,7 @@ public class CarAI : MonoBehaviour
     {
         maxSpeed = v;
         personalSpeed = v * (1f + Range(-speedVariation, speedVariation));
+        if (Roll() < speedingChance) personalSpeed *= speedingMultiplier;
     }
 
     // ---------- Navigation ----------
@@ -308,7 +321,7 @@ public class CarAI : MonoBehaviour
             if (fwd <= 0f || fwd > lookAhead) continue;
             if (Mathf.Abs(Vector3.Dot(d, transform.right)) > detectWidth) continue;
 
-            float free = fwd - carLength - safeGap;
+            float free = fwd - (carLength + o.carLength) * 0.5f - safeGap;
             float allowed = free <= 0f
                 ? 0f
                 : o.currentSpeed * 0.8f + Mathf.Sqrt(2f * braking * free);
