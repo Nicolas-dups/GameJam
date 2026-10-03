@@ -4,6 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Graphe routier construit à partir des tuiles enfants d'un objet parent.
 /// Gère aussi les tuiles barrées et les sens uniques (posés par le joueur).
+/// Le graphe est construit UNE seule fois (Awake) : masquer ou remplacer visuellement une tuile ne le modifie pas.
 /// </summary>
 public class RoadGraph : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class RoadGraph : MonoBehaviour
     Vector3[] pos;
     List<int>[] adj;
     float[] half;
+    Transform[] tiles;
 
     // Règles dynamiques
     readonly HashSet<int> blocked = new HashSet<int>();
@@ -47,11 +49,13 @@ public class RoadGraph : MonoBehaviour
         pos = new Vector3[n];
         adj = new List<int>[n];
         half = new float[n];
+        tiles = new Transform[n];
         var rects = new Rect[n];
 
         for (int i = 0; i < n; i++)
         {
             Transform t = roadsParent.GetChild(i);
+            tiles[i] = t;
             pos[i] = t.position;
             adj[i] = new List<int>();
             rects[i] = GetRect(t);
@@ -107,6 +111,8 @@ public class RoadGraph : MonoBehaviour
 
     // ---------- Accès aux noeuds ----------
     public Vector3 NodePos(int node) => pos[node];
+    /// <summary>Transform de la tuile d'origine de ce noeud (pour la masquer / la remplacer visuellement).</summary>
+    public Transform NodeTile(int node) => tiles != null && node >= 0 && node < tiles.Length ? tiles[node] : null;
     public int RandomNode() => Random.Range(0, pos.Length);
     public int RandomNode(System.Random r) => r.Next(pos.Length);
     public IReadOnlyList<int> Neighbors(int node) => adj[node];

@@ -243,8 +243,20 @@ public class CarAI : MonoBehaviour
         committed = false;
         waitTime = 0f;
 
-        memo.Clear(); obey.Clear(); reported.Clear();
+        PruneMemory();
         ignoreIntersection = !isPolice && Roll() < recklessChance;
+    }
+
+    static readonly List<RoadElement> pruneTmp = new List<RoadElement>();
+
+    // garde la mémoire (arrêt effectué, choix d'obéir...) des éléments de la tuile qu'on vient de quitter
+    void PruneMemory()
+    {
+        pruneTmp.Clear();
+        foreach (var k in memo.Keys) if (k == null || k.Node != prevNode) pruneTmp.Add(k);
+        foreach (var k in obey.Keys) if (k == null || k.Node != prevNode) pruneTmp.Add(k);
+        foreach (var k in pruneTmp) { memo.Remove(k); obey.Remove(k); }
+        reported.Clear();
     }
 
     // ---------- Boucle principale ----------
@@ -416,11 +428,23 @@ public class CarAI : MonoBehaviour
     float ElementsLimit(float dt)
     {
         if (approachNode < 0 || prevNode < 0) return float.MaxValue;
-        var list = RoadElement.At(approachNode);
+        float limit = EvalElements(approachNode, false, dt);
+
+        // éléments à effet local posés sur la tuile qu'on vient de traverser (moitié après le centre)
+        var graph = RoadGraph.Instance;
+        if (Dist(transform.position, graph.NodePos(prevNode)) < graph.NodeHalfSize(prevNode) + carLength * 0.5f)
+            limit = Mathf.Min(limit, EvalElements(prevNode, true, dt));
+        return limit;
+    }
+
+    float EvalElements(int node, bool localOnly, float dt)
+    {
+        var list = RoadElement.At(node);
         float limit = float.MaxValue;
         for (int i = 0; i < list.Count; i++)
         {
             var e = list[i];
+            if (localOnly && !e.LocalEffect) continue;
             if (!e.Applies(this)) continue;
             limit = Mathf.Min(limit, e.Limit(this, dt));
         }

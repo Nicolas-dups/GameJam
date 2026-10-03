@@ -6,15 +6,24 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 /// <summary>
-/// Un emplacement de pose (cube semi-transparent) sur le bord d'une route.
+/// Un emplacement de pose (cube / rectangle semi-transparent) sur une tuile.
+/// Un emplacement ne porte qu'UN élément à la fois (occupant).
 /// </summary>
 public class PlacementSpot : MonoBehaviour
 {
     public int node;
+    public PlacementKind kind;  // Edge / CenterLong / CenterShort
     public Vector3 anchor;      // point au sol où sera posé le prefab
-    public Vector3 travelDir;   // sens de circulation dont ce bord est le côté DROIT
+    public float yaw;           // rotation Y ajoutée à l'orientation du prefab (visuel seulement)
+    public Vector3 travelDir;   // sens de circulation de référence pour l'orientation du prefab
     public Renderer rend;
+    public RoadElement occupant; // élément actuellement posé ici (null = libre)
+    public TileShape shape;      // forme de la tuile (utile pour les emplacements WholeTile)
+    public Quaternion tileRotation = Quaternion.identity; // rotation de la tuile d'origine (WholeTile)
 }
+
+/// <summary>Forme d'une tuile non droite (pour choisir le bon prefab de tuile entière).</summary>
+public enum TileShape { None, L, T, X }
 
 /// <summary>
 /// Boucle de jeu :  PLANIFICATION (poser des éléments) -> SIMULATION -> ACCIDENT -> retour à la planification
@@ -45,7 +54,22 @@ public class GameManager : MonoBehaviour
         [Tooltip("Prefab dont la RACINE porte un script RoadElement (StopSign, TrafficLight...)")]
         public GameObject prefab;
         public int cost = 50;
+        [Min(1), Tooltip("Nombre max d'éléments de CE type sur une même tuile.\n" +
+                         "Ignoré pour les éléments de bord sur les intersections (X, T, L) : la limite y est le nombre d'angles (4, 2, 1), tous types confondus.")]
+        public int maxPerTile = 1;
+
+        [Header("Tuile entière (PlacementKind.WholeTile) - prefabs optionnels selon la forme")]
+        [Tooltip("Utilisé pour les tuiles en X (sinon 'prefab')")] public GameObject prefabX;
+        [Tooltip("Utilisé pour les tuiles en T (sinon 'prefab')")] public GameObject prefabT;
+        [Tooltip("Utilisé pour les angles L (sinon 'prefab')")] public GameObject prefabL;
+
         public string Label => prefab != null ? prefab.name : "(prefab manquant)";
+
+        public GameObject PrefabFor(TileShape shape)
+        {
+            GameObject p = shape == TileShape.X ? prefabX : shape == TileShape.T ? prefabT : shape == TileShape.L ? prefabL : null;
+            return p != null ? p : prefab;
+        }
         [System.NonSerialized] public RoadElement element;
         [System.NonSerialized] public System.Type type;
     }
@@ -61,13 +85,47 @@ public class GameManager : MonoBehaviour
     [Tooltip("Même ordre que le tableau 'toolButtons' de l'UI")]
     public ToolDef[] tools;
 
-    [Header("Emplacements de pose")]
+    [Header("Emplacements de bord de route (PlacementKind.Edge)")]
     public float spotSize = 1f;
     public float spotSpacing = 1.3f;
     [Tooltip("Distance entre l'axe de la route et les cubes de bord")]
     public float spotSideOffset = 3.5f;
-    [Tooltip("Aux carrefours/virages : zone centrale sans emplacement")]
-    public float junctionClearance = 4f;
+    [Tooltip("Rotation Y ajoutée aux prefabs posés sur les bords de route droits (visuel seulement)")]
+    public float rowYaw = 0f;
+    [Tooltip("Coché : un cube d'angle est aussi posé à l'intérieur des tuiles de virage")]
+    public bool cornerOnTurns = true;
+
+    [System.Serializable]
+    public class CornerSetup
+    {
+        [Tooltip("Distance du centre de la tuile, le long du bras d'arrivée (m)")]
+        public float along = 8f;
+        [Tooltip("Décalage latéral vers le coin, perpendiculairement au bras d'arrivée (m)")]
+        public float side = 8f;
+        [Tooltip("Rotation Y ajoutée à l'orientation du prefab (°) : visuel seulement, la logique des voitures ne change pas")]
+        public float yaw = 180f;
+    }
+
+    [Header("Cubes d'angle (T, croisements, virages)")]
+    public CornerSetup corner = new CornerSetup();
+
+    [Header("Emplacements au centre (PlacementKind.CenterLong / CenterShort)")]
+    [Tooltip("Rectangle (PlacementKind.CenterLong) : x = largeur en travers de la route, y = profondeur le long de la route")]
+    public Vector2 longSize = new Vector2(5.5f, 2f);
+    [Tooltip("Rotation Y ajoutée aux prefabs posés sur un rectangle (visuel seulement)")]
+    public float longYaw = 0f;
+    [Range(0f, 1f), Tooltip("Sur les T / croisements / virages : un rectangle par bras, à cette fraction de la demi-taille de la tuile")]
+    public float longArmFactor = 0.6f;
+    [Tooltip("Taille du petit cube central (PlacementKind.CenterShort)")]
+    public float shortSize = 2f;
+    [Tooltip("Rotation Y ajoutée aux prefabs posés sur le petit cube central (visuel seulement)")]
+    public float shortYaw = 0f;
+
+    [Header("Tuile entière (PlacementKind.WholeTile : passage piéton)")]
+    [Tooltip("Rotation Y ajoutée à la rotation de la tuile remplacée (°), si le prefab de remplacement n'a pas la même orientation de base que vos tuiles")]
+    public float wholeTileYaw = 0f;
+
+    [Header("Matériaux des emplacements")]
     [Tooltip("Optionnel (sinon un matériau transparent est généré)")]
     public Material spotMaterial;
     public Material spotHoverMaterial;
@@ -118,8 +176,12 @@ public class GameManager : MonoBehaviour
     readonly List<GameObject> markers = new List<GameObject>();
     Transform elementsHolder, spotsHolder;
     GameObject ghost;
-    int ghostTool = -1;
+    GameObject ghostPrefab;
+    readonly Dictionary<int, int> cornerCount = new Dictionary<int, int>();   // nombre d'angles par tuile (X:4, T:2, L:1, droite:0)
     PlacementSpot hovered;
+    readonly List<PlacementSpot> allSpots = new List<PlacementSpot>();
+    readonly Dictionary<RoadElement, PlacementSpot> placedSpot = new Dictionary<RoadElement, PlacementSpot>();
+    float lastPlaceTime = -10f;
     static readonly float[] speeds = { 1f, 2f, 4f };
 
     void Awake()
@@ -157,7 +219,7 @@ public class GameManager : MonoBehaviour
     }
 
     // =================================================================
-    //  Génération des cubes de placement le long des routes
+    //  Génération des emplacements de placement
     // =================================================================
     void BuildSpots()
     {
@@ -179,48 +241,221 @@ public class GameManager : MonoBehaviour
             if (dirs.Count == 0) continue;
 
             Vector3 c = graph.NodePos(node);
-            float limit = graph.NodeHalfSize(node) * 0.85f;
+            float half = graph.NodeHalfSize(node);
+            float limit = half * 0.85f;
             bool straight = dirs.Count == 1 || (dirs.Count == 2 && Vector3.Dot(dirs[0], dirs[1]) < -0.9f);
 
-            if (straight) AddRow(node, c, dirs[0], -limit, limit);
-            else foreach (var d in dirs) AddRow(node, c, d, junctionClearance, limit);
+            // nombre d'angles = paires de bras perpendiculaires (X : 4, T : 2, L : 1) :
+            // c'est le nombre max d'éléments de bord sur une intersection
+            int corners = 0;
+            for (int i = 0; i < dirs.Count; i++)
+                for (int j = i + 1; j < dirs.Count; j++)
+                    if (Mathf.Abs(Vector3.Dot(dirs[i], dirs[j])) <= 0.1f) corners++;
+            cornerCount[node] = corners;
+
+            // ---- Emplacements de bord de route (panneaux, feux...) ----
+            if (straight)
+            {
+                Vector3 r = Vector3.Cross(Vector3.up, dirs[0]);
+                AddRow(node, c, dirs[0], -limit, limit, r, -r);          // les deux bords
+            }
+            else
+            {
+                // T / croisement / virage : un cube par coin + des rangées normales sur les côtés sans coin
+                bool turn = dirs.Count == 2;
+                if (!turn || cornerOnTurns) AddCorners(node, c, dirs, corner);
+                AddFreeSides(node, c, dirs, limit);
+            }
+
+            // ---- Emplacements au centre (rectangles longs + petit cube) ----
+            AddCenterSpots(node, c, dirs, straight, half);
+
+            // ---- Tuile entière (passage piéton) : seulement X, T et angles L ----
+            if (!straight) AddWholeTileSpot(node, dirs, half);
         }
     }
 
-    void AddRow(int node, Vector3 center, Vector3 axis, float t0, float t1)
+    /// <summary>Un emplacement recouvrant toute la tuile (X, T ou L). Il sert à REMPLACER la tuile par un prefab de tuile.</summary>
+    void AddWholeTileSpot(int node, List<Vector3> dirs, float half)
+    {
+        var tile = RoadGraph.Instance.NodeTile(node);
+        Vector3 center = tile != null ? tile.position : RoadGraph.Instance.NodePos(node);
+
+        var spot = CreateSpot(node, PlacementKind.WholeTile, center, dirs[0], wholeTileYaw, half * 2f);
+        spot.shape = dirs.Count >= 4 ? TileShape.X : dirs.Count == 3 ? TileShape.T : TileShape.L;
+        spot.tileRotation = tile != null ? tile.rotation : Quaternion.identity;
+    }
+
+    /// <summary>Rangée de cubes le long d'un bras, sur les côtés donnés.</summary>
+    void AddRow(int node, Vector3 center, Vector3 axis, float t0, float t1, params Vector3[] sides)
     {
         if (t1 <= t0) return;
         int count = Mathf.Max(1, Mathf.RoundToInt((t1 - t0) / spotSpacing));
-        Vector3 rightOfAxis = Vector3.Cross(Vector3.up, axis);
 
         for (int i = 0; i < count; i++)
         {
             float t = Mathf.Lerp(t0, t1, (i + 0.5f) / count);
-            for (int s = -1; s <= 1; s += 2)
+            foreach (var side in sides)
             {
-                Vector3 side = rightOfAxis * s;                       // bord de route
                 Vector3 anchor = center + axis * t + side * spotSideOffset;
                 Vector3 travel = Vector3.Cross(side, Vector3.up);     // sens dont ce bord est à droite
-
-                var go = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                go.name = "Spot";
-                go.transform.SetParent(spotsHolder, false);
-                go.transform.position = anchor + Vector3.up * 0.15f;
-                go.transform.localScale = new Vector3(spotSize, 0.3f, spotSize);
-
-                var spot = go.AddComponent<PlacementSpot>();
-                spot.node = node;
-                spot.anchor = anchor;
-                spot.travelDir = travel;
-                spot.rend = go.GetComponent<Renderer>();
-                spot.rend.sharedMaterial = spotMaterial;
+                CreateSpot(node, PlacementKind.Edge, anchor, travel, rowYaw);
             }
         }
+    }
+
+    /// <summary>
+    /// Côtés sans coin : ceux où aucun bras perpendiculaire ne rejoint la route
+    /// (extérieur de la barre d'un T, extérieur d'un virage).
+    /// </summary>
+    void AddFreeSides(int node, Vector3 center, List<Vector3> dirs, float limit)
+    {
+        foreach (var d in dirs)
+        {
+            bool hasOpposite = dirs.Contains(-d);
+            if (hasOpposite && d.x + d.z < 0f) continue;            // axe traité une seule fois
+            Vector3 right = Vector3.Cross(Vector3.up, d);
+
+            for (int s = -1; s <= 1; s += 2)
+            {
+                Vector3 side = right * s;
+                if (dirs.Contains(side)) continue;                  // un bras de ce côté : c'est un coin
+                AddRow(node, center, d, hasOpposite ? -limit : 0f, limit, side);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Carrefours / virages : UN seul cube par coin formé par deux bras perpendiculaires.
+    /// Il est orienté pour la voie de DROITE : celle des voitures qui arrivent par le bras
+    /// dont ce coin est sur la droite (ex. T : coin bas-gauche = voitures venant de la gauche,
+    /// coin bas-droit = voitures venant du bas).
+    /// </summary>
+    void AddCorners(int node, Vector3 center, List<Vector3> dirs, CornerSetup setup)
+    {
+        for (int i = 0; i < dirs.Count; i++)
+            for (int j = i + 1; j < dirs.Count; j++)
+            {
+                if (Mathf.Abs(Vector3.Dot(dirs[i], dirs[j])) > 0.1f) continue;   // bras opposés : pas de coin
+
+                // a = bras d'arrivée, b = bras formant le coin, avec b à droite du trafic entrant (qui roule vers -a)
+                Vector3 a = dirs[i], b = dirs[j];
+                if (Vector3.Dot(Vector3.Cross(Vector3.up, -a), b) < 0.5f) { var tmp = a; a = b; b = tmp; }
+
+                Vector3 anchor = center + a * setup.along + b * setup.side;
+                CreateSpot(node, PlacementKind.Edge, anchor, -a, setup.yaw);
+            }
+    }
+
+    /// <summary>
+    /// Emplacements au centre de la route :
+    ///  - un petit cube au centre de chaque tuile (agent de circulation...)
+    ///  - des rectangles en travers de la route (passage piéton, dos d'âne, route barrée...) :
+    ///    un seul au centre d'une tuile droite, un par bras sur les T / croisements / virages.
+    /// </summary>
+    void AddCenterSpots(int node, Vector3 center, List<Vector3> dirs, bool straight, float half)
+    {
+        // court : toujours au centre
+        CreateSpot(node, PlacementKind.CenterShort, center, dirs[0], shortYaw);
+
+        // long
+        if (straight)
+        {
+            CreateSpot(node, PlacementKind.CenterLong, center, dirs[0], longYaw);
+        }
+        else
+        {
+            foreach (var d in dirs)
+                CreateSpot(node, PlacementKind.CenterLong, center + d * (half * longArmFactor), -d, longYaw);
+        }
+    }
+
+    PlacementSpot CreateSpot(int node, PlacementKind kind, Vector3 anchor, Vector3 travel, float yaw, float size = 0f)
+    {
+        var go = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        go.name = "Spot_" + kind;
+        go.transform.SetParent(spotsHolder, false);
+        go.transform.position = anchor + Vector3.up * 0.15f;
+
+        switch (kind)
+        {
+            case PlacementKind.CenterLong:
+                // axe Z local = sens de la route ; X local = en travers de la route
+                go.transform.rotation = Quaternion.LookRotation(travel, Vector3.up);
+                go.transform.localScale = new Vector3(longSize.x, 0.3f, longSize.y);
+                break;
+            case PlacementKind.CenterShort:
+                go.transform.localScale = new Vector3(shortSize, 0.3f, shortSize);
+                break;
+            case PlacementKind.WholeTile:
+                // dalle fine couvrant toute la tuile
+                go.transform.position = anchor + Vector3.up * 0.05f;
+                go.transform.localScale = new Vector3(size, 0.1f, size);
+                break;
+            default:
+                go.transform.localScale = new Vector3(spotSize, 0.3f, spotSize);
+                break;
+        }
+
+        var spot = go.AddComponent<PlacementSpot>();
+        spot.node = node;
+        spot.kind = kind;
+        spot.anchor = anchor;
+        spot.travelDir = travel;
+        spot.yaw = yaw;
+        spot.rend = go.GetComponent<Renderer>();
+        spot.rend.sharedMaterial = spotMaterial;
+        allSpots.Add(spot);
+        return spot;
     }
 
     void SetSpotsVisible(bool v)
     {
         if (spotsHolder != null && spotsHolder.gameObject.activeSelf != v) spotsHolder.gameObject.SetActive(v);
+    }
+
+    /// <summary>
+    /// N'affiche que les emplacements où l'outil sélectionné peut réellement être posé
+    /// (bon type, libre, quota par tuile non atteint). Les emplacements masqués ne sont pas non plus cliquables.
+    /// </summary>
+    void RefreshSpotVisibility()
+    {
+        bool hasTool = selected >= 0 && selected < tools.Length && tools[selected].element != null;
+        ToolDef tool = hasTool ? tools[selected] : null;
+
+        foreach (var s in allSpots)
+        {
+            if (s == null) continue;
+            bool show = hasTool && CanPlace(tool, s);
+            if (s.gameObject.activeSelf != show) s.gameObject.SetActive(show);
+        }
+    }
+
+    /// <summary>L'outil peut-il être posé sur cet emplacement ? (hors budget)</summary>
+    bool CanPlace(ToolDef tool, PlacementSpot spot)
+    {
+        if (tool == null || tool.element == null || spot == null) return false;
+        if (spot.occupant != null) return false;                                // emplacement déjà pris
+        if (spot.kind != tool.element.placement) return false;                  // mauvais type d'emplacement
+
+        int node = spot.node;
+        if (tool.element.placement == PlacementKind.Edge && cornerCount.TryGetValue(node, out int corners) && corners > 0)
+        {
+            // intersection (X, T, L) : au plus un élément de bord par angle (4, 2, 1), tous types confondus
+            // (le passage piéton, qui remplace la tuile, ne compte pas)
+            int edges = 0;
+            foreach (var e in RoadElement.At(node)) if (e != null && e.placement == PlacementKind.Edge) edges++;
+            if (edges >= corners) return false;
+        }
+        else
+        {
+            int same = 0;
+            foreach (var e in RoadElement.At(node)) if (e != null && e.GetType() == tool.type) same++;
+            if (same >= tool.maxPerTile) return false;                          // quota de ce type atteint sur la tuile
+        }
+
+        if (tool.type == typeof(RoadBlock) && RoadGraph.Instance.IsBlocked(node)) return false;
+        return true;
     }
 
     // =================================================================
@@ -399,28 +634,28 @@ public class GameManager : MonoBehaviour
         hovered = null;
     }
 
-    PlacementSpot FindSpot(Ray ray)
+    /// <summary>Emplacement visible le plus proche sous le rayon (les emplacements masqués n'ont pas de collider actif).</summary>
+    PlacementSpot FindSpot(Ray ray, out float dist)
     {
         PlacementSpot best = null;
-        float bestD = float.MaxValue;
+        dist = float.MaxValue;
         foreach (var h in Physics.RaycastAll(ray, 1000f))
         {
             var s = h.collider.GetComponent<PlacementSpot>();
-            if (s != null && h.distance < bestD) { bestD = h.distance; best = s; }
+            if (s != null && h.distance < dist) { dist = h.distance; best = s; }
         }
         return best;
     }
 
-    void RefreshGhost()
+    void EnsureGhost(GameObject prefab)
     {
-        if (ghost != null && ghostTool == selected) return;
+        if (ghost != null && ghostPrefab == prefab) return;
         if (ghost != null) Destroy(ghost);
         ghost = null;
-        ghostTool = selected;
+        ghostPrefab = prefab;
+        if (prefab == null) return;
 
-        if (selected < 0 || selected >= tools.Length || tools[selected].prefab == null) return;
-
-        ghost = Instantiate(tools[selected].prefab);
+        ghost = Instantiate(prefab);
         ghost.name = "Ghost";
         var el = ghost.GetComponent<RoadElement>();
         if (el != null) el.enabled = false;                       // ne s'enregistre pas, ne simule rien
@@ -436,13 +671,50 @@ public class GameManager : MonoBehaviour
         ghost.SetActive(false);
     }
 
+    /// <summary>
+    /// Élément déjà posé sous la souris (le plus proche de la caméra) + sa distance.
+    /// Utilise les colliders ; pour les prefabs SANS collider, secours : boîte englobante des renderers.
+    /// </summary>
+    RoadElement FindPlaced(Ray ray, out float dist)
+    {
+        RoadElement best = null;
+        dist = float.MaxValue;
+
+        // Une tuile entière (passage piéton) couvre toute la tuile : pour éviter de la retirer par erreur,
+        // elle n'est cliquable que lorsque son outil est sélectionné.
+        bool wholeOk = selected >= 0 && selected < tools.Length && tools[selected].element != null
+                       && tools[selected].element.placement == PlacementKind.WholeTile;
+
+        foreach (var h in Physics.RaycastAll(ray, 1000f))
+        {
+            var e = h.collider.GetComponentInParent<RoadElement>();
+            if (e == null || !e.IsPlaced) continue;
+            if (e.placement == PlacementKind.WholeTile && !wholeOk) continue;
+            if (h.distance < dist) { dist = h.distance; best = e; }
+        }
+
+        foreach (var e in RoadElement.All)
+        {
+            if (e == null || e.GetComponentInChildren<Collider>() != null) continue;   // déjà géré par les colliders
+            if (e.placement == PlacementKind.WholeTile && !wholeOk) continue;
+            var rends = e.GetComponentsInChildren<Renderer>();
+            if (rends.Length == 0) continue;
+
+            Bounds b = rends[0].bounds;
+            for (int i = 1; i < rends.Length; i++) b.Encapsulate(rends[i].bounds);
+
+            if (b.IntersectRay(ray, out float d) && d < dist) { dist = d; best = e; }
+        }
+        return best;
+    }
+
     void HandlePlacement()
     {
         var cam = Camera.main;
         if (cam == null) return;
 
         SetSpotsVisible(true);
-        RefreshGhost();
+        RefreshSpotVisibility();      // seuls les emplacements adaptés à l'outil sélectionné restent visibles
         ClearHover();
         if (ghost != null) ghost.SetActive(false);
 
@@ -452,7 +724,20 @@ public class GameManager : MonoBehaviour
         // Souris au-dessus du Canvas : on ne pose rien dans la ville
         if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) return;
 
-        var spot = FindSpot(cam.ScreenPointToRay(Input.mousePosition));
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+
+        RoadElement placed = FindPlaced(ray, out float placedDist);
+        PlacementSpot spot = FindSpot(ray, out float spotDist);
+
+        // 1) Un élément posé est plus proche de la caméra que tout emplacement visible : un clic gauche le retire
+        if (placed != null && (spot == null || placedDist <= spotDist))
+        {
+            // petit délai pour ne pas retirer par accident un élément qu'on vient de poser
+            if (Input.GetMouseButtonDown(0) && Time.unscaledTime - lastPlaceTime > 0.3f) RemoveElement(placed);
+            return;
+        }
+
+        // 2) Sinon, un emplacement libre et adapté : aperçu + pose au clic
         if (spot == null) return;
 
         hovered = spot;
@@ -460,61 +745,81 @@ public class GameManager : MonoBehaviour
 
         if (selected >= 0 && selected < tools.Length && tools[selected].element != null)
         {
-            Vector3 f = flip ? -spot.travelDir : spot.travelDir;
-            Vector3 pos = tools[selected].element.centerOnRoad
-                ? RoadGraph.Instance.NodePos(spot.node)
-                : spot.anchor;
+            bool whole = spot.kind == PlacementKind.WholeTile;
+            Vector3 f = (flip && !whole) ? -spot.travelDir : spot.travelDir;
 
+            EnsureGhost(PrefabFor(tools[selected], spot));
             if (ghost != null)
             {
-                ghost.transform.SetPositionAndRotation(pos, Quaternion.LookRotation(f, Vector3.up));
+                // petit décalage vertical pour la tuile entière : évite le scintillement avec la tuile d'origine
+                Vector3 p = spot.anchor + (whole ? Vector3.up * 0.02f : Vector3.zero);
+                ghost.transform.SetPositionAndRotation(p, SpotRotation(spot, f));
                 ghost.SetActive(true);
             }
             if (Input.GetMouseButtonDown(0)) TryPlace(spot);
         }
-
-        if (Input.GetMouseButtonDown(1)) RemoveNearest(spot);
     }
 
     void TryPlace(PlacementSpot spot)
     {
         var tool = tools[selected];
-        if (tool.element == null || money < tool.cost) return;
+        if (money < tool.cost || !CanPlace(tool, spot)) return;
 
-        int node = spot.node;
-        if (tool.type == typeof(RoadBlock) && RoadGraph.Instance.IsBlocked(node)) return;
+        bool whole = spot.kind == PlacementKind.WholeTile;
+        Vector3 f = (flip && !whole) ? -spot.travelDir : spot.travelDir;
 
-        Vector3 f = flip ? -spot.travelDir : spot.travelDir;
-        Vector3 pos = tool.element.centerOnRoad ? RoadGraph.Instance.NodePos(node) : spot.anchor;
-
-        // remplace un élément du même type déjà présent sur ce côté
-        foreach (var e in new List<RoadElement>(RoadElement.At(node)))
-            if (e.GetType() == tool.type && (e.AllDirections || allDirections || Vector3.Dot(e.Facing, f) > 0.99f))
-                RemoveElement(e);
-
-        var go = Instantiate(tool.prefab, pos, Quaternion.LookRotation(f, Vector3.up), elementsHolder);
+        var go = Instantiate(PrefabFor(tool, spot), spot.anchor, SpotRotation(spot, f), elementsHolder);
         go.name = tool.Label;
         var element = go.GetComponent<RoadElement>();
-        element.Place(node, f, allDirections);
+        if (element == null)
+        {
+            Debug.LogError($"Outil '{tool.Label}' : le prefab utilisé n'a pas de RoadElement à la racine");
+            Destroy(go);
+            return;
+        }
+
+        // une tuile entière agit toujours dans toutes les directions
+        element.Place(spot.node, f, allDirections || whole);
         money -= tool.cost;
+
+        // la tuile d'origine est seulement masquée : le graphe routier n'est pas modifié
+        if (whole) SetTileVisible(spot.node, false);
+
+        spot.occupant = element;                // cet emplacement est pris (les autres de la tuile restent libres)
+        placedSpot[element] = spot;
+        lastPlaceTime = Time.unscaledTime;
     }
 
-    /// <summary>Clic droit : retire l'élément de la tuile le plus proche de l'emplacement visé.</summary>
-    void RemoveNearest(PlacementSpot spot)
+    /// <summary>Prefab à poser : pour une tuile entière, la variante X / T / L si elle existe.</summary>
+    GameObject PrefabFor(ToolDef tool, PlacementSpot spot) =>
+        spot.kind == PlacementKind.WholeTile ? tool.PrefabFor(spot.shape) : tool.prefab;
+
+    /// <summary>Rotation du prefab : celle de la tuile remplacée pour une tuile entière, sinon orientée selon le sens de la route.</summary>
+    Quaternion SpotRotation(PlacementSpot spot, Vector3 facing)
     {
-        RoadElement best = null;
-        float bestD = float.MaxValue;
-        foreach (var e in RoadElement.At(spot.node))
-        {
-            float d = (e.transform.position - spot.anchor).sqrMagnitude;
-            if (d < bestD) { bestD = d; best = e; }
-        }
-        if (best != null) RemoveElement(best);
+        if (spot.kind == PlacementKind.WholeTile) return spot.tileRotation * Quaternion.Euler(0f, spot.yaw, 0f);
+        return Quaternion.LookRotation(facing, Vector3.up) * Quaternion.Euler(0f, spot.yaw, 0f);
+    }
+
+    void SetTileVisible(int node, bool visible)
+    {
+        var tile = RoadGraph.Instance.NodeTile(node);
+        if (tile != null) tile.gameObject.SetActive(visible);
     }
 
     void RemoveElement(RoadElement e)
     {
         foreach (var tool in tools) if (tool.type == e.GetType()) { money += tool.cost; break; }
+
+        if (placedSpot.TryGetValue(e, out var spot))
+        {
+            if (spot != null)
+            {
+                spot.occupant = null;                   // l'emplacement est de nouveau libre
+                if (spot.kind == PlacementKind.WholeTile) SetTileVisible(spot.node, true);   // la tuile d'origine revient
+            }
+            placedSpot.Remove(e);
+        }
         e.Remove();
     }
 
@@ -577,7 +882,7 @@ public class GameManager : MonoBehaviour
         {
             case Phase.Planning:
                 if (planningHelpText != null)
-                    planningHelpText.text = $"R : inverser le sens ({(flip ? "inversé" : "normal")})  |  Tab : tous sens = {(allDirections ? "OUI" : "non")}\nClic droit : retirer";
+                    planningHelpText.text = $"R : inverser le sens ({(flip ? "inversé" : "normal")})  |  Tab : tous sens = {(allDirections ? "OUI" : "non")}\nClic gauche sur un objet : le retirer\n(passage piéton : outil sélectionné + clic sur la tuile)";
                 if (clearMarkersButton != null)
                     clearMarkersButton.gameObject.SetActive(markers.Count > 0);
                 Highlight(toolButtons, selected);

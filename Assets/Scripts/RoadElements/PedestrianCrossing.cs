@@ -16,6 +16,7 @@ public class PedestrianCrossing : RoadElement
     float spawnTimer;
 
     protected override bool Symmetric => true;
+    public override bool LocalEffect => true;
     float Width => Half * 2f * 0.8f;
     Vector3 Right => Vector3.Cross(Vector3.up, Facing);
 
@@ -34,8 +35,8 @@ public class PedestrianCrossing : RoadElement
         if (spawnTimer > 0f) return;
         spawnTimer = 3f + (float)rng.NextDouble() * 5f;
 
-        Vector3 a = Center - Right * (Width * 0.5f + 1f);
-        Vector3 b = Center + Right * (Width * 0.5f + 1f);
+        Vector3 a = Anchor - Right * (Width * 0.5f + 1f);
+        Vector3 b = Anchor + Right * (Width * 0.5f + 1f);
         if (rng.Next(2) == 0) { var t = a; a = b; b = t; }
         a.y += 0.5f; b.y += 0.5f;
 
@@ -55,7 +56,7 @@ public class PedestrianCrossing : RoadElement
 
     bool PedestrianNear()
     {
-        Vector3 c = Center, r = Right;
+        Vector3 c = Anchor, r = Right;
         foreach (var p in Pedestrian.All)
         {
             Vector3 d = p.transform.position - c;
@@ -67,7 +68,7 @@ public class PedestrianCrossing : RoadElement
 
     public override float Limit(CarAI car, float dt)
     {
-        float ahead = Vector3.Dot(Center - car.transform.position, car.ApproachDir);
+        float ahead = Ahead(car);
         if (ahead > 16f || ahead < -2.5f) return float.MaxValue;
 
         float slow = SlowTo(car, crossSpeed, ahead - 4f);

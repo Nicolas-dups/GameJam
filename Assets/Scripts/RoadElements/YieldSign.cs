@@ -8,6 +8,7 @@ public class YieldSign : RoadElement
 {
     public float approachSpeed = 3f;
     public float maxWait = 6f;
+    public override bool LocalEffect => true;
 
     bool CrossTraffic(CarAI car)
     {
@@ -21,13 +22,13 @@ public class YieldSign : RoadElement
 
     public override float Limit(CarAI car, float dt)
     {
-        float d = LineDistance(car);
+        float d = SignLineDistance(car);
         if (d > 14f) return float.MaxValue;
 
         bool traffic = CrossTraffic(car);
         if (d <= 0f)
         {
-            if (traffic && !car.Obeys(this)) car.Report("Refus de céder le passage");
+            if (JustCrossed(d) && traffic && !car.Obeys(this)) car.Report("Refus de céder le passage");
             return float.MaxValue;
         }
         if (!car.Obeys(this)) return float.MaxValue;

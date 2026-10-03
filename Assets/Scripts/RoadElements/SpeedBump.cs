@@ -9,10 +9,11 @@ public class SpeedBump : RoadElement
 {
     public float bumpSpeed = 1.8f;
     protected override bool Symmetric => true;
+    public override bool LocalEffect => true;
 
     public override float Limit(CarAI car, float dt)
     {
-        float ahead = Vector3.Dot(Center - car.transform.position, car.ApproachDir);
+        float ahead = Ahead(car);
         if (ahead < -0.5f) return float.MaxValue;
         return SlowTo(car, bumpSpeed, ahead);
     }
