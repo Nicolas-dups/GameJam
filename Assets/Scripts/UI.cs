@@ -50,13 +50,18 @@ public class UI : MonoBehaviour
         // Position initiale de la caméra
         Vector3 initialPosition = previewCamera.transform.position;
 
-        // Crée une RenderTexture
+        // Use an alpha-capable target and clear the camera to transparent.
         RenderTexture renderTexture = new RenderTexture(
             imageWidth,
             imageHeight,
-            24
+            24,
+            RenderTextureFormat.ARGB32
         );
 
+        CameraClearFlags originalClearFlags = previewCamera.clearFlags;
+        Color originalBackgroundColor = previewCamera.backgroundColor;
+        previewCamera.clearFlags = CameraClearFlags.SolidColor;
+        previewCamera.backgroundColor = new Color(0f, 0f, 0f, 0f);
         previewCamera.targetTexture = renderTexture;
 
         for (int i = 0; i < 10; i++)
@@ -76,7 +81,7 @@ public class UI : MonoBehaviour
             Texture2D screenshot = new Texture2D(
                 imageWidth,
                 imageHeight,
-                TextureFormat.RGB24,
+                TextureFormat.RGBA32,
                 false
             );
 
@@ -97,6 +102,8 @@ public class UI : MonoBehaviour
 
         // Désactive la RenderTexture
         previewCamera.targetTexture = null;
+        previewCamera.clearFlags = originalClearFlags;
+        previewCamera.backgroundColor = originalBackgroundColor;
 
         // Détruit la RenderTexture
         Destroy(renderTexture);
