@@ -1,16 +1,15 @@
 idées :
 on gère une ville (point de vu dieux) le but est d'empêcher les accidents en plaçant des éléments :
-- stop
-- feux
-- passage piéton
-- route barrée
-- sens unique
-- limitation de vitesse
-- céder le passage
-- limitation
-- dos d'ane
-- agent routier
-- police
+- stop : arrête la voiture un certain temps (infraction possible)
+- feux : arrête la voiture un certain temps s'il est rouge (infraction possible)
+- passage piéton : ralentie la voiture s'il y a des pietons pas loin
+- route barrée : empêche la voiture de passer 
+- sens unique : empêche la voiture de passer dans un certain sens
+- limitation de vitesse : réduit la vitesse de la voiture (infraction possible)
+- céder le passage : ralentie la voiture et l'arrête s'il y a des voitures devant pas loin
+- dos d'ane : ralentie la voiture
+- agent routier : agit comme un feu intelligent en fonction de là où il y a le plus de voitures
+- police : poursuit puis arrète les voitures en infraction
 
 la boucle de jeux : pose des éléments > la scène se déroule > accident > recommence la scène au début
 condition de victoire : toutes les voitures qui ont des quêtes remplissent leurs objectifs.
