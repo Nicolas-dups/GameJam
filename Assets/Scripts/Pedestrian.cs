@@ -385,16 +385,44 @@ public class Pedestrian : MonoBehaviour
     {
         if (!careful || waitTime >= maxWaitTime) return false;
 
+        Vector3 seg = s.pos - transform.position;
+        seg.y = 0f;
+        if (seg.sqrMagnitude < 0.01f) return false;
+        Vector3 u = seg.normalized;                                   // sens de la traversée
         Vector3 mid = (transform.position + s.pos) * 0.5f;
-        float danger = (s.marked || PedestrianCrossing.IsAt(s.node)) ? markedDangerDistance : carDangerDistance;
+
+        float minDist = (s.marked || PedestrianCrossing.IsAt(s.node)) ? markedDangerDistance : carDangerDistance;
 
         foreach (var car in CarAI.Cars)
         {
-            if (car == null || car.Speed < 0.3f) continue;
-            Vector3 d = car.transform.position - mid;
+            // une voiture à l'arrêt ne bloque pas (sinon blocage mutuel avec la voiture qui nous laisse passer)
+            if (car == null || car.IsArrested || car.Speed < 0.3f) continue;
+
+            Vector3 fwd = car.transform.forward;
+            fwd.y = 0f;
+            fwd.Normalize();
+
+            Vector3 d = mid - car.transform.position;
             d.y = 0f;
-            if (d.sqrMagnitude > danger * danger) continue;
-            if (Vector3.Dot(car.transform.forward, -d) > 0f) return true;   // la voiture se dirige vers le passage
+            float ahead = Vector3.Dot(d, fwd);
+            if (ahead < -car.halfLength) continue;                     // déjà passée
+
+            float stopDist = car.Speed * car.Speed / (2f * car.braking) + car.halfLength + 1.5f;
+            float range = Mathf.Max(minDist, stopDist);
+
+            // Voiture qui arrive sur cette tuile ou vient d'en repartir : elle peut tourner vers ce passage,
+            // même si elle roule pour l'instant parallèlement à ma traversée
+            bool atTile = car.ApproachNode == s.node || car.PrevNode == s.node;
+            if (atTile)
+            {
+                if (d.magnitude <= range + 6f) return true;
+                continue;
+            }
+
+            // Autre voiture : seulement si elle coupe ma traversée
+            if (Mathf.Abs(Vector3.Dot(fwd, u)) > 0.6f) continue;
+            if (Mathf.Abs(Vector3.Dot(d, u)) > 6f) continue;
+            if (ahead <= range) return true;
         }
         return false;
     }

@@ -74,6 +74,9 @@ public class GameManager : MonoBehaviour
                  "À utiliser si la face du modèle n'est pas sur -Z (convention : +Z = sens de circulation, face vers -Z). " +
                  "Ne change rien à la logique des voitures. Sans effet sur les tuiles entières.")]
         public float modelYaw = 0f;
+        [Tooltip("Coché : cet outil ne peut PAS être posé sur une intersection (aucun cube de sélection n'y est affiché). " +
+         "Une intersection = tuile avec au moins 3 bras (T, X). Voir aussi 'turnsAreIntersections'.")]
+        public bool disableOnIntersections = false;
 
         [Header("Tuile entière (PlacementKind.WholeTile) - prefabs optionnels selon la forme")]
         [Tooltip("Utilisé pour les tuiles en X (sinon 'prefab')")] public GameObject prefabX;
@@ -133,6 +136,9 @@ public class GameManager : MonoBehaviour
              "la touche R ne concerne alors que les éléments du centre (sens unique...). " +
              "Coché : R retourne aussi les éléments de bord (ils se retrouvent alors du côté gauche du trafic qu'ils servent).")]
     public bool flipEdgeElements = false;
+    [Tooltip("Coché : les virages en L comptent aussi comme des intersections pour l'option 'disableOnIntersections' des outils. " +
+         "Décoché : seuls les T et les X comptent.")]
+    public bool turnsAreIntersections = false;
     [Tooltip("Rotation Y (°) ajoutée à TOUS les éléments posés (hors tuiles entières), en plus de rowYaw / corner.yaw / longYaw / shortYaw / modelYaw. " +
          "180 = retourne tous les panneaux.")]
     public float globalYaw = 180f;
@@ -234,6 +240,7 @@ public class GameManager : MonoBehaviour
     GameObject accidentInstance;
     float crashPanelTime;                 // temps réel à partir duquel le panneau 'Accident' s'affiche
     readonly Dictionary<int, int> cornerCount = new Dictionary<int, int>();   // nombre d'angles par tuile (X:4, T:2, L:1, droite:0)
+    readonly Dictionary<int, int> armCount = new Dictionary<int, int>();   // nombre de bras par tuile
     PlacementSpot hovered;
     readonly List<PlacementSpot> allSpots = new List<PlacementSpot>();
     readonly Dictionary<RoadElement, PlacementSpot> placedSpot = new Dictionary<RoadElement, PlacementSpot>();
@@ -312,6 +319,7 @@ public class GameManager : MonoBehaviour
                 for (int j = i + 1; j < dirs.Count; j++)
                     if (Mathf.Abs(Vector3.Dot(dirs[i], dirs[j])) <= 0.1f) corners++;
             cornerCount[node] = corners;
+            armCount[node] = dirs.Count;
 
             // ---- Emplacements de bord de route (panneaux, feux...) ----
             if (straight)
@@ -508,6 +516,12 @@ public class GameManager : MonoBehaviour
         if (tool == null || tool.element == null || spot == null) return false;
         if (spot.occupant != null) return false;                                // emplacement déjà pris
         if (spot.kind != tool.element.placement) return false;                  // mauvais type d'emplacement
+        // outil interdit sur les intersections
+        if (tool.disableOnIntersections && armCount.TryGetValue(spot.node, out int arms))
+        {
+            bool isIntersection = arms >= 3 || (turnsAreIntersections && arms == 2 && cornerCount.TryGetValue(spot.node, out int c) && c > 0);
+            if (isIntersection) return false;
+        }
 
         // tuile entière : si la RoadTile d'origine est déjà masquée, un élément la remplace
         if (spot.kind == PlacementKind.WholeTile && spot.tile != null && !spot.tile.gameObject.activeSelf) return false;

@@ -3832,7 +3832,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 123552986}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &123552990
 Camera:
   m_ObjectHideFlags: 0
@@ -42784,6 +42784,7 @@ MonoBehaviour:
     cost: 310
     maxPerTile: 1
     modelYaw: 0
+    disableOnIntersections: 0
     prefabX: {fileID: 0}
     prefabT: {fileID: 0}
     prefabL: {fileID: 0}
@@ -42791,20 +42792,23 @@ MonoBehaviour:
     cost: 10
     maxPerTile: 1
     modelYaw: 0
+    disableOnIntersections: 0
     prefabX: {fileID: 0}
     prefabT: {fileID: 0}
     prefabL: {fileID: 0}
-  - prefab: {fileID: 6251666189375065463, guid: d4f40363aa44ea649ac792f348b8c36a, type: 3}
+  - prefab: {fileID: 2512992298480470947, guid: e1d1d883e981ca04dbdffd944060dfd8, type: 3}
     cost: 10
     maxPerTile: 1
     modelYaw: 0
+    disableOnIntersections: 1
     prefabX: {fileID: 0}
     prefabT: {fileID: 0}
     prefabL: {fileID: 0}
-  - prefab: {fileID: 5767081827295946613, guid: 3fd738b809e48ae45a577cea6555080e, type: 3}
+  - prefab: {fileID: 5767081827295946613, guid: dc8bc5fb65821344f912c3efa8f88ef7, type: 3}
     cost: 10
     maxPerTile: 1
     modelYaw: 0
+    disableOnIntersections: 0
     prefabX: {fileID: 0}
     prefabT: {fileID: 0}
     prefabL: {fileID: 0}
@@ -42812,6 +42816,7 @@ MonoBehaviour:
     cost: 10
     maxPerTile: 1
     modelYaw: 0
+    disableOnIntersections: 0
     prefabX: {fileID: 0}
     prefabT: {fileID: 0}
     prefabL: {fileID: 0}
@@ -42819,10 +42824,12 @@ MonoBehaviour:
     cost: 10
     maxPerTile: 1
     modelYaw: 0
+    disableOnIntersections: 0
     prefabX: {fileID: 100000, guid: 47ef019eb3bddab469e56e5a31eebf68, type: 3}
     prefabT: {fileID: 100000, guid: cbc86bb57f673ba45a8426789eb0fac0, type: 3}
     prefabL: {fileID: 100000, guid: 3a7e1c0a00828fd4196c8cd24886d2ed, type: 3}
   flipEdgeElements: 0
+  turnsAreIntersections: 0
   globalYaw: 180
   spotSize: 2
   spotSpacing: 4
@@ -54065,7 +54072,7 @@ MonoBehaviour:
   ignoreWhenOverUI: 1
   zoomSpeed: 10
   zoomSmoothing: 10
-  crashZoomDistance: 15
+  crashZoomDistance: 20
   focusSmoothing: 4
   minPosition: {x: -50, y: 5, z: -50}
   maxPosition: {x: 200, y: 100, z: 200}

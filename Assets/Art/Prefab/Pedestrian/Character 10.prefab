@@ -196,7 +196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b359bdcf196846488f3eb5fcd115122, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Pedestrian
-  walkSpeed: 1.6
+  walkSpeed: 1.8
   crossSpeed: 2.4
   speedVariation: 0.2
   turnSpeed: 540

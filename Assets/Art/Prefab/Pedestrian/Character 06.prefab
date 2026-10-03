@@ -1426,7 +1426,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Pedestrian
   walkSpeed: 1.6
-  crossSpeed: 2.4
+  crossSpeed: 4
   speedVariation: 0.2
   turnSpeed: 540
   sidewalkOffset: 8

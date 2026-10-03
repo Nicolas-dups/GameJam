@@ -2,29 +2,34 @@ using UnityEngine;
 
 // =====================================================================
 //  PASSAGE PIÉTON (élément posé par le joueur)
-//  Les piétons existent indépendamment (script Pedestrian) et traversent déjà
-//  à toutes les intersections. Cet élément :
-//   - fait s'arrêter les voitures (qui obéissent) tant qu'un piéton traverse la chaussée de cette tuile ;
-//   - sur une tuile droite, sert de point de traversée aux piétons (ils l'utilisent plutôt que de traverser n'importe où).
+//  Une voiture qui obéit s'arrête pour TOUT piéton en train de traverser
+//  dans la zone de la tuile (rayon `zoneMargin` autour de la tuile) et à moins de
+//  `lookAhead` mètres d'elle, quelle que soit sa direction (parallèle comprise).
+//  Elle ne repart que `releaseDelay` secondes après le départ du dernier piéton.
 // =====================================================================
 public class PedestrianCrossing : RoadElement
 {
     [Tooltip("Distance d'arrêt (m) entre l'avant de la voiture et le piéton")]
     public float stopDistance = 3f;
-    [Tooltip("Distance (m) à partir de laquelle la voiture surveille les piétons")]
-    public float lookAhead = 14f;
-    [Tooltip("Demi-largeur (m) de chaussée surveillée, mesurée depuis l'AXE de la route (piétons sur les trottoirs à ±4.5 m)")]
-    public float watchWidth = 6f;
+    [Tooltip("Rayon (m) autour de la voiture dans lequel les piétons sont pris en compte (toutes directions)")]
+    public float lookAhead = 20f;
+    [Tooltip("Marge (m) autour de la tuile : un piéton qui traverse dans cette zone compte")]
+    public float zoneMargin = 6f;
     [Tooltip("Temps (s) pendant lequel la voiture reste arrêtée après le départ du dernier piéton")]
     public float releaseDelay = 0.6f;
+    [Tooltip("Affiche des logs de diagnostic dans la Console")]
+    public bool debugLogs = true;
 
     protected override bool Symmetric => true;
     public override bool LocalEffect => true;
 
-    protected override void OnPlaced() { }
+    protected override void OnPlaced()
+    {
+        if (debugLogs) Debug.Log($"[Passage] posé : noeud {Node}, AllDirections {AllDirections}", this);
+    }
+
     public override void ResetState() { }
 
-    /// <summary>Y a-t-il un passage piéton posé par le joueur sur cette tuile ?</summary>
     public static bool IsAt(int node)
     {
         var list = RoadElement.At(node);
@@ -35,43 +40,51 @@ public class PedestrianCrossing : RoadElement
 
     public override float Limit(CarAI car, float dt)
     {
+        Vector3 center = Center;
+        float zone = Half + zoneMargin;
         Vector3 pos = car.transform.position;
         Vector3 fwd = car.transform.forward;
         fwd.y = 0f;
         fwd.Normalize();
-        Vector3 right = Vector3.Cross(Vector3.up, fwd);
 
         float limit = float.MaxValue;
         bool blocked = false;
 
         foreach (var ped in Pedestrian.All)
         {
-            if (ped == null || !ped.IsCrossing || ped.CrossNode != Node) continue;
+            if (ped == null || !ped.IsCrossing) continue;
 
-            // il ne gêne que s'il traverse la route de la voiture (pas s'il longe la même route)
-            if (Mathf.Abs(Vector3.Dot(ped.MoveDirection, fwd)) > 0.6f) continue;
+            // le piéton doit traverser sur cette tuile ou tout près
+            Vector3 fromCenter = ped.transform.position - center;
+            fromCenter.y = 0f;
+            bool inZone = ped.CrossNode == Node
+                          || (Mathf.Abs(fromCenter.x) <= zone && Mathf.Abs(fromCenter.z) <= zone);
+            if (!inZone) continue;
 
             Vector3 d = ped.transform.position - pos;
             d.y = 0f;
-            float ahead = Vector3.Dot(d, fwd);
-            if (ahead <= 0f || ahead > lookAhead) continue;                 // derrière la voiture : sans danger
+            float dist = d.magnitude;
+            if (dist > lookAhead) continue;
 
-            // position latérale par rapport à l'AXE de la route (la voiture roule décalée de laneOffset à droite)
-            float lateralFromAxis = Vector3.Dot(d, right) + car.laneOffset;
-            if (Mathf.Abs(lateralFromAxis) > watchWidth) continue;
+            // ignore ceux qui sont nettement derrière la voiture (sauf s'ils sont tout près : virage)
+            float ahead = Vector3.Dot(d, fwd);
+            if (ahead < -car.halfLength && dist > car.halfLength + 2f) continue;
 
             if (!car.Obeys(this))
             {
-                if (ahead < 5f) car.Report("Piéton non respecté");
+                if (dist < 5f) car.Report("Piéton non respecté");
                 continue;
             }
 
             blocked = true;
-            float free = ahead - car.halfLength - stopDistance;             // distance libre avant la distance d'arrêt
+            float free = dist - car.halfLength - stopDistance;
             limit = Mathf.Min(limit, free <= 0f ? 0f : BrakeSpeed(car, free));
+
+            if (debugLogs && car.GetMemo(this) <= 0f)
+                Debug.Log($"[Passage] {car.name} s'arrête pour {ped.name} : dist={dist:0.0} m", this);
         }
 
-        // Petit délai avant de repartir : évite de redémarrer dès que le piéton sort de la zone
+        // Délai avant de repartir
         float hold = car.GetMemo(this);
         if (blocked) car.SetMemo(this, releaseDelay);
         else if (hold > 0f)
