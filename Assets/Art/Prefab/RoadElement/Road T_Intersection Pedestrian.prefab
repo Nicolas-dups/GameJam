@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2300000}
   - component: {fileID: -8051022684741328068}
   m_Layer: 0
-  m_Name: Road T_Intersection_01
+  m_Name: Road T_Intersection Pedestrian
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -104,5 +104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PedestrianCrossing
   placement: 3
-  crossSpeed: 3.5
-  pedestrianPrefab: {fileID: 0}
+  stopDistance: 5
+  lookAhead: 14
+  watchWidth: 15
+  releaseDelay: 0.8

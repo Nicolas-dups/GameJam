@@ -42705,7 +42705,7 @@ MonoBehaviour:
   corner:
     along: 8
     side: 8
-    yaw: 180
+    yaw: 0
   longSize: {x: 15, y: 2}
   longYaw: 0
   longArmFactor: 0.6

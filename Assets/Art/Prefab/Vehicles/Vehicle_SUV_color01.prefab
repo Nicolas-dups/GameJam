@@ -120,8 +120,8 @@ MonoBehaviour:
   awareness: 10
   patience: 5
   obeyChance: 0.85
-  recklessChance: 0.015
-  speedingChance: 0
+  recklessChance: 0.053
+  speedingChance: 0.041
   speedingMultiplier: 1.5
   isPolice: 0
   collisionRadius: 1.1
