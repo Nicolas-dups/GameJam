@@ -3832,7 +3832,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 123552986}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &123552990
 Camera:
   m_ObjectHideFlags: 0
@@ -42667,7 +42667,7 @@ MonoBehaviour:
     prefabX: {fileID: 0}
     prefabT: {fileID: 0}
     prefabL: {fileID: 0}
-  - prefab: {fileID: 6251666189375065463, guid: d4f40363aa44ea649ac792f348b8c36a, type: 3}
+  - prefab: {fileID: 2512992298480470947, guid: e1d1d883e981ca04dbdffd944060dfd8, type: 3}
     cost: 10
     maxPerTile: 1
     modelYaw: 0
@@ -53941,7 +53941,7 @@ MonoBehaviour:
   crashZoomDistance: 15
   focusSmoothing: 4
   minPosition: {x: -50, y: 5, z: -50}
-  maxPosition: {x: 200, y: 100, z: 200}
+  maxPosition: {x: 100, y: 100, z: 200}
 --- !u!1001 &1704196083
 PrefabInstance:
   m_ObjectHideFlags: 0

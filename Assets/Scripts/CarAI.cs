@@ -94,6 +94,7 @@ public class CarAI : MonoBehaviour
     public int PrevNode => prevNode;
     public Vector3 ApproachDir => approachDir;
     public int Destination => destination;
+    public int NextNode => (nodes != null && index + 1 < nodes.Count) ? nodes[index + 1] : -1;
     public bool IsArrested => arrestTimer > 0f;
     public float DistToNode => approachNode < 0 ? float.MaxValue
         : Dist(transform.position, RoadGraph.Instance.NodePos(approachNode));
