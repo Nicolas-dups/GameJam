@@ -228,7 +228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b548e719924e5ea408a7b94c0caa8e11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoadBlock
-  centerOnRoad: 0
+  placement: 1
 --- !u!1 &7328177842769079452
 GameObject:
   m_ObjectHideFlags: 0

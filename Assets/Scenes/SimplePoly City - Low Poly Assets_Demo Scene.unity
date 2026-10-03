@@ -14937,7 +14937,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 511572054}
+    m_TransformParent: {fileID: 1513663033}
     m_Modifications:
     - target: {fileID: 400000, guid: 2d5fb229ae2945742b900a405a5e7a0b, type: 3}
       propertyPath: m_RootOrder
@@ -16265,7 +16265,6 @@ Transform:
   - {fileID: 2011212357}
   - {fileID: 755355657}
   - {fileID: 92034612}
-  - {fileID: 1571616094}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &513681313 stripped
@@ -42318,7 +42317,7 @@ MonoBehaviour:
   - prefab: {fileID: 100000, guid: 993432d7809c9bf489a5a96006618fef, type: 3}
     weight: 0.2
   policePrefab: {fileID: 100000, guid: 1af0a2c8773f85c40bdb120f32cd8a8a, type: 3}
-  carCount: 12
+  carCount: 15
   seed: 1
   pedestrians:
   - prefab: {fileID: 6666370650198795433, guid: 7c7c0c64e1d43174a9ab92c41a3e897c, type: 3}
@@ -42341,7 +42340,7 @@ MonoBehaviour:
     weight: 0.1
   - prefab: {fileID: 1332946792230564792, guid: cab265c9f8731714290ec0a1569e469d, type: 3}
     weight: 0.1
-  pedestrianCount: 10
+  pedestrianCount: 50
   tools:
   - prefab: {fileID: 4721099002046040616, guid: aa3aa302614b5ef43b6363676a43bee0, type: 3}
     cost: 310
@@ -48045,6 +48044,7 @@ Transform:
   - {fileID: 1452431349}
   - {fileID: 1508115153}
   - {fileID: 1458565067}
+  - {fileID: 1571616094}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1516597102
@@ -53618,6 +53618,8 @@ MonoBehaviour:
   ignoreWhenOverUI: 1
   zoomSpeed: 10
   zoomSmoothing: 10
+  crashZoomDistance: 15
+  focusSmoothing: 4
   minPosition: {x: -50, y: 5, z: -50}
   maxPosition: {x: 200, y: 100, z: 200}
 --- !u!1001 &1704196083

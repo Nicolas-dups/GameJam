@@ -110,7 +110,7 @@ MonoBehaviour:
   cornerSpeedFactor: 0.4
   turnSpeed: 360
   wanderRandomly: 1
-  laneOffset: 1.5
+  laneOffset: 3
   lookAhead: 12
   detectWidth: 1
   carLength: 4
