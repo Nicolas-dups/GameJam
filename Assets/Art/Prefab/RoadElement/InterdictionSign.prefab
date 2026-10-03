@@ -189,7 +189,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6480666828618116427}
-  - component: {fileID: -3510448398447520740}
+  - component: {fileID: -5199667656742786352}
   m_Layer: 0
   m_Name: InterdictionSign
   m_TagString: Untagged
@@ -215,7 +215,7 @@ Transform:
   - {fileID: 1005961528636944121}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-3510448398447520740
+--- !u!114 &-5199667656742786352
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -224,11 +224,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5954924780699318257}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 585905bd0e65a694b903d67c659c3671, type: 3}
+  m_Script: {fileID: 11500000, guid: 83175248d1e216141b198b2075ba2399, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::StopSign
+  m_EditorClassIdentifier: Assembly-CSharp::OneWaySign
   centerOnRoad: 0
-  waitTime: 2
 --- !u!1 &7049451888594785818
 GameObject:
   m_ObjectHideFlags: 0
