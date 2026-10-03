@@ -23,6 +23,16 @@ public class Pedestrian : MonoBehaviour
     [Tooltip("Décalage vertical (0 si l'origine du prefab est aux pieds ; 0.5 pour la capsule de secours)")]
     public float heightOffset = 0f;
 
+    [Header("Animation (Animator avec les booléens Walking et Running)")]
+    [Tooltip("Au-dessus de cette vitesse réelle (m/s) : Running. Entre 0.15 et ce seuil : Walking. En dessous : immobile")]
+    public float runSpeedThreshold = 3f;
+    [Tooltip("Adapte la vitesse de l'Animator à la vitesse réelle (évite l'effet patinage)")]
+    public bool syncAnimatorSpeed = true;
+    [Tooltip("Vitesse (m/s) à laquelle l'animation de marche est jouée à vitesse normale")]
+    public float walkAnimRefSpeed = 1.5f;
+    [Tooltip("Vitesse (m/s) à laquelle l'animation de course est jouée à vitesse normale")]
+    public float runAnimRefSpeed = 4f;
+
     [Header("Traversée")]
     [Range(0f, 1f), Tooltip("Probabilité que ce piéton regarde les voitures avant de traverser")]
     public float carefulChance = 0.8f;
@@ -34,7 +44,7 @@ public class Pedestrian : MonoBehaviour
     public float maxWaitTime = 4f;
     [Range(0f, 1f), Tooltip("Sur une tuile droite avec un passage posé : probabilité de l'utiliser")]
     public float useMarkedCrossingChance = 0.6f;
-    [Range(0f, 1f), Tooltip("Sur une tuile droite sans passage proche : probabilité de traverser n'importe où")]
+    [Range(0f, 1f), Tooltip("Tendance à traverser n'importe où : sur une tuile droite sans passage proche, probabilité de traverser hors passage piéton")]
     public float jaywalkChance = 0.15f;
 
     // ---------- Registre ----------
@@ -240,10 +250,59 @@ public class Pedestrian : MonoBehaviour
     // =================================================================
     //  Déplacement
     // =================================================================
+    // ---------- Animation ----------
+    Animator anim;
+    bool hasWalking, hasRunning;
+    static readonly int WalkingHash = Animator.StringToHash("Walking");
+    static readonly int RunningHash = Animator.StringToHash("Running");
+    float smoothSpeed;
+
+    void Awake()
+    {
+        anim = GetComponentInChildren<Animator>();
+        if (anim == null) return;
+        foreach (var prm in anim.parameters)
+        {
+            if (prm.nameHash == WalkingHash && prm.type == AnimatorControllerParameterType.Bool) hasWalking = true;
+            if (prm.nameHash == RunningHash && prm.type == AnimatorControllerParameterType.Bool) hasRunning = true;
+        }
+        if (!hasWalking || !hasRunning)
+            Debug.LogWarning($"Animator de '{name}' : booléens 'Walking' et/ou 'Running' introuvables.", this);
+    }
+
+    void UpdateAnimator(float measuredSpeed, float dt)
+    {
+        if (anim == null) return;
+
+        // lissage : évite le clignotement entre les états
+        smoothSpeed = Mathf.Lerp(smoothSpeed, measuredSpeed, 1f - Mathf.Exp(-10f * dt));
+
+        bool running = smoothSpeed >= runSpeedThreshold;
+        bool walking = !running && smoothSpeed > 0.15f;
+
+        if (hasWalking) anim.SetBool(WalkingHash, walking);
+        if (hasRunning) anim.SetBool(RunningHash, running);
+
+        if (syncAnimatorSpeed)
+        {
+            float refSpeed = running ? runAnimRefSpeed : walkAnimRefSpeed;
+            anim.speed = (walking || running) ? Mathf.Clamp(smoothSpeed / Mathf.Max(0.01f, refSpeed), 0.6f, 1.6f) : 1f;
+        }
+    }
+
     void FixedUpdate()
     {
-        if (!begun) return;
         float dt = Time.fixedDeltaTime;
+        Vector3 before = transform.position;
+        Simulate(dt);
+        Vector3 moved = transform.position - before;
+        moved.y = 0f;
+        UpdateAnimator(moved.magnitude / dt, dt);
+    }
+
+    void Simulate(float dt)
+    {
+        if (!begun) return;
 
         if (path == null)
         {

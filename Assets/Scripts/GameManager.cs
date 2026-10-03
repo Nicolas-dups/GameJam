@@ -82,9 +82,19 @@ public class GameManager : MonoBehaviour
     public int carCount = 12;
     public int seed = 1;
 
+    [System.Serializable]
+    public class PedestrianEntry
+    {
+        [Tooltip("Prefab avec Pedestrian (vitesse, tendance à traverser hors passage... réglées sur le prefab) et un Animator (booléens Walking / Running)")]
+        public GameObject prefab;
+        [Min(0f), Tooltip("Probabilité relative d'apparition")]
+        public float weight = 1f;
+        public string Name => prefab != null ? prefab.name : "(prefab manquant)";
+    }
+
     [Header("Piétons")]
-    [Tooltip("Optionnel : prefab de piéton (sinon une capsule est générée). Le script Pedestrian est ajouté si absent.")]
-    public GameObject pedestrianPrefab;
+    [Tooltip("Types de piétons. Si vide, une capsule est générée. Le script Pedestrian est ajouté si absent du prefab.")]
+    public List<PedestrianEntry> pedestrians = new List<PedestrianEntry>();
     public int pedestrianCount = 10;
 
     [Header("Outils (un prefab par élément de voirie)")]
@@ -555,25 +565,43 @@ public class GameManager : MonoBehaviour
         return car;
     }
 
-    /// <summary>Fait apparaître un piéton concret qui se déplace dans le graphe routier.</summary>
+    PedestrianEntry PickPedestrian(int pedSeed)
+    {
+        float total = 0f;
+        foreach (var v in pedestrians) if (v.prefab != null) total += v.weight;
+        if (total <= 0f) return null;
+
+        float r = (float)(new System.Random(pedSeed ^ 0x2c1b3c6d).NextDouble() * total);
+        foreach (var v in pedestrians)
+        {
+            if (v.prefab == null) continue;
+            r -= v.weight;
+            if (r <= 0f) return v;
+        }
+        return pedestrians[pedestrians.Count - 1];
+    }
+
+    /// <summary>Fait apparaître un piéton concret (prefab choisi au hasard pondéré) qui se déplace dans le graphe routier.</summary>
     public Pedestrian SpawnPedestrian(int node, int pedSeed)
     {
+        var entry = PickPedestrian(pedSeed);
+        GameObject prefab = entry != null ? entry.prefab : null;
+
         GameObject go;
-        float heightOffset = 0f;
-        if (pedestrianPrefab != null) go = Instantiate(pedestrianPrefab);
+        bool fallback = prefab == null;
+        if (!fallback) go = Instantiate(prefab);
         else
         {
             go = GameObject.CreatePrimitive(PrimitiveType.Capsule);
             Destroy(go.GetComponent<Collider>());
             go.transform.localScale = Vector3.one * 0.5f;
-            go.GetComponent<Renderer>().material.color = new Color(0.9f, 0.5f, 0.2f);
-            heightOffset = 0.5f;
+            go.GetComponent<Renderer>().material.color = Color.HSVToRGB((pedSeed % 1000) / 1000f, 0.6f, 0.9f);
         }
-        go.name = "Pedestrian_" + pedSeed;
+        go.name = (fallback ? "Pedestrian" : prefab.name) + "_" + pedSeed;
 
         var ped = go.GetComponent<Pedestrian>();
         if (ped == null) ped = go.AddComponent<Pedestrian>();
-        if (pedestrianPrefab == null) ped.heightOffset = heightOffset;
+        if (fallback) ped.heightOffset = 0.5f;
         ped.Begin(node, pedSeed);
         return ped;
     }
