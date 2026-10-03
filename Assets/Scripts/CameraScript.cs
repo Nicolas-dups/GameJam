@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Collections.Generic;
 
 /// <summary>
 /// Caméra type RTS / vue du dessus :
@@ -70,6 +71,17 @@ public class CameraController : MonoBehaviour
                 transform.position += delta;
             }
         }
+    }
+
+    static bool PointerOverInteractiveUI()
+    {
+        if (EventSystem.current == null) return false;
+        var data = new PointerEventData(EventSystem.current) { position = Input.mousePosition };
+        var results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(data, results);
+        foreach (var r in results)
+            if (r.gameObject.GetComponentInParent<UnityEngine.UI.Selectable>() != null) return true;
+        return false;
     }
 
     private void HandleZoom()

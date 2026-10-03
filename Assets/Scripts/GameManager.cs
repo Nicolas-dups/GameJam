@@ -1,5 +1,9 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 /// <summary>
 /// Un emplacement de pose (cube semi-transparent) sur le bord d'une route.
@@ -17,6 +21,7 @@ public class PlacementSpot : MonoBehaviour
 /// (les voitures repartent exactement du même point de départ, les éléments posés restent).
 /// Si la ville tient `duration` secondes sans accident : victoire.
 /// Nécessite l'ancien Input Manager (Input.GetMouseButton...).
+/// L'interface est un Canvas construit dans l'éditeur : on glisse ses éléments dans la section "UI (Canvas)".
 /// </summary>
 public class GameManager : MonoBehaviour
 {
@@ -53,6 +58,7 @@ public class GameManager : MonoBehaviour
     public int seed = 1;
 
     [Header("Outils (un prefab par élément de voirie)")]
+    [Tooltip("Même ordre que le tableau 'toolButtons' de l'UI")]
     public ToolDef[] tools;
 
     [Header("Emplacements de pose")]
@@ -72,13 +78,41 @@ public class GameManager : MonoBehaviour
     public float duration = 60f;          // secondes à tenir sans accident
     public int startMoney = 1000;
 
+    [Header("UI (Canvas) - panneaux, un par phase")]
+    public GameObject panelPlanning;
+    public GameObject panelRunning;
+    public GameObject panelCrashed;
+    public GameObject panelWon;
+
+    [Header("UI (Canvas) - textes")]
+    [Tooltip("Budget / essai / record (visible dans toutes les phases)")]
+    public TMP_Text headerText;
+    public TMP_Text planningHelpText;
+    public TMP_Text runningText;
+    public TMP_Text crashedText;
+
+    [Header("UI (Canvas) - boutons")]
+    [Tooltip("Dans le MEME ORDRE que le tableau 'tools'")]
+    public Button[] toolButtons;
+    public Button launchButton;
+    public Button clearMarkersButton;
+    [Tooltip("Boutons x1, x2, x4 dans cet ordre")]
+    public Button[] speedButtons;
+    public Button stopButton;
+    public Button modifyAfterCrashButton;
+    public Button relaunchButton;
+    public Button modifyAfterWinButton;
+
+    [Header("UI (Canvas) - couleurs")]
+    public Color normalColor = Color.white;
+    public Color selectedColor = new Color(1f, 0.85f, 0.3f);
+
     public Phase CurrentPhase { get; private set; } = Phase.Planning;
 
     int selected, money, attempt = 1, speedIndex;
     bool flip, allDirections;
     float elapsed, bestTime;
     string crashReason = "";
-    Rect uiRect = new Rect(5, 5, 240, 400);
 
     readonly List<GameObject> spawned = new List<GameObject>();
     readonly List<GameObject> markers = new List<GameObject>();
@@ -104,6 +138,7 @@ public class GameManager : MonoBehaviour
             if (t.element == null) Debug.LogWarning($"Outil '{t.Label}' : la racine du prefab n'a pas de script RoadElement");
             else t.type = t.element.GetType();
         }
+        SetupUI();
     }
 
     void Start()
@@ -354,6 +389,8 @@ public class GameManager : MonoBehaviour
             ClearHover();
             if (ghost != null) ghost.SetActive(false);
         }
+
+        RefreshUI();
     }
 
     void ClearHover()
@@ -412,10 +449,10 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R)) flip = !flip;
         if (Input.GetKeyDown(KeyCode.Tab)) allDirections = !allDirections;
 
-        Vector2 mp = Input.mousePosition;
-        if (uiRect.Contains(new Vector2(mp.x, Screen.height - mp.y))) return;
+        // Souris au-dessus du Canvas : on ne pose rien dans la ville
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) return;
 
-        var spot = FindSpot(cam.ScreenPointToRay(mp));
+        var spot = FindSpot(cam.ScreenPointToRay(Input.mousePosition));
         if (spot == null) return;
 
         hovered = spot;
@@ -482,46 +519,90 @@ public class GameManager : MonoBehaviour
     }
 
     // =================================================================
-    //  Interface (IMGUI : rapide à mettre en place, à remplacer par un vrai Canvas plus tard)
+    //  Interface (Canvas construit dans l'éditeur)
     // =================================================================
-    void OnGUI()
-    {
-        uiRect = new Rect(5, 5, 240, CurrentPhase == Phase.Planning ? 150 + tools.Length * 30 : 150);
-        GUILayout.BeginArea(uiRect, GUI.skin.box);
 
-        GUILayout.Label($"Budget : {money}   |   Essai n°{attempt}   |   Record : {bestTime:0}s");
+    /// <summary>Branche les boutons du Canvas sur la logique du jeu (une seule fois, au démarrage).</summary>
+    void SetupUI()
+    {
+        // Boutons d'outils : texte (nom du prefab + prix) tiré du tableau 'tools', une seule source de vérité
+        for (int i = 0; i < tools.Length && toolButtons != null && i < toolButtons.Length; i++)
+        {
+            if (toolButtons[i] == null) continue;
+            var label = toolButtons[i].GetComponentInChildren<TMP_Text>();
+            if (label != null) label.text = $"{tools[i].Label} ({tools[i].cost})";
+            int idx = i;                                   // copie locale pour la lambda
+            Bind(toolButtons[i], () => selected = idx);
+        }
+
+        // Boutons de vitesse
+        for (int i = 0; i < speeds.Length && speedButtons != null && i < speedButtons.Length; i++)
+        {
+            if (speedButtons[i] == null) continue;
+            var label = speedButtons[i].GetComponentInChildren<TMP_Text>();
+            if (label != null) label.text = "x" + speeds[i];
+            int idx = i;
+            Bind(speedButtons[i], () =>
+            {
+                speedIndex = idx;
+                if (CurrentPhase == Phase.Running) Time.timeScale = speeds[idx];
+            });
+        }
+
+        Bind(launchButton, StartRun);
+        Bind(clearMarkersButton, ClearMarkers);
+        Bind(stopButton, EnterPlanning);
+        Bind(modifyAfterCrashButton, EnterPlanning);
+        Bind(relaunchButton, StartRun);
+        Bind(modifyAfterWinButton, EnterPlanning);
+    }
+
+    static void Bind(Button b, UnityAction action)
+    {
+        if (b != null) b.onClick.AddListener(action);
+    }
+
+    /// <summary>Met à jour l'affichage : quel panneau est visible, textes, bouton sélectionné.</summary>
+    void RefreshUI()
+    {
+        if (panelPlanning != null) panelPlanning.SetActive(CurrentPhase == Phase.Planning);
+        if (panelRunning != null) panelRunning.SetActive(CurrentPhase == Phase.Running);
+        if (panelCrashed != null) panelCrashed.SetActive(CurrentPhase == Phase.Crashed);
+        if (panelWon != null) panelWon.SetActive(CurrentPhase == Phase.Won);
+
+        if (headerText != null)
+            headerText.text = $"Budget : {money}   |   Essai n°{attempt}   |   Record : {bestTime:0}s";
 
         switch (CurrentPhase)
         {
             case Phase.Planning:
-                for (int i = 0; i < tools.Length; i++)
-                    if (GUILayout.Toggle(selected == i, $"{tools[i].Label} ({tools[i].cost})", GUI.skin.button)) selected = i;
-                GUILayout.Label($"R : inverser le sens ({(flip ? "inversé" : "normal")})  |  Tab : tous sens = {(allDirections ? "OUI" : "non")}\nClic droit : retirer");
-                if (GUILayout.Button("LANCER")) StartRun();
-                if (markers.Count > 0 && GUILayout.Button("Effacer les repères")) ClearMarkers();
+                if (planningHelpText != null)
+                    planningHelpText.text = $"R : inverser le sens ({(flip ? "inversé" : "normal")})  |  Tab : tous sens = {(allDirections ? "OUI" : "non")}\nClic droit : retirer";
+                if (clearMarkersButton != null)
+                    clearMarkersButton.gameObject.SetActive(markers.Count > 0);
+                Highlight(toolButtons, selected);
                 break;
 
             case Phase.Running:
-                GUILayout.Label($"Temps : {elapsed:0}/{duration:0}s   Infractions : {Infractions.Total}   Arrêtés : {Infractions.Arrests}");
-                GUILayout.BeginHorizontal();
-                for (int i = 0; i < speeds.Length; i++)
-                    if (GUILayout.Toggle(speedIndex == i, "x" + speeds[i], GUI.skin.button)) { speedIndex = i; Time.timeScale = speeds[i]; }
-                GUILayout.EndHorizontal();
-                if (GUILayout.Button("Arrêter")) EnterPlanning();
+                if (runningText != null)
+                    runningText.text = $"Temps : {elapsed:0}/{duration:0}s\nInfractions : {Infractions.Total}   Arrêtés : {Infractions.Arrests}";
+                Highlight(speedButtons, speedIndex);
                 break;
 
             case Phase.Crashed:
-                GUILayout.Label($"ACCIDENT : {crashReason}\nTenu {elapsed:0.0}s");
-                if (GUILayout.Button("Modifier la ville")) EnterPlanning();
-                if (GUILayout.Button("Relancer tel quel")) StartRun();
-                break;
-
-            case Phase.Won:
-                GUILayout.Label("BRAVO ! Aucun accident.");
-                if (GUILayout.Button("Modifier la ville")) EnterPlanning();
+                if (crashedText != null)
+                    crashedText.text = $"ACCIDENT : {crashReason}\nTenu {elapsed:0.0}s";
                 break;
         }
-        GUILayout.EndArea();
+    }
+
+    /// <summary>Colore le bouton choisi, remet les autres en couleur normale.</summary>
+    void Highlight(Button[] buttons, int index)
+    {
+        if (buttons == null) return;
+        for (int i = 0; i < buttons.Length; i++)
+            if (buttons[i] != null && buttons[i].image != null)
+                buttons[i].image.color = i == index ? selectedColor : normalColor;
     }
 
     void ClearMarkers()
