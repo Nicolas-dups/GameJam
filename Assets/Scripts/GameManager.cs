@@ -710,6 +710,7 @@ public class GameManager : MonoBehaviour
         attempt++;
 
         // Prefab d'accident joué sur place
+        if (Sounds.Instance != null) Sounds.Instance.play_sound("crash");
         SpawnAccident(where);
 
         // Zoom sur l'accident + inputs caméra bloqués pendant la séquence

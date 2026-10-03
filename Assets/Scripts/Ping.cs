@@ -31,7 +31,12 @@ public class Ping : MonoBehaviour
         spriteObject = new GameObject("SpriteAboveHead");
         spriteObject.transform.SetParent(transform);
         spriteObject.transform.localPosition = offset;
-        spriteObject.transform.localScale = Vector3.one * scale;
+        Vector3 parentScale = transform.lossyScale;
+        spriteObject.transform.localScale = new Vector3(
+            scale / parentScale.x,
+            scale / parentScale.y,
+            scale / parentScale.z
+        );
 
         SpriteRenderer renderer = spriteObject.AddComponent<SpriteRenderer>();
         renderer.sprite = sprite;
