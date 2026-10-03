@@ -67,6 +67,11 @@ public class Pedestrian : MonoBehaviour
     /// <summary>Direction de marche actuelle (horizontale).</summary>
     public Vector3 MoveDirection { get; private set; }
 
+    /// <summary>Point d'arrivée du tronçon en cours (le piéton y va en ligne droite).</summary>
+    public Vector3 CurrentTarget => hasTarget ? current.pos : transform.position;
+    /// <summary>Vitesse de déplacement actuelle (m/s), 0 si immobile ou en attente.</summary>
+    public float MoveSpeed { get; private set; }
+
     // ---------- État ----------
     struct Step
     {
@@ -322,6 +327,7 @@ public class Pedestrian : MonoBehaviour
 
     void Simulate(float dt)
     {
+        MoveSpeed = 0f;
         if (!begun) return;
 
         if (path == null)
@@ -364,6 +370,7 @@ public class Pedestrian : MonoBehaviour
 
         if (dist > 0.01f)
         {
+            MoveSpeed = speed;
             Vector3 dir = to / dist;
             MoveDirection = dir;
             var look = Quaternion.LookRotation(dir, Vector3.up);

@@ -9,6 +9,8 @@ using UnityEngine;
 // =====================================================================
 public class PedestrianCrossing : RoadElement
 {
+    [Range(0f, 1f), Tooltip("Probabilité qu'une voiture respecte ce passage (ralentit à l'approche, s'arrête pour les piétons)")]
+    public float obeyChance = 0.95f;
     [Tooltip("Distance d'arrêt (m) entre l'avant de la voiture et le piéton")]
     public float stopDistance = 3f;
     [Tooltip("Rayon (m) autour de la voiture dans lequel les piétons sont pris en compte (toutes directions)")]
@@ -70,7 +72,7 @@ public class PedestrianCrossing : RoadElement
             float ahead = Vector3.Dot(d, fwd);
             if (ahead < -car.halfLength && dist > car.halfLength + 2f) continue;
 
-            if (!car.Obeys(this))
+            if (!car.Obeys(this, obeyChance))
             {
                 if (dist < 5f) car.Report("Piéton non respecté");
                 continue;

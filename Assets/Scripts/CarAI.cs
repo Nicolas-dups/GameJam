@@ -46,30 +46,37 @@ public class CarAI : MonoBehaviour
     public float speedingMultiplier = 1.5f;
     public bool isPolice;
 
-    // [Header("Passages piétons")]
-    // [Range(0f, 1f), Tooltip("Probabilité (par passage) de s'arrêter pour un piéton engagé")]
-    // public float crosswalkObeyChance = 1f;
-    // [Tooltip("Distance max à laquelle la voiture surveille un piéton engagé")]
-    // public float crosswalkLookAhead = 14f;
-    // [Tooltip("Distance entre le nez de la voiture et le piéton à l'arrêt")]
-    // public float crosswalkStopMargin = 2f;
-    // [Tooltip("Demi-largeur de chaussée surveillée devant la voiture pour un piéton qui la traverse (≈ sidewalkOffset + laneOffset)")]
-    // public float crosswalkRoadHalfWidth = 6f;
 
     [Header("Piétons sur la route (avec ou sans passage)")]
-    [Range(0f, 1f), Tooltip("Probabilité (par piéton et par carrefour approché) de s'arrêter pour un piéton engagé sur la chaussée, même sans passage posé")]
-    public float pedestrianYieldChance = 0.7f;
-    [Tooltip("Distance max (m) à laquelle la voiture surveille un piéton engagé")]
+    [Range(0f, 1f), Tooltip("Probabilité de s'arrêter pour un piéton qui traverse HORS passage posé")]
+    public float pedestrianYieldChance = 0.6f;
+    [Range(0f, 1f), Tooltip("Idem sur un passage posé par le joueur")]
+    public float markedCrossingYieldChance = 0.95f;
     public float pedestrianLookAhead = 14f;
-    [Tooltip("Distance entre le nez de la voiture et le piéton à l'arrêt")]
-    public float pedestrianStopMargin = 2f;
-    [Tooltip("Demi-largeur de chaussée surveillée de part et d'autre de la voiture (≈ sidewalkOffset + laneOffset)")]
-    public float pedestrianRoadHalfWidth = 7f;
-    [Tooltip("Temps (s) pendant lequel la voiture reste arrêtée après le départ du piéton")]
+    [Tooltip("Multiplicateur de la distance de surveillance sur un passage posé (la voiture réagit plus tôt)")]
+    public float markedLookAheadFactor = 1.4f;
+    [Tooltip("Distance entre le nez de la voiture et la ligne de marche du piéton à l'arrêt")]
+    public float pedestrianStopMargin = 2.5f;
+    [Tooltip("Marge latérale autour de la largeur de la voiture")]
+    public float pedestrianLaneMargin = 0.8f;
+    [Tooltip("Horizon (s) de prédiction de la trajectoire du piéton")]
+    public float pedestrianPredictTime = 2.5f;
     public float pedestrianHoldTime = 0.4f;
 
+    [Header("Marche arrière (piéton trop près du nez)")]
+    public bool canReverse = true;
+    public float reverseSpeed = 2.5f;
+    public float maxReverseDistance = 4f;
+    [Tooltip("Voiture quasi arrêtée + piéton à moins de cette distance devant le nez : elle recule")]
+    public float reverseTriggerGap = 1.5f;
+
+    [Header("Passages piétons : prudence à l'approche")]
+    [Tooltip("Vitesse (m/s) à laquelle une voiture qui respecte le passage le traverse")]
+    public float crosswalkSpeed = 3f;
+
     readonly Dictionary<Pedestrian, bool> pedYield = new Dictionary<Pedestrian, bool>();
-    float pedHold;
+    float pedHold, reversedDist;
+    bool wantReverse;
 
     readonly Dictionary<int, bool> crosswalkObey = new Dictionary<int, bool>();
 
@@ -320,7 +327,6 @@ public class CarAI : MonoBehaviour
         foreach (var k in obey.Keys) if (k == null || k.Node != prevNode) pruneTmp.Add(k);
         foreach (var k in pruneTmp) { memo.Remove(k); obey.Remove(k); }
         reported.Clear();
-        pedYield.Clear();
     }
 
     // ---------- Boucle principale ----------
@@ -344,12 +350,14 @@ public class CarAI : MonoBehaviour
         desired = Mathf.Min(desired, FrontLimit(dt));
         desired = Mathf.Min(desired, IntersectionLimit(dt));
         desired = Mathf.Min(desired, ElementsLimit(dt));
+        desired = Mathf.Min(desired, CrosswalkSlowLimit());
         desired = Mathf.Min(desired, PedestrianLimit(dt));
         
         if (arrestTimer > 0f) { arrestTimer -= dt; desired = 0f; }
 
         float rate = desired > currentSpeed ? acceleration : braking;
         currentSpeed = Mathf.MoveTowards(currentSpeed, desired, rate * dt);
+        if (TryReverse(dt)) { currentSpeed = 0f; return; }
 
         Vector3 dir = target - transform.position;
         dir.y = 0f;
@@ -532,64 +540,144 @@ public class CarAI : MonoBehaviour
         }
     }
 
+    // Décision tirée UNE fois par traversée (le piéton qui s'arrête de traverser la fait oublier)
     bool YieldsTo(Pedestrian ped)
     {
         if (isPolice) return true;
-        if (!pedYield.TryGetValue(ped, out bool y)) { y = Roll() < pedestrianYieldChance; pedYield[ped] = y; }
+        if (!pedYield.TryGetValue(ped, out bool y))
+        {
+            bool marked = ped.CrossNode >= 0 && PedestrianCrossing.IsAt(ped.CrossNode);
+            y = Roll() < (marked ? markedCrossingYieldChance : pedestrianYieldChance);
+            pedYield[ped] = y;
+        }
         return y;
     }
 
-    // ---------- 5. Tout piéton engagé sur la chaussée ----------
+    // ---------- 5. Piétons engagés sur la chaussée (prédiction de trajectoire) ----------
     float PedestrianLimit(float dt)
     {
+        wantReverse = false;
+
         Vector3 fwd = transform.forward; fwd.y = 0f; fwd.Normalize();
         Vector3 right = new Vector3(fwd.z, 0f, -fwd.x);
         Vector3 pos = transform.position;
-        float corridor = halfWidth + 0.8f;
+        float strip = halfWidth + pedestrianLaneMargin;      // couloir balayé par la voiture
+        float v = currentSpeed;
+        float brakeDist = v * v / (2f * braking);
+
+        const float step = 0.125f;
+        int samples = Mathf.CeilToInt(pedestrianPredictTime / step);
 
         float limit = float.MaxValue;
         bool blocked = false;
 
         foreach (var ped in Pedestrian.All)
         {
-            if (ped == null || !ped.IsCrossing) continue;
+            if (ped == null) continue;
+            if (!ped.IsCrossing) { pedYield.Remove(ped); continue; }
 
-            Vector3 d = ped.transform.position - pos; d.y = 0f;
-            float ahead = Vector3.Dot(d, fwd);
-            if (ahead < -halfLength || ahead > pedestrianLookAhead) continue;   // derrière nous ou trop loin
+            bool marked = ped.CrossNode >= 0 && PedestrianCrossing.IsAt(ped.CrossNode);
+            float lookAhead = pedestrianLookAhead * (marked ? markedLookAheadFactor : 1f);
 
-            float lat = Vector3.Dot(d, right);
-            Vector3 md = ped.MoveDirection; md.y = 0f;
-            bool moving = md.sqrMagnitude > 0.01f;
-            if (moving) md.Normalize();
-            bool across = moving && Mathf.Abs(Vector3.Dot(md, fwd)) < 0.7f;
+            Vector3 p = ped.transform.position;
+            Vector3 end = ped.CurrentTarget;
+            float pedSpeed = ped.MoveSpeed;
 
-            bool threat;
-            if (Mathf.Abs(lat) <= corridor) threat = true;                       // déjà dans notre couloir
-            else if (across && Mathf.Abs(lat) <= pedestrianRoadHalfWidth)
-                threat = Vector3.Dot(md, right) * lat < 0f;                      // hors couloir mais il s'y dirige
-            else threat = false;
-            if (!threat) continue;
+            // On suit le piéton sur sa trajectoire. Un instant est un CONFLIT si le piéton est dans le couloir
+            // de la voiture, devant son centre, ni derrière son arrière (la voiture sera déjà passée),
+            // ni hors de portée (position + distance de freinage + marge).
+            float aMin = float.MaxValue;     // point de conflit le plus proche (distance le long de la voiture)
+            float aSoon = float.MaxValue;    // idem, limité aux 0,6 prochaines secondes
+            for (int i = 0; i <= samples; i++)
+            {
+                float t = i * step;
+                Vector3 q = Vector3.MoveTowards(p, end, pedSpeed * t);
+                Vector3 d = q - pos; d.y = 0f;
+
+                if (Mathf.Abs(Vector3.Dot(d, right)) > strip) continue;
+                float a = Vector3.Dot(d, fwd);
+                float rear = v * t - halfLength;
+                float front = v * t + halfLength + brakeDist + pedestrianStopMargin;
+                if (a < Mathf.Max(rear, 0f) || a > front) continue;
+
+                aMin = Mathf.Min(aMin, a);
+                if (t <= 0.6f) aSoon = Mathf.Min(aSoon, a);
+            }
+
+            if (aMin == float.MaxValue || aMin - halfLength > lookAhead) continue;
 
             if (!YieldsTo(ped))
             {
-                if (ahead - halfLength < 4f && !ped.IsJaywalking) Report("Piéton non respecté");
+                if (aMin - halfLength < 4f && !ped.IsJaywalking) Report("Piéton non respecté");
                 continue;
             }
 
             blocked = true;
-            float free = ahead - halfLength - pedestrianStopMargin;
+            // on s'arrête AVANT la ligne que le piéton va franchir, pas à sa position actuelle
+            float free = aMin - halfLength - pedestrianStopMargin;
             limit = Mathf.Min(limit, free <= 0f ? 0f : Mathf.Sqrt(2f * braking * free) * 0.9f);
-            Debug.DrawLine(pos + Vector3.up, ped.transform.position + Vector3.up, Color.red);   // visible en vue Scene
+
+            if (canReverse && v < 1f && aSoon < halfLength + reverseTriggerGap) wantReverse = true;
+
+            Debug.DrawLine(pos + Vector3.up, p + Vector3.up, Color.red);   // visible en vue Scene
         }
 
-        // petit délai avant de repartir (évite les redémarrages nerveux)
         if (blocked) pedHold = pedestrianHoldTime;
         else if (pedHold > 0f)
         {
             pedHold -= dt;
             if (currentSpeed < 1f) return 0f;
         }
+        if (!blocked && pedHold <= 0f) reversedDist = 0f;
         return limit;
+    }
+
+    // Marche arrière courte, sauf si une voiture est juste derrière
+    bool TryReverse(float dt)
+    {
+        if (!wantReverse || reversedDist >= maxReverseDistance) return false;
+
+        Vector3 fwd = transform.forward; fwd.y = 0f; fwd.Normalize();
+        foreach (var o in All)
+        {
+            if (o == this) continue;
+            Vector3 d = o.transform.position - transform.position; d.y = 0f;
+            float behind = -Vector3.Dot(d, fwd);
+            if (behind <= 0f || behind > (carLength + o.carLength) * 0.5f + 1f) continue;
+            if (Mathf.Abs(Vector3.Dot(d, transform.right)) > halfWidth + 0.5f) continue;
+            return false;   // quelqu'un derrière : on reste sur place
+        }
+
+        float s = reverseSpeed * dt;
+        transform.position -= fwd * s;
+        reversedDist += s;
+        return true;
+    }
+
+    // ---------- 6. Prudence à l'approche d'un passage posé ----------
+    float CrosswalkSlowLimit()
+    {
+        if (approachNode < 0) return float.MaxValue;
+        float limit = SlowFor(approachNode, true);
+        if (prevNode >= 0) limit = Mathf.Min(limit, SlowFor(prevNode, false));
+        return limit;
+    }
+
+    float SlowFor(int node, bool approaching)
+    {
+        PedestrianCrossing pc = null;
+        var list = RoadElement.At(node);
+        for (int i = 0; i < list.Count; i++) if (list[i] is PedestrianCrossing c) { pc = c; break; }
+        if (pc == null || !Obeys(pc, pc.obeyChance)) return float.MaxValue;
+
+        var graph = RoadGraph.Instance;
+        float dist = Dist(transform.position, graph.NodePos(node));
+        float zone = graph.NodeHalfSize(node);
+
+        if (!approaching)   // moitié de sortie de la tuile
+            return dist <= zone + carLength * 0.5f ? crosswalkSpeed : float.MaxValue;
+
+        float comfort = braking * 0.4f;   // décélération douce
+        return Mathf.Sqrt(crosswalkSpeed * crosswalkSpeed + 2f * comfort * Mathf.Max(0f, dist - zone));
     }
 }

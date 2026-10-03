@@ -124,10 +124,19 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
-  crosswalkObeyChance: 1
-  crosswalkLookAhead: 14
-  crosswalkStopMargin: 2
-  crosswalkRoadHalfWidth: 6
+  pedestrianYieldChance: 0.02
+  markedCrossingYieldChance: 0.95
+  pedestrianLookAhead: 14
+  markedLookAheadFactor: 1.4
+  pedestrianStopMargin: 2.5
+  pedestrianLaneMargin: 0.8
+  pedestrianPredictTime: 2.5
+  pedestrianHoldTime: 0.4
+  canReverse: 1
+  reverseSpeed: 2.5
+  maxReverseDistance: 4
+  reverseTriggerGap: 1.5
+  crosswalkSpeed: 3
   collisionRadius: 1.2
   halfLength: 4
   halfWidth: 1.3
