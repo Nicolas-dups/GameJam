@@ -97,12 +97,14 @@ public class Pedestrian : MonoBehaviour
         curNode = node;
         begun = true;
 
+        // Apparition sur un COIN de trottoir de la tuile (±offset, ±offset) : jamais sur la chaussée
         Vector3 p = RoadGraph.Instance.NodePos(node);
         p.y += heightOffset;
+        p.x += (Roll() < 0.5f ? 1f : -1f) * sidewalkOffset;
+        p.z += (Roll() < 0.5f ? 1f : -1f) * sidewalkOffset;
         transform.position = p;
 
         PlanPath();
-        if (steps.Count > 0) transform.position = steps.Peek().pos;   // démarre directement sur le trottoir
     }
 
     // =================================================================
@@ -126,8 +128,8 @@ public class Pedestrian : MonoBehaviour
             Vector3 r = Vector3.Cross(Vector3.up, dir);
             Vector3 c = g.NodePos(curNode);
             Vector3 cur = transform.position;
-            float dPlus = Flat(c + r * sidewalkOffset, cur);
-            float dMinus = Flat(c - r * sidewalkOffset, cur);
+            float dPlus = Flat(c + (dir + r) * sidewalkOffset, cur);     // coin de départ du trajet, côté +
+            float dMinus = Flat(c + (dir - r) * sidewalkOffset, cur);    // idem côté -
             side = Mathf.Abs(dPlus - dMinus) < 0.01f ? (Roll() < 0.5f ? 1 : -1) : (dPlus < dMinus ? 1 : -1);
 
             steps.Clear();
@@ -175,11 +177,9 @@ public class Pedestrian : MonoBehaviour
         Vector3 din = k > 0 ? RoadGraph.SnapAxis(g.NodePos(node) - g.NodePos(path[k - 1])) : Vector3.zero;
         Vector3 dout = k < last ? RoadGraph.SnapAxis(g.NodePos(path[k + 1]) - g.NodePos(node)) : Vector3.zero;
 
-        if (k == 0) { Push(c + Right(dout) * side * off, node); return; }
-        if (k == last) { Push(c + Right(din) * side * off, node); return; }
-
-        Vector3 rIn = Right(din);
-        bool straight = Vector3.Dot(din, dout) > 0.9f;
+        bool isStart = k == 0, isEnd = k == last;
+        Vector3 rIn = isStart ? Vector3.zero : Right(din);
+        bool straight = !isStart && !isEnd && Vector3.Dot(din, dout) > 0.9f;
 
         // ---- Tuile droite sans rue latérale : traversée volontaire (passage posé) ou sauvage ----
         if (straight && !g.IsIntersection(node))
@@ -199,10 +199,30 @@ public class Pedestrian : MonoBehaviour
 
         // ---- Virage ou intersection : on circule sur les 4 coins (±off, ±off) du noeud ----
         // Passer d'un coin à un coin voisin = traverser le bras situé entre les deux.
-        Vector3 e = -din + rIn * side;                     // coin d'entrée
-        Vector3 x = dout + Right(dout) * side;             // coin de sortie
-        var E = new Vector2Int(Sgn(e.x), Sgn(e.z));
-        var X = new Vector2Int(Sgn(x.x), Sgn(x.z));
+        Vector2Int E, X;
+        if (isStart)
+        {
+            // départ : coin où se trouve le piéton -> coin de sortie vers le premier tronçon
+            Vector3 rel = transform.position - c;
+            E = new Vector2Int(Mathf.Abs(rel.x) > 0.5f ? Sgn(rel.x) : (Roll() < 0.5f ? 1 : -1),
+                               Mathf.Abs(rel.z) > 0.5f ? Sgn(rel.z) : (Roll() < 0.5f ? 1 : -1));
+            Vector3 xs = dout + Right(dout) * side;
+            X = new Vector2Int(Sgn(xs.x), Sgn(xs.z));
+        }
+        else if (isEnd)
+        {
+            // arrivée : on s'arrête sur le coin d'entrée (trottoir), pas au centre de la tuile
+            Vector3 es = -din + rIn * side;
+            E = new Vector2Int(Sgn(es.x), Sgn(es.z));
+            X = E;
+        }
+        else
+        {
+            Vector3 e = -din + rIn * side;                 // coin d'entrée
+            Vector3 x = dout + Right(dout) * side;         // coin de sortie
+            E = new Vector2Int(Sgn(e.x), Sgn(e.z));
+            X = new Vector2Int(Sgn(x.x), Sgn(x.z));
+        }
 
         var pts = new List<Vector2Int> { E };
         if (E != X)

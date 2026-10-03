@@ -5,25 +5,37 @@ using System.Collections.Generic;
 /// <summary>
 /// Caméra type RTS / vue du dessus :
 /// - Clic droit maintenu + glisser (bouton réglable via dragButton) : déplacement sur le plan XZ (le sol "suit" la souris)
-/// - Molette : zoom / dézoom (change la hauteur Y)
+/// - Molette : zoom / dézoom VERS la position de la souris (le point sous le curseur reste sous le curseur)
+/// - FocusOn(point) : déplacement fluide vers un point (appelé par le GameManager au moment d'un accident)
 /// - Limites min / max sur X, Y et Z
-/// À attacher sur l'objet Camera.
+/// Fonctionne avec Time.timeScale = 0 (tout est en temps non mis à l'échelle).
+/// À attacher sur l'objet Camera (caméra en perspective).
 /// </summary>
 [RequireComponent(typeof(Camera))]
 public class CameraController : MonoBehaviour
 {
+    public static CameraController Instance { get; private set; }
+
     [Header("Déplacement (glisser)")]
     [Tooltip("0 = clic gauche, 1 = clic droit, 2 = clic molette")]
     [SerializeField] private int dragButton = 1;
     [Tooltip("Hauteur (Y) du plan de sol utilisé pour calculer le glissement")]
     [SerializeField] private float groundHeight = 0f;
+    [Tooltip("Ne pas interagir quand la souris est sur un élément d'interface INTERACTIF (bouton, slider...). " +
+             "Un panneau de fond ne bloque plus la caméra.")]
     [SerializeField] private bool ignoreWhenOverUI = true;
 
     [Header("Zoom (molette)")]
-    [Tooltip("Distance parcourue le long de l'axe avant par cran de molette")]
+    [Tooltip("Distance parcourue vers le curseur par cran de molette")]
     [SerializeField] private float zoomSpeed = 2f;
     [Tooltip("Plus la valeur est grande, plus le zoom est réactif")]
     [SerializeField] private float zoomSmoothing = 10f;
+
+    [Header("Focus sur un accident")]
+    [Tooltip("Distance caméra -> point d'accident (limitée par les hauteurs min/max)")]
+    [SerializeField] private float crashZoomDistance = 15f;
+    [Tooltip("Plus la valeur est grande, plus le déplacement vers l'accident est rapide")]
+    [SerializeField] private float focusSmoothing = 4f;
 
     [Header("Limites de la caméra")]
     [SerializeField] private Vector3 minPosition = new Vector3(-50f, 5f, -50f);
@@ -33,26 +45,79 @@ public class CameraController : MonoBehaviour
     private Plane groundPlane;
     private Vector3 dragOrigin;
     private bool isDragging;
-    private float pendingZoom; // distance de zoom restant à appliquer (lissage)
+
+    private float pendingZoom;        // distance de zoom restant à appliquer (lissage)
+    private Vector3 zoomDir = Vector3.forward;   // direction (vers le curseur) du zoom en cours
+
+    private bool focusing;
+    private Vector3 focusTarget;
 
     private void Awake()
     {
+        Instance = this;
         cam = GetComponent<Camera>();
         groundPlane = new Plane(Vector3.up, new Vector3(0f, groundHeight, 0f));
+        zoomDir = transform.forward;
     }
 
     private void Update()
     {
-        HandleDrag();
-        HandleZoom();
+        // Toute action du joueur interrompt un focus automatique
+        if (focusing && (Input.GetMouseButtonDown(dragButton) || Mathf.Abs(Input.mouseScrollDelta.y) > 0.01f))
+            focusing = false;
+
+        if (focusing) UpdateFocus();
+        else
+        {
+            HandleDrag();
+            HandleZoom();
+        }
         ClampPosition();
     }
 
+    // =================================================================
+    //  Focus (accident)
+    // =================================================================
+    /// <summary>Déplace la caméra en douceur pour centrer `point` à l'écran, à `distance` mètres (par défaut crashZoomDistance).</summary>
+    public void FocusOn(Vector3 point, float distance = -1f)
+    {
+        if (distance <= 0f) distance = crashZoomDistance;
+        point.y = groundHeight;
+        Vector3 f = transform.forward;
+
+        // limite la distance pour que la hauteur finale reste dans [minY, maxY]
+        if (Mathf.Abs(f.y) > 0.0001f)
+        {
+            float d1 = (point.y - minPosition.y) / f.y;
+            float d2 = (point.y - maxPosition.y) / f.y;
+            distance = Mathf.Clamp(distance, Mathf.Min(d1, d2), Mathf.Max(d1, d2));
+        }
+
+        focusTarget = ClampToBounds(point - f * distance);
+        focusing = true;
+        isDragging = false;
+        pendingZoom = 0f;
+    }
+
+    private void UpdateFocus()
+    {
+        float k = 1f - Mathf.Exp(-focusSmoothing * Time.unscaledDeltaTime);
+        transform.position = Vector3.Lerp(transform.position, focusTarget, k);
+        if ((transform.position - focusTarget).sqrMagnitude < 0.0004f)
+        {
+            transform.position = focusTarget;
+            focusing = false;
+        }
+    }
+
+    // =================================================================
+    //  Déplacement
+    // =================================================================
     private void HandleDrag()
     {
         if (Input.GetMouseButtonDown(dragButton))
         {
-            if (ignoreWhenOverUI && EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            if (ignoreWhenOverUI && PointerOverInteractiveUI())
                 return;
 
             isDragging = TryGetGroundPoint(out dragOrigin);
@@ -73,7 +138,12 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    static bool PointerOverInteractiveUI()
+    /// <summary>
+    /// Vrai seulement si la souris est sur un élément d'UI interactif (bouton...).
+    /// Un panneau de fond (ex : panneau "Simulation en cours" plein écran) ne bloque pas la caméra :
+    /// c'était la cause du blocage au lancement de la simulation (IsPointerOverGameObject renvoie vrai sur tout Graphic "raycast target").
+    /// </summary>
+    private static bool PointerOverInteractiveUI()
     {
         if (EventSystem.current == null) return false;
         var data = new PointerEventData(EventSystem.current) { position = Input.mousePosition };
@@ -84,41 +154,56 @@ public class CameraController : MonoBehaviour
         return false;
     }
 
+    // =================================================================
+    //  Zoom vers la souris
+    // =================================================================
     private void HandleZoom()
     {
-        Vector3 forward = transform.forward;
-
         float scroll = Input.mouseScrollDelta.y;
         if (Mathf.Abs(scroll) > 0.01f && !(ignoreWhenOverUI && PointerOverInteractiveUI()))
         {
-            // Molette vers l'avant = zoom (on avance), vers l'arrière = dézoom (on recule)
+            // Direction du zoom = du point de vue vers le point du sol sous le curseur
+            // (sinon, curseur au-dessus de l'horizon : droit devant)
+            Vector3 dir = transform.forward;
+            if (TryGetGroundPoint(out Vector3 ground))
+            {
+                Vector3 d = ground - transform.position;
+                if (d.sqrMagnitude > 0.0001f) dir = d.normalized;
+            }
+            zoomDir = dir;
+
+            // Molette vers l'avant = on se rapproche du curseur, vers l'arrière = on s'en éloigne
             float newPending = pendingZoom + scroll * zoomSpeed;
 
-            // On limite la distance totale pour que Y reste dans [minY, maxY]
-            if (Mathf.Abs(forward.y) > 0.0001f)
+            // Limite la distance totale pour que Y reste dans [minY, maxY]
+            if (Mathf.Abs(zoomDir.y) > 0.0001f)
             {
-                float yAfter = transform.position.y + forward.y * newPending;
+                float yAfter = transform.position.y + zoomDir.y * newPending;
                 float yClamped = Mathf.Clamp(yAfter, minPosition.y, maxPosition.y);
-                newPending = (yClamped - transform.position.y) / forward.y;
+                newPending = (yClamped - transform.position.y) / zoomDir.y;
             }
 
             pendingZoom = newPending;
         }
 
-        // Applique le zoom progressivement (lissage) le long de l'axe avant
+        // Applique le zoom progressivement (lissage), temps non mis à l'échelle => marche en pause
         float step = pendingZoom * (1f - Mathf.Exp(-zoomSmoothing * Time.unscaledDeltaTime));
-        transform.position += forward * step;
+        transform.position += zoomDir * step;
         pendingZoom -= step;
     }
 
-    private void ClampPosition()
+    // =================================================================
+    //  Utilitaires
+    // =================================================================
+    private Vector3 ClampToBounds(Vector3 pos)
     {
-        Vector3 pos = transform.position;
         pos.x = Mathf.Clamp(pos.x, minPosition.x, maxPosition.x);
         pos.y = Mathf.Clamp(pos.y, minPosition.y, maxPosition.y);
         pos.z = Mathf.Clamp(pos.z, minPosition.z, maxPosition.z);
-        transform.position = pos;
+        return pos;
     }
+
+    private void ClampPosition() => transform.position = ClampToBounds(transform.position);
 
     /// <summary>Projette la position de la souris sur le plan du sol.</summary>
     private bool TryGetGroundPoint(out Vector3 point)
