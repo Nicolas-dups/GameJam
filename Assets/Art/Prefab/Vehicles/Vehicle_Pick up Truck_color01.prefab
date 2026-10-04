@@ -67,6 +67,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 2.5
   isPolice: 0
+  infractionPingSprite: infractionPingSprit
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.02
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14

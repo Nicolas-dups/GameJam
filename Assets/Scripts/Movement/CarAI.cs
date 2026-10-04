@@ -45,6 +45,13 @@ public class CarAI : MonoBehaviour
     [Tooltip("Multiplicateur de vitesse quand il est en excès de vitesse")]
     public float speedingMultiplier = 1.5f;
     public bool isPolice;
+    [Header("Pings")]
+    public string infractionPingSprite = "ping";   // nom du sprite dans Resources/
+    [Tooltip("Durée (s de jeu) pendant laquelle une voiture en infraction reste marquée")]
+    public float infractionPingDuration = 6f;
+
+    StatusPing status;
+    public StatusPing Status => status != null ? status : (status = StatusPing.On(gameObject));
 
 
     [Header("Piétons sur la route (avec ou sans passage)")]
@@ -134,7 +141,13 @@ public class CarAI : MonoBehaviour
     public float DistToNode => approachNode < 0 ? float.MaxValue
         : Dist(transform.position, RoadGraph.Instance.NodePos(approachNode));
 
-    public void Arrest(float seconds) => arrestTimer = seconds;
+    public void Arrest(float seconds)
+    {
+        arrestTimer = seconds;
+        Status.Hide("infraction");
+        Status.Hide("pursued");
+        Status.Hide("chase");
+    }
     public float GetMemo(RoadElement e) => memo.TryGetValue(e, out var v) ? v : 0f;
     public void SetMemo(RoadElement e, float v) => memo[e] = v;
 
@@ -148,7 +161,9 @@ public class CarAI : MonoBehaviour
 
     public void Report(string reason)
     {
-        if (reported.Add(reason)) Infractions.Report(this, reason);
+        if (!reported.Add(reason)) return;
+        Infractions.Report(this, reason);
+        Status.Show("infraction", infractionPingSprite, infractionPingDuration, 10);
     }
 
     // ---------- Cycle de vie ----------

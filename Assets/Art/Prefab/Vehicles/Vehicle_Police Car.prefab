@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 400000}
-  - component: {fileID: 5838195629543601549}
+  - component: {fileID: 8642002622937376883}
+  - component: {fileID: 7182659049955005470}
   m_Layer: 0
   m_Name: Vehicle_Police Car
   m_TagString: Untagged
@@ -34,7 +35,7 @@ Transform:
   - {fileID: 5334388110583246182}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5838195629543601549
+--- !u!114 &8642002622937376883
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -53,22 +54,24 @@ MonoBehaviour:
   cornerSpeedFactor: 0.4
   turnSpeed: 360
   wanderRandomly: 1
-  laneOffset: 3
+  laneOffset: 1.5
   lookAhead: 12
   detectWidth: 1
   carLength: 4
   safeGap: 1.5
   maxBlockedTime: 5
-  stopMargin: 3
+  stopMargin: 2.5
   awareness: 10
-  patience: 5
-  obeyChance: 0.85
-  recklessChance: 0.015
-  speedingChance: 0
-  speedingMultiplier: 2.5
+  patience: 2
+  obeyChance: 0.715
+  recklessChance: 0
+  speedingChance: 0.202
+  speedingMultiplier: 1.5
   isPolice: 1
-  pedestrianYieldChance: 0.02
-  markedCrossingYieldChance: 0.95
+  infractionPingSprite: infractionPingSprit
+  infractionPingDuration: 6
+  pedestrianYieldChance: 0.917
+  markedCrossingYieldChance: 1
   pedestrianLookAhead: 14
   markedLookAheadFactor: 1.4
   pedestrianStopMargin: 2.5
@@ -85,6 +88,22 @@ MonoBehaviour:
   halfWidth: 1.3
   bodyRenderers: []
   speedBoost: 1
+--- !u!114 &7182659049955005470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3dfb96bd5a00de40b4e9297e79cf857, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PoliceCar
+  sight: 45
+  arrestDistance: 60
+  arrestTime: 5
+  chaseBoost: 1.4
 --- !u!1 &3574412398271251271
 GameObject:
   m_ObjectHideFlags: 0
