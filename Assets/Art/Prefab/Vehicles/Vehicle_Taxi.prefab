@@ -69,7 +69,7 @@ MonoBehaviour:
   isPolice: 0
   infractionPingSprite: infractionPingSprit
   infractionPingDuration: 6
-  pedestrianYieldChance: 0.506
+  pedestrianYieldChance: 0.702
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
   markedLookAheadFactor: 1.4
