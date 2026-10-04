@@ -1357,7 +1357,7 @@ MonoBehaviour:
   m_text: Un bon choix peut sauver la ville. Un mauvais aussi... mais pas longtemps.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e7a18cc539b5530428bdc0b9cc0a8645, type: 2}
-  m_sharedMaterial: {fileID: -6235139983063399040, guid: e7a18cc539b5530428bdc0b9cc0a8645, type: 2}
+  m_sharedMaterial: {fileID: 3701351514272221380, guid: e7a18cc539b5530428bdc0b9cc0a8645, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7231,7 +7231,7 @@ MonoBehaviour:
   m_text: Traffic Panic
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e7a18cc539b5530428bdc0b9cc0a8645, type: 2}
-  m_sharedMaterial: {fileID: -6235139983063399040, guid: e7a18cc539b5530428bdc0b9cc0a8645, type: 2}
+  m_sharedMaterial: {fileID: 3701351514272221380, guid: e7a18cc539b5530428bdc0b9cc0a8645, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

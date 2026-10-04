@@ -47,6 +47,23 @@ public class Pedestrian : MonoBehaviour
     [Range(0f, 1f), Tooltip("Tendance à traverser n'importe où : sur une tuile droite sans passage proche, probabilité de traverser hors passage piéton")]
     public float jaywalkChance = 0.15f;
 
+
+    [Header("Voitures sur la trajectoire")]
+    [Tooltip("Le piéton s'arrête si une voiture (même à l'arrêt) est sur son chemin, à tout moment du trajet")]
+    public bool stopForCars = true;
+    [Tooltip("Distance (m) devant lui sur laquelle il surveille sa trajectoire")]
+    public float carCheckDistance = 0.8f;
+    [Tooltip("Rayon du piéton (m), ajouté au rectangle de la voiture")]
+    public float bodyRadius = 0.35f;
+    [Tooltip("Marge de sécurité (m) autour de la voiture")]
+    public float carClearance = 0.3f;
+    [Tooltip("Anticipation (s) : le rectangle d'une voiture en mouvement est allongé de vitesse × ce temps")]
+    public float carAnticipation = 0.6f;
+    [Tooltip("Attente max (s) devant une voiture avant de repartir quand même (évite les blocages)")]
+    public float maxCarBlockTime = 6f;
+
+float carBlockTime;
+
     // ---------- Registre ----------
     static readonly List<Pedestrian> all = new List<Pedestrian>();
     public static IReadOnlyList<Pedestrian> All => all;
@@ -370,11 +387,24 @@ public class Pedestrian : MonoBehaviour
 
         if (dist > 0.01f)
         {
-            MoveSpeed = speed;
             Vector3 dir = to / dist;
-            MoveDirection = dir;
             var look = Quaternion.LookRotation(dir, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, look, turnSpeed * dt);
+
+            // une voiture sur le chemin : on attend (sauf si l'attente dure trop longtemps)
+            if (stopForCars && CarBlocksPath(dir))
+            {
+                carBlockTime += dt;
+                if (carBlockTime < maxCarBlockTime)
+                {
+                    MoveDirection = Vector3.zero;
+                    return;               // MoveSpeed reste à 0 : il est immobile
+                }
+            }
+            else carBlockTime = 0f;
+
+            MoveSpeed = speed;
+            MoveDirection = dir;
             Vector3 np = Vector3.MoveTowards(transform.position, current.pos, speed * dt);
             np.y = current.pos.y;
             transform.position = np;
@@ -430,6 +460,40 @@ public class Pedestrian : MonoBehaviour
             if (Mathf.Abs(Vector3.Dot(fwd, u)) > 0.6f) continue;
             if (Mathf.Abs(Vector3.Dot(d, u)) > 6f) continue;
             if (ahead <= range) return true;
+        }
+        return false;
+    }
+
+    static bool InRect(Vector3 l, float front, float back, float side) =>
+    l.z > -back && l.z < front && Mathf.Abs(l.x) < side;
+
+    /// <summary>Une voiture occupe-t-elle (ou va-t-elle occuper) les `carCheckDistance` mètres devant moi ?</summary>
+    bool CarBlocksPath(Vector3 dir)
+    {
+        Vector3 p = transform.position;
+
+        foreach (var car in CarAI.Cars)
+        {
+            if (car == null) continue;
+            Transform ct = car.transform;
+
+            float fr = car.halfLength + bodyRadius;
+            float sd = car.halfWidth + bodyRadius;
+            float antic = Mathf.Max(0f, car.Speed) * carAnticipation;
+
+            // Déjà dans la marge de la voiture : on ne teste que le rectangle réel, sans marge ni anticipation,
+            // pour pouvoir s'en éloigner sans rester coincé (mais pas pour avancer dans la carrosserie).
+            Vector3 l0 = ct.InverseTransformPoint(p);
+            bool near = InRect(l0, fr + antic + carClearance, fr + carClearance, sd + carClearance);
+            float ex = near ? 0f : carClearance;
+            float an = near ? 0f : antic;
+
+            for (int i = 1; i <= 3; i++)
+            {
+                Vector3 q = p + dir * (carCheckDistance * i / 3f);
+                Vector3 l = ct.InverseTransformPoint(q);
+                if (InRect(l, fr + an + ex, fr + ex, sd + ex)) return true;
+            }
         }
         return false;
     }
