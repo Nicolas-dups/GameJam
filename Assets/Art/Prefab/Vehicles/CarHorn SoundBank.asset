@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32743023befa03b48bd1d210713498e6, type: 3}
+  m_Name: CarHorn SoundBank
+  m_EditorClassIdentifier: Assembly-CSharp::SoundBank
+  clips:
+  - {fileID: 8300000, guid: 3d6bbcacdc03de74d8ac6e5fb8859276, type: 3}
+  - {fileID: 8300000, guid: 35bfa5ef3b512444fbd65d63b808b660, type: 3}
+  - {fileID: 8300000, guid: 726137384857e7144b80a3cfe2eb1bbd, type: 3}
+  avoidRepeat: 1
+  playOnStart: 1
+  minInterval: 10
+  maxInterval: 20
+  waitForClipToEnd: 0
+  volumeRange: {x: 0.4, y: 0.5}
+  pitchRange: {x: 0.95, y: 1.05}
