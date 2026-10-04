@@ -589,6 +589,9 @@ public class GameManager : MonoBehaviour
     // =================================================================
     void StartRun()
     {
+        Debug.Log("RUN COMMENCE");
+        Sounds.Instance.set_music("music2");
+
         Cleanup();
         Infractions.Reset();
         foreach (var e in RoadElement.All) e.ResetState();
@@ -744,6 +747,8 @@ public class GameManager : MonoBehaviour
 
     void EnterPlanning()
     {
+        Debug.Log("Planning COMMENCE");
+        Sounds.Instance.set_music("music1");
         Cleanup();
         Infractions.Reset();
         CurrentPhase = Phase.Planning;
