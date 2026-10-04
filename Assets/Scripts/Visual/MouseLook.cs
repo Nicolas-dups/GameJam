@@ -4,6 +4,7 @@ public class MouseLook : MonoBehaviour
 {
     private Texture2D c1;
     private Texture2D c2;
+    public Vector2 offset;
 
     void Start()
     {
@@ -23,11 +24,11 @@ public class MouseLook : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
-            Cursor.SetCursor(c2, Vector2.zero, CursorMode.Auto);
+            Cursor.SetCursor(c2, offset, CursorMode.Auto);
         }
         else
         {
-            Cursor.SetCursor(c1, Vector2.zero, CursorMode.Auto);
+            Cursor.SetCursor(c1, offset, CursorMode.Auto);
         }
     }
 }
