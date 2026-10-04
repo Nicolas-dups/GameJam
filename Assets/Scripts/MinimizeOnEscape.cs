@@ -1,16 +1,17 @@
-using System;
-using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class MinimizeOnEscape : MonoBehaviour
 {
     private static MinimizeOnEscape instance;
 
-#if UNITY_STANDALONE_WIN && !UNITY_EDITOR
-    [DllImport("user32.dll")] private static extern IntPtr GetActiveWindow();
-    [DllImport("user32.dll")] private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-    private const int SW_MINIMIZE = 6;
-#endif
+    [Header("Petite fenêtre")]
+    [SerializeField] private int smallWidth = 640;
+    [SerializeField] private int smallHeight = 360;
+
+    private bool isSmall;
+    private int savedWidth;
+    private int savedHeight;
+    private FullScreenMode savedMode;
 
     private void Awake()
     {
@@ -23,15 +24,25 @@ public class MinimizeOnEscape : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
-            Minimize();
+            ToggleSmallWindow();
     }
 
-    public static void Minimize()
+    public void ToggleSmallWindow()
     {
-#if UNITY_STANDALONE_WIN && !UNITY_EDITOR
-        ShowWindow(GetActiveWindow(), SW_MINIMIZE);
-#else
-        Debug.Log("Minimize : fonctionne uniquement dans le build Windows (.exe).");
-#endif
+        if (!isSmall)
+        {
+            // Mémorise l'affichage actuel pour pouvoir le restaurer
+            savedMode = Screen.fullScreenMode;
+            savedWidth = Screen.width;
+            savedHeight = Screen.height;
+
+            Screen.SetResolution(smallWidth, smallHeight, FullScreenMode.Windowed);
+            isSmall = true;
+        }
+        else
+        {
+            Screen.SetResolution(savedWidth, savedHeight, savedMode);
+            isSmall = false;
+        }
     }
 }
