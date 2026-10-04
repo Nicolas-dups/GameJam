@@ -635,8 +635,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Jouer
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a0b182745a977a74ba09201197b50475, type: 2}
+  m_sharedMaterial: {fileID: -8976921783807132979, guid: a0b182745a977a74ba09201197b50475, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1356,8 +1356,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Un bon choix peut sauver la ville. Un mauvais aussi... mais pas longtemps.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e7a18cc539b5530428bdc0b9cc0a8645, type: 2}
-  m_sharedMaterial: {fileID: 3701351514272221380, guid: e7a18cc539b5530428bdc0b9cc0a8645, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a0b182745a977a74ba09201197b50475, type: 2}
+  m_sharedMaterial: {fileID: -8976921783807132979, guid: a0b182745a977a74ba09201197b50475, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7230,8 +7230,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Traffic Panic
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e7a18cc539b5530428bdc0b9cc0a8645, type: 2}
-  m_sharedMaterial: {fileID: 3701351514272221380, guid: e7a18cc539b5530428bdc0b9cc0a8645, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a0b182745a977a74ba09201197b50475, type: 2}
+  m_sharedMaterial: {fileID: -8976921783807132979, guid: a0b182745a977a74ba09201197b50475, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
