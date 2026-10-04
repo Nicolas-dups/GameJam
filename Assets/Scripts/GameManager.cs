@@ -760,6 +760,7 @@ public class GameManager : MonoBehaviour
         if (rewindAfterCrash) rewinder.Record();
         if (Sounds.Instance != null) Sounds.Instance.play_sound("crash");
         SpawnAccident(where);
+        StatusPing.ClearAll();
         if (victim != null && launchPedestrian) LaunchVictim(victim, culprit);
 
         var camCtrl = CameraController.Instance;

@@ -62,6 +62,10 @@ public class PoliceCar : MonoBehaviour
         }
         if (target == null) return;
 
+        // pings pendant la poursuite (durée courte, renouvelée à chaque tick : ils s'éteignent tout seuls)
+        car.Status.Show("chase", "ping_police", 0.3f, 5);          // sur la police
+        target.Status.Show("pursued", "ping_pursued", 0.3f, 12);   // sur la voiture poursuivie
+
         Vector3 d = target.transform.position - transform.position;
         d.y = 0f;
         if (d.magnitude < arrestDistance)

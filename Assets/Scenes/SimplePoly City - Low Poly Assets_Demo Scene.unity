@@ -947,6 +947,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -1008,6 +1010,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -1885,6 +1889,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -1956,6 +1962,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -2867,6 +2875,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -3271,6 +3281,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -4614,6 +4626,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -5474,6 +5488,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -5837,6 +5853,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -7036,6 +7054,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -7291,6 +7311,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -7510,6 +7532,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -7630,6 +7654,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -7991,6 +8017,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -8920,6 +8948,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -9578,6 +9608,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -11141,6 +11173,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -11613,6 +11647,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -11723,6 +11759,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -12254,6 +12292,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -12327,11 +12367,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 2509cc5763ca17f4598bf61fd585a93e, type: 3}
   m_PrefabInstance: {fileID: 1995820352}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &388320460 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-  m_PrefabInstance: {fileID: 1600417581}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &390203736 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 2857b989c828950448ead142ca28e4a3, type: 3}
@@ -12385,6 +12420,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -12509,6 +12546,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -12685,6 +12724,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -12902,6 +12943,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -14206,6 +14249,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -14378,6 +14423,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -14498,6 +14545,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -15148,6 +15197,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -15619,6 +15670,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -15786,6 +15839,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -15953,6 +16008,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -16765,6 +16822,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -16890,6 +16949,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -18212,6 +18273,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -19021,6 +19084,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -19528,6 +19593,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -20170,6 +20237,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -20629,6 +20698,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -21195,6 +21266,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -21563,6 +21636,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -21686,6 +21761,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -21793,6 +21870,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -23133,6 +23212,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -23842,6 +23923,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -24158,51 +24241,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 4f32dfddb033d3e40b5841bc53cc1689, type: 3}
   m_PrefabInstance: {fileID: 1704196083}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &722206629
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1513663033}
-    m_Modifications:
-    - target: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-      propertyPath: m_RootOrder
-      value: 306
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 239.24963
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 139.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.000000021855694
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
 --- !u!1001 &722759633
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24508,6 +24546,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -25944,6 +25984,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -26447,6 +26489,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -26628,6 +26672,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -26689,6 +26735,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -29646,6 +29694,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -29810,6 +29860,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -30841,6 +30893,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -31138,6 +31192,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -31252,6 +31308,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -31461,6 +31519,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -32409,6 +32469,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -33285,6 +33347,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -33893,6 +33957,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -34008,6 +34074,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -34160,11 +34228,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: dac1a631b172e66469fb09e9987bcf57, type: 3}
   m_PrefabInstance: {fileID: 508984615}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1057440566 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-  m_PrefabInstance: {fileID: 722206629}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1058124908
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34260,6 +34323,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -34818,6 +34883,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -35916,6 +35983,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -35987,6 +36056,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -37226,6 +37297,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -38841,6 +38914,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -39267,6 +39342,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -39836,6 +39913,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -40414,6 +40493,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -41298,6 +41379,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -41461,6 +41544,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -41817,6 +41902,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -43346,6 +43433,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -43922,6 +44011,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -44166,6 +44257,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -45209,7 +45302,7 @@ MonoBehaviour:
   - prefab: {fileID: 1332946792230564792, guid: cab265c9f8731714290ec0a1569e469d, type: 3}
     weight: 0.1
   pedestrianCount: 50
-  accidentPrefab: {fileID: 0}
+  accidentPrefab: {fileID: 7943517171880341344, guid: acbddcd0c7028044ea3b1521f5403849, type: 3}
   accidentZoomDistance: 12
   accidentLockDuration: 3
   launchPedestrian: 1
@@ -46505,6 +46598,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -47046,6 +47141,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -47232,6 +47329,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -47845,6 +47944,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -47972,6 +48073,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -48087,6 +48190,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -48614,6 +48719,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -49564,6 +49671,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -50607,7 +50716,6 @@ Transform:
   - {fileID: 1704878936}
   - {fileID: 1645800703}
   - {fileID: 768201144}
-  - {fileID: 1057440566}
   - {fileID: 732726855}
   - {fileID: 1054179644}
   - {fileID: 1864114296}
@@ -50754,7 +50862,6 @@ Transform:
   - {fileID: 269962574}
   - {fileID: 770248496}
   - {fileID: 335154765}
-  - {fileID: 388320460}
   - {fileID: 579128297}
   - {fileID: 1570333250}
   - {fileID: 1463292755}
@@ -50769,7 +50876,6 @@ Transform:
   - {fileID: 1408498315}
   - {fileID: 1849835222}
   - {fileID: 209072976}
-  - {fileID: 1829582232}
   - {fileID: 723703251}
   - {fileID: 1804685673}
   - {fileID: 1287950662}
@@ -50806,13 +50912,10 @@ Transform:
   - {fileID: 530818093}
   - {fileID: 2077587809}
   - {fileID: 855738188}
-  - {fileID: 1721533714}
   - {fileID: 83467440}
-  - {fileID: 1861424664}
   - {fileID: 2052939514}
   - {fileID: 1457640056}
   - {fileID: 430356165}
-  - {fileID: 1916676760}
   - {fileID: 1972569949}
   - {fileID: 691558758}
   - {fileID: 1349508514}
@@ -51062,6 +51165,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -53113,55 +53218,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2509cc5763ca17f4598bf61fd585a93e, type: 3}
---- !u!1001 &1600417581
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1513663033}
-    m_Modifications:
-    - target: {fileID: 100000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-      propertyPath: m_Name
-      value: Props_Traffic cone (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-      propertyPath: m_RootOrder
-      value: 592
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 239.24963
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 144.53
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.000000021855694
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
 --- !u!1001 &1600657827
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -53464,6 +53520,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -53767,6 +53825,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -55140,6 +55200,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -55255,6 +55317,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -55514,55 +55578,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 4f32dfddb033d3e40b5841bc53cc1689, type: 3}
   m_PrefabInstance: {fileID: 666816491}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1681307354
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1513663033}
-    m_Modifications:
-    - target: {fileID: 100000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-      propertyPath: m_Name
-      value: Props_Traffic cone (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-      propertyPath: m_RootOrder
-      value: 623
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 239.24963
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 146.69
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.000000021855694
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
 --- !u!1001 &1683134398
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55836,6 +55851,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -56783,6 +56800,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -57253,11 +57272,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4cfcf659200d7548b90a5580c3ab18f, type: 3}
---- !u!4 &1721533714 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-  m_PrefabInstance: {fileID: 1920261463}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1723278699 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: b8ee657c6800ab849bb30b4375d02323, type: 3}
@@ -58316,6 +58330,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -59523,6 +59539,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -60757,6 +60775,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -60775,11 +60795,6 @@ MonoBehaviour:
   halfWidth: 1.3
   bodyRenderers: []
   speedBoost: 1
---- !u!4 &1829582232 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-  m_PrefabInstance: {fileID: 1681307354}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1830169635 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: b8ee657c6800ab849bb30b4375d02323, type: 3}
@@ -61471,11 +61486,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 62125825e49febf4a89f76daf85d9ca7, type: 3}
   m_PrefabInstance: {fileID: 312594324}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1861424664 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: 484404636ac422042a24ac95512dc2d3, type: 3}
-  m_PrefabInstance: {fileID: 1938774603}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1862549814
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -61583,6 +61593,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -61796,6 +61808,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -63132,11 +63146,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: b8ee657c6800ab849bb30b4375d02323, type: 3}
   m_PrefabInstance: {fileID: 656042536}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1916676760 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: 484404636ac422042a24ac95512dc2d3, type: 3}
-  m_PrefabInstance: {fileID: 2011980821}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1916736254
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -63229,6 +63238,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -63301,55 +63312,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 120449a04911a924ca1239be382ff0be, type: 3}
---- !u!1001 &1920261463
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1513663033}
-    m_Modifications:
-    - target: {fileID: 100000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-      propertyPath: m_Name
-      value: Props_Traffic cone (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-      propertyPath: m_RootOrder
-      value: 706
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 239.24963
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 141.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.000000021855694
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 52f3bf47c9c62af4588469ff668b805c, type: 3}
 --- !u!1001 &1921412847
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -63494,6 +63456,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -63984,51 +63948,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1066852364}
   m_SourcePrefab: {fileID: 100100000, guid: d34e8533c8de8ec45869f9144584d929, type: 3}
---- !u!1001 &1938774603
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1513663033}
-    m_Modifications:
-    - target: {fileID: 400000, guid: 484404636ac422042a24ac95512dc2d3, type: 3}
-      propertyPath: m_RootOrder
-      value: 709
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 484404636ac422042a24ac95512dc2d3, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 236.38737
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 484404636ac422042a24ac95512dc2d3, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 484404636ac422042a24ac95512dc2d3, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 147.76999
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 484404636ac422042a24ac95512dc2d3, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 484404636ac422042a24ac95512dc2d3, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.000000021855694
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 484404636ac422042a24ac95512dc2d3, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 484404636ac422042a24ac95512dc2d3, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 484404636ac422042a24ac95512dc2d3, type: 3}
 --- !u!1001 &1941333378
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -64716,6 +64635,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -65695,6 +65616,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -65905,6 +65828,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -65928,55 +65853,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 11b412f2ff905c341be6af606611e4a3, type: 3}
   m_PrefabInstance: {fileID: 1553758664}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &2011980821
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1513663033}
-    m_Modifications:
-    - target: {fileID: 100000, guid: 484404636ac422042a24ac95512dc2d3, type: 3}
-      propertyPath: m_Name
-      value: Props_Traffic Control Barrier Fence (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 484404636ac422042a24ac95512dc2d3, type: 3}
-      propertyPath: m_RootOrder
-      value: 721
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 484404636ac422042a24ac95512dc2d3, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 236.47499
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 484404636ac422042a24ac95512dc2d3, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 484404636ac422042a24ac95512dc2d3, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 136.99268
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 484404636ac422042a24ac95512dc2d3, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 484404636ac422042a24ac95512dc2d3, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.000000021855694
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 484404636ac422042a24ac95512dc2d3, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 484404636ac422042a24ac95512dc2d3, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 484404636ac422042a24ac95512dc2d3, type: 3}
 --- !u!4 &2013233487 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 4dc7028a3a83758439585b7c7c98cb27, type: 3}
@@ -66070,6 +65946,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -68293,6 +68171,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -68691,6 +68571,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -69110,6 +68992,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -69500,6 +69384,8 @@ MonoBehaviour:
   speedingChance: 0
   speedingMultiplier: 1.5
   isPolice: 0
+  infractionPingSprite: ping
+  infractionPingDuration: 6
   pedestrianYieldChance: 0.7
   markedCrossingYieldChance: 0.95
   pedestrianLookAhead: 14
@@ -70631,5 +70517,5 @@ SceneRoots:
   - {fileID: 1516597103}
   - {fileID: 828209482}
   - {fileID: 210354618}
-  - {fileID: 1366864993}
   - {fileID: 71923624}
+  - {fileID: 1366864993}
