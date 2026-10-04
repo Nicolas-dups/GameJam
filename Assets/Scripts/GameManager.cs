@@ -751,6 +751,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Planning COMMENCE");
         Sounds.Instance.set_music("music1");
+        Sounds.Instance.DisplayMsg();
         Cleanup();
         Infractions.Reset();
         CurrentPhase = Phase.Planning;
