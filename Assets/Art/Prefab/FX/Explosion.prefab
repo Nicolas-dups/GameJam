@@ -47,6 +47,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sparks
       objectReference: {fileID: 0}
+    - target: {fileID: 1388798638678954808, guid: 251306f2579fddf4181b75c10fcf62a1, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b14a59e7aa50aa4498b52cbf25c18785, type: 2}
     - target: {fileID: 5291525251486371751, guid: 251306f2579fddf4181b75c10fcf62a1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -111,11 +115,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3097137254490893269, guid: a32bcfa53f9258241ae19d226a86eb40, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.17
       objectReference: {fileID: 0}
     - target: {fileID: 3097137254490893269, guid: a32bcfa53f9258241ae19d226a86eb40, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3097137254490893269, guid: a32bcfa53f9258241ae19d226a86eb40, type: 3}
       propertyPath: m_LocalRotation.w
@@ -149,6 +153,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shockwave
       objectReference: {fileID: 0}
+    - target: {fileID: 8076866343485527729, guid: a32bcfa53f9258241ae19d226a86eb40, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 86d8ec6dd98406e4c9d891df82756db7, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -167,6 +175,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5667841515851440490}
     m_Modifications:
+    - target: {fileID: 2324893267014158297, guid: d3d38bc38beccbb4f92658458726cdfd, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 65e0b099c7ce09e4793c8d8e4b91cb0e, type: 2}
     - target: {fileID: 5401385478461027534, guid: d3d38bc38beccbb4f92658458726cdfd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -229,9 +241,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5667841515851440490}
     m_Modifications:
+    - target: {fileID: 2343618873303304094, guid: 84c0c2257d311c24db3e3c3a65c64873, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 713e24f0ab16e0a4ea279d66ec3f7c2c, type: 2}
     - target: {fileID: 2532472758314622081, guid: 84c0c2257d311c24db3e3c3a65c64873, type: 3}
       propertyPath: m_Name
       value: ExplosionSmoke
+      objectReference: {fileID: 0}
+    - target: {fileID: 6015798084513198278, guid: 84c0c2257d311c24db3e3c3a65c64873, type: 3}
+      propertyPath: ShapeModule.length
+      value: 3.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6015798084513198278, guid: 84c0c2257d311c24db3e3c3a65c64873, type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 0.47
       objectReference: {fileID: 0}
     - target: {fileID: 8293687471920063640, guid: 84c0c2257d311c24db3e3c3a65c64873, type: 3}
       propertyPath: m_LocalPosition.x

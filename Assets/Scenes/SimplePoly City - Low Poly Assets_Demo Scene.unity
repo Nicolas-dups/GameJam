@@ -2380,10 +2380,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Global Volume
       objectReference: {fileID: 0}
-    - target: {fileID: 6929774795359637, guid: 6765e9051d1221e41967ea53a6711956, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3859815468148348784, guid: 6765e9051d1221e41967ea53a6711956, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.81087
@@ -56168,7 +56164,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
