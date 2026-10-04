@@ -78,6 +78,8 @@ public class GameManager : MonoBehaviour
         [Tooltip("Coché : cet outil ne peut PAS être posé sur une intersection (aucun cube de sélection n'y est affiché). " +
          "Une intersection = tuile avec au moins 3 bras (T, X). Voir aussi 'turnsAreIntersections'.")]
         public bool disableOnIntersections = false;
+        [Tooltip("Coché : cet outil ne peut être posé QUE sur une intersection en T ou en X (au moins 3 bras).")]
+        public bool onlyOnIntersections = false;
 
         [Header("Tuile entière (PlacementKind.WholeTile) - prefabs optionnels selon la forme")]
         [Tooltip("Utilisé pour les tuiles en X (sinon 'prefab')")] public GameObject prefabX;
@@ -241,7 +243,7 @@ public class GameManager : MonoBehaviour
     [Tooltip("Dans le MEME ORDRE que le tableau 'tools'")]
     public Button[] toolButtons;
     public Button launchButton;
-    [Tooltip("Obsolète : les repères rouges n'existent plus, le bouton est masqué (vous pouvez le supprimer du Canvas)")]
+    [Tooltip("Retire tous les éléments posés dans la ville (remboursés). Actif en phase de planification.")]
     public Button clearMarkersButton;
     [Tooltip("Bouton de vitesse : clic = x2 → x4 → x1")]
     public Button speedButton;
@@ -551,6 +553,8 @@ public class GameManager : MonoBehaviour
         if (tool == null || tool.element == null || spot == null) return false;
         if (spot.occupant != null) return false;                                // emplacement déjà pris
         if (spot.kind != tool.element.placement) return false;                  // mauvais type d'emplacement
+        // outil réservé aux intersections T / X
+        if (tool.onlyOnIntersections && (!armCount.TryGetValue(spot.node, out int armsHere) || armsHere < 3)) return false;
         // outil interdit sur les intersections
         if (tool.disableOnIntersections && armCount.TryGetValue(spot.node, out int arms))
         {
@@ -1195,6 +1199,22 @@ public class GameManager : MonoBehaviour
         Bind(modifyAfterCrashButton, EnterPlanning);
         Bind(relaunchButton, StartRun);
         Bind(modifyAfterWinButton, EnterPlanning);
+        Bind(clearMarkersButton, ClearAllElements);
+    }
+
+    /// <summary>Retire tous les éléments posés par le joueur (remboursés), uniquement en planification.</summary>
+    public void ClearAllElements()
+    {
+        if (CurrentPhase != Phase.Planning) return;
+
+        // copie : RemoveElement modifie placedSpot et la liste statique RoadElement.All
+        var placed = new List<RoadElement>(placedSpot.Keys);
+        foreach (var e in placed)
+            if (e != null) RemoveElement(e);
+
+        placedSpot.Clear();
+        ClearHover();
+        if (ghost != null) ghost.SetActive(false);
     }
 
     void UpdateSpeedImages()
@@ -1227,8 +1247,6 @@ public class GameManager : MonoBehaviour
         if (panelCrashed != null) panelCrashed.SetActive(showCrashPanel);
         if (panelWon != null) panelWon.SetActive(CurrentPhase == Phase.Won);
 
-        if (clearMarkersButton != null && clearMarkersButton.gameObject.activeSelf)
-            clearMarkersButton.gameObject.SetActive(false);
 
         if (headerText != null)
             headerText.text = $"Budget : {money}   |   Essai n°{attempt}   |   Record : {bestTime:0}s";

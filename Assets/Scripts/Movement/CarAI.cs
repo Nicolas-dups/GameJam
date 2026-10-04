@@ -481,6 +481,9 @@ public class CarAI : MonoBehaviour
         Vector3 head = Dir(graph.NodePos(prevNode), nPos);
         Vector3 right = Vector3.Cross(Vector3.up, head);
 
+        var cop = TrafficCop.At(approachNode);
+        bool copRules = cop != null && Obeys(cop, cop.obeyChance);   // l'agent remplace la priorité à droite
+
         foreach (var b in All)
         {
             if (b == this || b.approachNode != approachNode) continue;
@@ -504,7 +507,7 @@ public class CarAI : MonoBehaviour
                 }
                 else return true;
             }
-            else if (bRight)
+            else if (bRight && !copRules)
             {
                 bool deadlock = waitTime > personalPatience && b.currentSpeed < 0.2f;
                 if (!deadlock) return true;

@@ -48,7 +48,7 @@ public class TrafficCop : RoadElement
 
     public bool debugLogs = false;
 
-    protected override bool Symmetric => true;       // la direction est gérée ici, pas par RoadElement
+    protected override bool ForceAllDirections => true;   // l'agent gère lui-même les deux axes
     public override bool LocalEffect => false;
 
     // ---------- État ----------

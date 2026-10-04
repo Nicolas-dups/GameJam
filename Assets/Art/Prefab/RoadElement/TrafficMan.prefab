@@ -46,12 +46,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrafficCop
   placement: 2
-  greenTime: 8
-  yellowTime: 1.5
+  obeyChance: 0.989
   minGreen: 4
   maxGreen: 14
-  lampAxisX: {fileID: 0}
-  lampAxisZ: {fileID: 0}
+  switchMargin: 1
+  minClearance: 0.8
+  maxClearance: 4
+  queueRange: 25
+  stopForPedestrians: 1
+  pedestrianMargin: 3
+  onlyCrossingPedestrians: 0
+  pedestrianReleaseDelay: 0.8
+  maxPedestrianHold: 8
+  pedestrianCooldown: 5
+  visual: {fileID: 0}
+  turnSpeed: 360
+  facingYawOffset: 0
+  debugLogs: 1
 --- !u!1001 &4540214659782223679
 PrefabInstance:
   m_ObjectHideFlags: 0
