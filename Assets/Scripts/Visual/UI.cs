@@ -16,8 +16,6 @@ public class UI : MonoBehaviour
     public RawImage image6;
     public RawImage image7;
     public RawImage image8;
-    public RawImage image9;
-    public RawImage image10;
 
     [Header("Settings")]
     public int imageWidth = 256;
@@ -37,9 +35,7 @@ public class UI : MonoBehaviour
             image5,
             image6,
             image7,
-            image8,
-            image9,
-            image10
+            image8
         };
 
         StartCoroutine(CaptureItems());
@@ -64,7 +60,7 @@ public class UI : MonoBehaviour
         previewCamera.backgroundColor = new Color(0f, 0f, 0f, 0f);
         previewCamera.targetTexture = renderTexture;
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < images.Length; i++)
         {
             // Déplace la caméra de 2 unités sur X
             previewCamera.transform.position =
@@ -74,7 +70,9 @@ public class UI : MonoBehaviour
             yield return new WaitForEndOfFrame();
 
             // Capture
+            previewCamera.enabled = true;
             previewCamera.Render();
+            previewCamera.enabled = false;
 
             RenderTexture.active = renderTexture;
 
