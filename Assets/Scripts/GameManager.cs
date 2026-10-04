@@ -234,7 +234,9 @@ public class GameManager : MonoBehaviour
 
     [Header("UI (Canvas) - textes")]
     [Tooltip("Budget / essai / record (visible dans toutes les phases)")]
-    public TMP_Text headerText;
+    public TMP_Text budgetText;
+    public TMP_Text attemptText;
+    public TMP_Text recordText;
     public TMP_Text planningHelpText;
     public TMP_Text runningText;
     public TMP_Text crashedText;
@@ -1171,7 +1173,7 @@ public class GameManager : MonoBehaviour
         {
             if (toolButtons[i] == null) continue;
             var label = toolButtons[i].GetComponentInChildren<TMP_Text>();
-            if (label != null) label.text = $"{tools[i].Label} ({tools[i].cost})";
+            if (label != null) label.text = $"x{tools[i].cost}";
             int idx = i;                                   // copie locale pour la lambda
             Bind(toolButtons[i], () => selected = idx);
         }
@@ -1248,8 +1250,9 @@ public class GameManager : MonoBehaviour
         if (panelWon != null) panelWon.SetActive(CurrentPhase == Phase.Won);
 
 
-        if (headerText != null)
-            headerText.text = $"Budget : {money}   |   Essai n°{attempt}   |   Record : {bestTime:0}s";
+        if (budgetText != null) budgetText.text = $"x{money}";
+        if (attemptText != null) attemptText.text = $"Essai n°{attempt}";
+        if (recordText != null) recordText.text = $"Record : {bestTime:0}s"; 
 
         switch (CurrentPhase)
         {
@@ -1264,7 +1267,7 @@ public class GameManager : MonoBehaviour
 
             case Phase.Running:
                 if (runningText != null)
-                    runningText.text = $"Temps : {elapsed:0}/{duration:0}s\nInfractions : {Infractions.Total}   Arrêtés : {Infractions.Arrests}";
+                    runningText.text = $"Temps : {elapsed:0}/{duration:0}s";
                 if (speedButton != null)
                 {
                     var label = speedButton.GetComponentInChildren<TMP_Text>();
