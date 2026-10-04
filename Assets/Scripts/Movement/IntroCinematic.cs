@@ -270,6 +270,6 @@ public class IntroCinematic : MonoBehaviour
     // Appelée par le bouton "Jouer"
     public void PlayGame()
     {
-        SceneManager.LoadScene(gameSceneName);
+        SceneManager.LoadSceneAsync(gameSceneName);
     }
 }

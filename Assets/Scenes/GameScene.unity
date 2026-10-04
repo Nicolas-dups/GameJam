@@ -5518,7 +5518,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &142649290
 RectTransform:
   m_ObjectHideFlags: 0
@@ -87442,7 +87442,7 @@ MonoBehaviour:
   zMax: 350
   speed: 2
   speedVariation: 0.1524
-  useUnscaledTime: 0
+  useUnscaledTime: 1
   density: 1
   maxClouds: 150
   prewarm: 1
