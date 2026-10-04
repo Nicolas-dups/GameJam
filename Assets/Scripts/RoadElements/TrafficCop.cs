@@ -16,7 +16,7 @@ public class TrafficCop : RoadElement
     [Header("Cycle des voitures")]
     [Tooltip("Durée minimale d'un vert quand des voitures attendent sur la file de ce vert")]
     public float minGreen = 3f;
-    [Tooltip("Durée maximale d'un vert si l'autre axe attend (évite la famine)")]
+    [Tooltip("Durée maximale d'un vert si l'autre axe attend (évite la famine)")] 
     public float maxGreen = 12f;
     [Tooltip("L'autre axe doit avoir au moins N voitures de plus pour reprendre le vert avant maxGreen")]
     public int switchMargin = 1;
