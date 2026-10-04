@@ -61,7 +61,7 @@ MonoBehaviour:
   pedestrianCooldown: 5
   visual: {fileID: 0}
   turnSpeed: 360
-  facingYawOffset: 0
+  facingYawOffset: 180
   debugLogs: 1
 --- !u!1001 &4540214659782223679
 PrefabInstance:
@@ -114,7 +114,7 @@ PrefabInstance:
     - target: {fileID: 514034126776431055, guid: b0aa8fd84e6d7dc4f8c519a30d70e47d, type: 3}
       propertyPath: 'm_Materials.Array.data[7]'
       value: 
-      objectReference: {fileID: 2100000, guid: db1871df2ab0bf549807ece0b45096be, type: 2}
+      objectReference: {fileID: 2100000, guid: c355b67c5bb496f4ebc1667841a80d05, type: 2}
     - target: {fileID: 919132149155446097, guid: b0aa8fd84e6d7dc4f8c519a30d70e47d, type: 3}
       propertyPath: m_Name
       value: TrafficMan
