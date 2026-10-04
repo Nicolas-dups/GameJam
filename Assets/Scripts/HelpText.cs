@@ -5,13 +5,13 @@ using UnityEngine.EventSystems;
 public class HelpText : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
 
-    public TMP_Text helpText;
+    public GameObject helpText;
 
-    void Start()
+    void OnEnable()
     {
         if (helpText != null)
         {
-            helpText.gameObject.SetActive(false);
+            helpText.SetActive(false);
         }
     }
 
@@ -19,7 +19,7 @@ public class HelpText : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if (helpText != null)
         {
-            helpText.gameObject.SetActive(true);
+            helpText.SetActive(true);
         }
     }
 
@@ -27,9 +27,17 @@ public class HelpText : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if (helpText != null)
         {
-            helpText.gameObject.SetActive(false);
+            helpText.SetActive(false);
         }
     }
+
+    public void OnDisable()
+        {
+            if (helpText != null)
+            {
+                helpText.SetActive(false);
+            }
+        }
 
     
 }
