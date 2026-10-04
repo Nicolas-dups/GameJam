@@ -13618,12 +13618,32 @@ PrefabInstance:
       value: 7.0773
       objectReference: {fileID: 0}
     - target: {fileID: 1013573635792589124, guid: affc3f28e6b243f41a43bfd4e53537f2, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1013573635792589124, guid: affc3f28e6b243f41a43bfd4e53537f2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 26.5
+      value: 5.15
       objectReference: {fileID: 0}
     - target: {fileID: 3490166182601452702, guid: affc3f28e6b243f41a43bfd4e53537f2, type: 3}
       propertyPath: m_text
       value: "acc\xE9l\xE9rer"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3490166182601452702, guid: affc3f28e6b243f41a43bfd4e53537f2, type: 3}
+      propertyPath: m_margin.w
+      value: 4.8152733
+      objectReference: {fileID: 0}
+    - target: {fileID: 3490166182601452702, guid: affc3f28e6b243f41a43bfd4e53537f2, type: 3}
+      propertyPath: m_margin.y
+      value: 1.1062965
+      objectReference: {fileID: 0}
+    - target: {fileID: 3490166182601452702, guid: affc3f28e6b243f41a43bfd4e53537f2, type: 3}
+      propertyPath: m_margin.z
+      value: 14.795021
+      objectReference: {fileID: 0}
+    - target: {fileID: 3783924962849884821, guid: affc3f28e6b243f41a43bfd4e53537f2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4934333073962672320, guid: affc3f28e6b243f41a43bfd4e53537f2, type: 3}
       propertyPath: m_Pivot.x
@@ -61821,19 +61841,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1013573635792589124, guid: affc3f28e6b243f41a43bfd4e53537f2, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 9.5
+      value: 6.5
       objectReference: {fileID: 0}
     - target: {fileID: 1013573635792589124, guid: affc3f28e6b243f41a43bfd4e53537f2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 26
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3490166182601452702, guid: affc3f28e6b243f41a43bfd4e53537f2, type: 3}
       propertyPath: m_text
       value: "revenir \xE0 l'\xE9diteur"
       objectReference: {fileID: 0}
     - target: {fileID: 3490166182601452702, guid: affc3f28e6b243f41a43bfd4e53537f2, type: 3}
+      propertyPath: m_margin.w
+      value: 15.558301
+      objectReference: {fileID: 0}
+    - target: {fileID: 3490166182601452702, guid: affc3f28e6b243f41a43bfd4e53537f2, type: 3}
+      propertyPath: m_margin.x
+      value: 6.5789413
+      objectReference: {fileID: 0}
+    - target: {fileID: 3490166182601452702, guid: affc3f28e6b243f41a43bfd4e53537f2, type: 3}
+      propertyPath: m_margin.y
+      value: 8.975924
+      objectReference: {fileID: 0}
+    - target: {fileID: 3490166182601452702, guid: affc3f28e6b243f41a43bfd4e53537f2, type: 3}
       propertyPath: m_margin.z
-      value: 34.875168
+      value: 32.997276
+      objectReference: {fileID: 0}
+    - target: {fileID: 3783924962849884821, guid: affc3f28e6b243f41a43bfd4e53537f2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4934333073962672320, guid: affc3f28e6b243f41a43bfd4e53537f2, type: 3}
       propertyPath: m_Pivot.x

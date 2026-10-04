@@ -18,8 +18,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 726137384857e7144b80a3cfe2eb1bbd, type: 3}
   avoidRepeat: 1
   playOnStart: 1
-  minInterval: 10
-  maxInterval: 20
+  minInterval: 1
+  maxInterval: 67
   waitForClipToEnd: 0
   volumeRange: {x: 0.4, y: 0.5}
   pitchRange: {x: 0.95, y: 1.05}
