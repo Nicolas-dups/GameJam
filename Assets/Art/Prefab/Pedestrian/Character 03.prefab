@@ -1184,12 +1184,18 @@ MonoBehaviour:
   syncAnimatorSpeed: 1
   walkAnimRefSpeed: 1.5
   runAnimRefSpeed: 4
-  carefulChance: 0.8
+  carefulChance: 0.1
   carDangerDistance: 9
   markedDangerDistance: 3.5
   maxWaitTime: 4
   useMarkedCrossingChance: 0.6
   jaywalkChance: 0.15
+  stopForCars: 1
+  carCheckDistance: 0.8
+  bodyRadius: 0.35
+  carClearance: 0.3
+  carAnticipation: 0.6
+  maxCarBlockTime: 6
 --- !u!1 &6517018304040705117
 GameObject:
   m_ObjectHideFlags: 0
