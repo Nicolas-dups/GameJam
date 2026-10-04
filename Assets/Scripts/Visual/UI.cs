@@ -38,8 +38,8 @@ public class UI : MonoBehaviour
             image6,
             image7,
             image8,
-            //image9,
-            //image10
+            image9,
+            image10
         };
 
         StartCoroutine(CaptureItems());
