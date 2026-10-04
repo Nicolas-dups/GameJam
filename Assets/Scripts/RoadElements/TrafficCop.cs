@@ -64,7 +64,7 @@ public class TrafficCop : RoadElement
     Transform V => visual != null ? visual : transform;
 
     // ---------- API statique (utilisée par CarAI) ----------
-    public static TrafficCop At(int node)
+    public static TrafficCop FindAt(int node)
     {
         var list = RoadElement.At(node);
         for (int i = 0; i < list.Count; i++)

@@ -481,7 +481,7 @@ public class CarAI : MonoBehaviour
         Vector3 head = Dir(graph.NodePos(prevNode), nPos);
         Vector3 right = Vector3.Cross(Vector3.up, head);
 
-        var cop = TrafficCop.At(approachNode);
+        var cop = TrafficCop.FindAt(approachNode);
         bool copRules = cop != null && Obeys(cop, cop.obeyChance);   // l'agent remplace la priorité à droite
 
         foreach (var b in All)
